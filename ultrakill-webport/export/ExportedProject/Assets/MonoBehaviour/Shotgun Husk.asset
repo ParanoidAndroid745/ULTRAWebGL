@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e07e7aa04a3dcfacc826789b2d1e8174, type: 3}
+  m_Name: Shotgun Husk
+  m_EditorClassIdentifier:
+  objectName: SOLDIER
+  description: "<color=orange>TYPE: GREATER HUSK\n\nDATA:</color>\nSoldiers are an augmented version of Strays, whose technological implants have been scavenged from broken machines to channel Hell Energy with greater efficiency. \n\nThis increase in power gives Soldiers more self-confidence, causing them to act more aggressively than normal Strays. \n\nDespite the enhancements, their intelligence remains low and it has yet to be determined who or what actually augmented them.\n\n<color=orange>STRATEGY:</color>\n- The shotgun is an excellent weapon against Soldiers, as long as its use is swift so as to not allow them to protect themselves with melee attacks. \n\n- Since Soldiers charge their shots in front of them rather than above them, the charge is also easier to interrupt via a precise revolver shot for an explosive kill."
+  gameObject: {fileID: 1709254077376921, guid: a028cfd614666914ca407a6197ee06c6, type: 2}
+  preview: {fileID: 1709254077376921, guid: 68e83b3bebce856448151048681f4c1b, type: 2}
+  gridIcon: {fileID: 21300000, guid: cf7eb12336644a347b6a843f5d6a9615, type: 2}
+  backgroundColor: {r: 0.8980392, g: 0.65882355, b: 0.65882355, a: 1}
+  enemyType: 15
+  armOffset: {x: 0, y: 0, z: 0}
+  armRotationOffset: {x: 0, y: 0, z: 0}
+  menuOffset: {x: 0, y: 0, z: 0}

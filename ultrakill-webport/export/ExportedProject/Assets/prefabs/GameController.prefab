@@ -1,0 +1,282 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1709254077376921
+GameObject:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Component:
+  - component: {fileID: 4703437598541787}
+  - component: {fileID: 114884547391421755}
+  - component: {fileID: 114099118695303065}
+  - component: {fileID: 114243736805655561}
+  - component: {fileID: 114061268324235159}
+  m_Layer: 0
+  m_Name: GameController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1730242686860875
+GameObject:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Component:
+  - component: {fileID: 4587765826080250}
+  - component: {fileID: 114709867586078768}
+  m_Layer: 0
+  m_Name: BloodsplatterManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1724804207875695
+GameObject:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Component:
+  - component: {fileID: 4044625135789424}
+  m_Layer: 0
+  m_Name: GoreStore
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!1 &1618682377417806
+GameObject:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Component:
+  - component: {fileID: 4589667821646929}
+  - component: {fileID: 114372920208702427}
+  m_Layer: 0
+  m_Name: DefaultReferenceManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4703437598541787
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1709254077376921}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 4587765826080250}
+  - {fileID: 4589667821646929}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
+--- !u!114 &114884547391421755
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1709254077376921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36902d73e33d08c6a6db1ea1eb8d4178, type: 3}
+  m_Name:
+  m_EditorClassIdentifier:
+  variationColors:
+  - {r: 0.2509804, g: 0.9058824, b: 1, a: 1}
+  - {r: 0.26666668, g: 1, b: 0.27058825, a: 1}
+  - {r: 1, g: 0.23529413, b: 0.23529413, a: 1}
+  - {r: 1, g: 0.87599874, b: 0.2352941, a: 1}
+  healthBarColor: {r: 1, g: 0, b: 0, a: 1}
+  healthBarAfterImageColor: {r: 1, g: 0.39215687, b: 0, a: 1}
+  antiHpColor: {r: 0.34901962, g: 0.34901962, b: 0.34901962, a: 1}
+  overHealColor: {r: 0, g: 1, b: 0.003921569, a: 1}
+  healthBarTextColor: {r: 1, g: 1, b: 1, a: 1}
+  staminaColor: {r: 0, g: 0.8745098, b: 1, a: 1}
+  staminaChargingColor: {r: 0, g: 0.8745098, b: 1, a: 0.6}
+  staminaEmptyColor: {r: 1, g: 0, b: 0, a: 1}
+  railcannonFullColor: {r: 0.2509804, g: 0.9058824, b: 1, a: 1}
+  railcannonChargingColor: {r: 1, g: 0, b: 0, a: 1}
+  filthColor: {r: 0.36862746, g: 0.4627451, b: 0.19215687, a: 1}
+  strayColor: {r: 0.6901961, g: 0.25882354, b: 0.26666668, a: 1}
+  schismColor: {r: 0.4431373, g: 0.34901962, b: 0.34901962, a: 1}
+  shotgunnerColor: {r: 0.9333334, g: 0.86274517, b: 0.8588236, a: 1}
+  droneColor: {r: 0.43921572, g: 0.22352943, b: 0.6666667, a: 1}
+  streetcleanerColor: {r: 0.48235297, g: 0.26666668, b: 0.14901961, a: 1}
+  swordsmachineColor: {r: 0.91372555, g: 0.6, b: 0.050980397, a: 1}
+  mindflayerColor: {r: 0.25882354, g: 0.89019614, b: 0.7411765, a: 1}
+  v2Color: {r: 0.58431375, g: 0.07450981, b: 0.04705883, a: 1}
+  maliciousColor: {r: 0.42352945, g: 0.36078432, b: 0.3137255, a: 1}
+  cerberusColor: {r: 0.37647063, g: 0.37647063, b: 0.37647063, a: 1}
+  enrageColor: {r: 1, g: 0.050980397, b: 0, a: 1}
+--- !u!114 &114099118695303065
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1709254077376921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1adf3ec4fa971479d10fe712fb7309e2, type: 3}
+  m_Name:
+  m_EditorClassIdentifier:
+  majorEnabled: 0
+  cheatsEnabled: 0
+  gameSpeed: 0
+  damageTaken: 0
+  infiniteStamina: 0
+  disableHardDamage: 0
+--- !u!114 &114243736805655561
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1709254077376921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0059bcbf7add3fcb4b9da3243f37906, type: 3}
+  m_Name:
+  m_EditorClassIdentifier:
+  mainMenu: 0
+  paused: 0
+  inIntro: 0
+  pauseMenu: {fileID: 0}
+  optionsMenu: {fileID: 0}
+  progressChecker: {fileID: 1709254077376921, guid: bb895a53e5d472f4b93d5820fa655887, type: 2}
+  mouseSensitivity: 50
+  simplifiedDistance: 25
+  simplifyEnemies: 0
+  outlinesOnly: 0
+  fullScreen: {fileID: 0}
+  bloodstainChance: 1
+  maxGore: 3000
+  playerPosInfo: {fileID: 1709254077376921, guid: 1c7c2aeac0046ed44a98a128e1e67f3d, type: 2}
+  dontUnpause: 0
+  nextAct:
+  previousWeaponState: 0
+  dontLockMouseOnUnpause: 0
+--- !u!114 &114061268324235159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1709254077376921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 463a873f840c1d49b1cd0cc1bd9244ae, type: 3}
+  m_Name:
+  m_EditorClassIdentifier:
+  allSound: {fileID: 24100000, guid: 35c08ae26ab1b7346be65d866a427662, type: 2}
+  goreSound: {fileID: 24100000, guid: ed35ea9bb7f73e54da29ffea5540c0aa, type: 2}
+  musicSound: {fileID: 24100000, guid: 977c6f686d1579f498308c141ef55629, type: 2}
+  doorSound: {fileID: 24100000, guid: 11887df8709d5d24b8c15b8d544ed11e, type: 2}
+  musicVolume: 0
+  forceOff: 0
+--- !u!4 &4587765826080250
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1730242686860875}
+  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
+  m_LocalPosition: {x: 42.45356, y: 1.0397501, z: -210.18164}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 4044625135789424}
+  m_Father: {fileID: 4703437598541787}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: -180, y: -0, z: 180}
+--- !u!114 &114709867586078768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1730242686860875}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 045ebd94e8c8de1d2bda47ca94be3d1f, type: 3}
+  m_Name:
+  m_EditorClassIdentifier:
+  head: {fileID: 1709254077376921, guid: 14736fc6fd2f2d949a53601ea4da0e33, type: 2}
+  limb: {fileID: 1709254077376921, guid: 4364d098ccf2dbc4da1c7414bd1ed146, type: 2}
+  body: {fileID: 1709254077376921, guid: 3e1f16eaeb5246c4491a775bcb80e650, type: 2}
+  small: {fileID: 1709254077376921, guid: 5da5554b3a0fee24ab32b07a42ae2201, type: 2}
+  splatter: {fileID: 1709254077376921, guid: 9632e322f2d830b4b9d58ffb50a9f454, type: 2}
+  underwater: {fileID: 1709254077376921, guid: 985465e075a696b4bbd8b85285778eca, type: 2}
+  sand: {fileID: 1709254077376921, guid: 5707d6584cec0124cb0a325cb8e472df, type: 2}
+  brainChunk: {fileID: 1709254077376921, guid: 97b0cfbeb8fbf5c4d8c141bef88f3aeb, type: 2}
+  skullChunk: {fileID: 1709254077376921, guid: 40f5de88af8fa884c96c91f066318e46, type: 2}
+  eyeball: {fileID: 1709254077376921, guid: c59c7b988dd25da47a92c99f9ef36569, type: 2}
+  jawChunk: {fileID: 1709254077376921, guid: 417cce890da7708449dbf3d2b6bd69b4, type: 2}
+  gib:
+  - {fileID: 1709254077376921, guid: e1b7e691c7bc6264387aeb401587c083, type: 2}
+  - {fileID: 1709254077376921, guid: 6fce5ac97845b1c409f8be4abe57b641, type: 2}
+  - {fileID: 1709254077376921, guid: 7bc140adabf537d47a4ddeeeeb833394, type: 2}
+  - {fileID: 1709254077376921, guid: 4232efea4ff602a4ab8bea8629da5f9d, type: 2}
+  - {fileID: 1709254077376921, guid: ce8b0e6a1633d434488c7d592323d09e, type: 2}
+  - {fileID: 1709254077376921, guid: be3dbce37512c2b4d9cb1308e26b7693, type: 2}
+  - {fileID: 1709254077376921, guid: 15e107bd5f070964889c5ee2a9ee57bb, type: 2}
+--- !u!4 &4044625135789424
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1724804207875695}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4587765826080250}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
+--- !u!4 &4589667821646929
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1618682377417806}
+  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
+  m_LocalPosition: {x: 42.45356, y: 1.0397501, z: 89.81837}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4703437598541787}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: -180, y: -0, z: 180}
+--- !u!114 &114372920208702427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1618682377417806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1217516e02c4be80f76f7a60e66c81b, type: 3}
+  m_Name:
+  m_EditorClassIdentifier:
+  wetParticle: {fileID: 1709254077376921, guid: 3b9dec38a8e1a78428c048023574c8ad, type: 2}
+  sandDrip: {fileID: 1709254077376921, guid: 4d52d81970aa0aa44976666401dec73e, type: 2}
+  sandificationEffect: {fileID: 1709254077376921, guid: 8eebb1251e6d2e4469da768552bc42c8, type: 2}

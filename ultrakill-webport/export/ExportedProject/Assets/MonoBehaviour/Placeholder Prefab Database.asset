@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c81eb160247a7d778982403b133c7188, type: 3}
+  m_Name: Placeholder Prefab Database
+  m_EditorClassIdentifier:
+  placeholderPrefabs:
+  - uniqueId: 12827f45-deb2-4f7b-9c1b-dead37f0a7f8
+    actualPrefab: {fileID: 1709254077376921, guid: 454321aea8f8d68439e32c80f3f999a8, type: 2}
+  - uniqueId: 04a35e96-587a-4c7f-b562-30c7057df3ef
+    actualPrefab: {fileID: 1709254077376921, guid: 95094d97a7aba8b46a3fcb34b6031c7d, type: 2}
+  - uniqueId: 0e1fddc3-a6d3-4bc8-b15a-abb9f084f58c
+    actualPrefab: {fileID: 1709254077376921, guid: bfd86eea850bb4547b3c63e29386439d, type: 2}
+  - uniqueId: 562001d2-ce70-4ff2-8179-24fdca1c12c5
+    actualPrefab: {fileID: 1709254077376921, guid: 8617996543b3eca4fb42f081858210bc, type: 2}
+  - uniqueId: 34f1181f-46e1-40e9-8978-713d6b5d32fd
+    actualPrefab: {fileID: 1709254077376921, guid: 085d0ea852a33064fb1add39537f22b2, type: 2}

@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5919c5e70b9ed89e1d65a003a5db262, type: 3}
+  m_Name: Prefab Database
+  m_EditorClassIdentifier:
+  meleeEnemies:
+  - {fileID: 11400000, guid: 0d585bd7be7f3444f8c328e96f2e054a, type: 2}
+  - {fileID: 11400000, guid: 175bf4b7dda87fa47b8b6d6228d9ff27, type: 2}
+  - {fileID: 11400000, guid: a7cbce2818a48ea4e8741b0b5c7c09f6, type: 2}
+  - {fileID: 11400000, guid: 1abe13c15921d2b4e9c8ddb78ad7c0c9, type: 2}
+  - {fileID: 11400000, guid: 33c6bd92b1406174e806dd323e742524, type: 2}
+  projectileEnemies:
+  - {fileID: 11400000, guid: 245b64d917f55254398c46ad2219cd03, type: 2}
+  - {fileID: 11400000, guid: 59f30bbc08791a746ab13ef9191efc12, type: 2}
+  - {fileID: 11400000, guid: 51c87725df556ba43ac3a44dae5a1ddc, type: 2}
+  - {fileID: 11400000, guid: 7fe9fa8096de7564c84b673ac3f9d1bc, type: 2}
+  specialEnemies:
+  - {fileID: 11400000, guid: ba702b97d0fcea141a8bb24872faae3e, type: 2}
+  jumpPad: {fileID: 1709254077376921, guid: 8206b156895674e438818e15a2389ae8, type: 2}
+  stairs: {fileID: 1709254077376921, guid: 8f47c9236fbd4794ca823130426cf27e, type: 2}
+  hideousMass: {fileID: 1709254077376921, guid: 742417db078c81a4c990e56ad7358065, type: 2}

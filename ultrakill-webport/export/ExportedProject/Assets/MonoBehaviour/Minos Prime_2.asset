@@ -1,0 +1,85 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e07e7aa04a3dcfacc826789b2d1e8174, type: 3}
+  m_Name: Minos Prime_2
+  m_EditorClassIdentifier: 
+  objectName: MINOS PRIME
+  description: '<color=orange>TYPE: PRIME SOUL
+
+
+    DATA:</color>
+
+    A prime soul
+    is an incredibly rare occurence in which a soul amasses so much power that it
+    no longer requires a Husk as a vessel to manifest physically.
+
+
+    As manifestations
+    of pure will, prime souls are incredibly powerful, to the point that even the
+    prideful angels see them as a threat and will use any means necessary to stop
+    them from forming.
+
+
+    King Minos felt that eternal suffering was an unfair
+    and unreasonable punishment for those whose only sin was loving another. After
+    the Disappearance of God, as angels were lost and Heaven was in chaos, Minos
+    began his efforts to reform the Lust layer.
+
+
+    The Lust renaissance was prosperous,
+    as King Minos guided its inhabitants to come together and build a new civilization.
+    The combined efforts of the countless who had been damned to the second layer
+    bore great results as the grand city of Lust grew and grew.
+
+
+    However, after
+    the Council took control of Heaven and brought stability to it through their
+    iron fist rule, they saw that Minos had gone against God''s will by freeing sinners
+    from the punishment that God had designed for them.
+
+
+    Gabriel, the brighest
+    of the angels, was sent to kill Minos. The king, rather than fight back, tried
+    to reason with him, but Gabriel mercilessly struck him down without listening.
+
+
+    As
+    Minos'' will was strong enough to attempt to stand up to Heaven''s rule, the
+    angels chose to imprison his soul in an attempt to stop it from forming into
+    a prime soul and appointed Gabriel as the new Judge of Hell.
+
+
+    From the prison
+    inside his own body, Minos helplessly watched as his soulless corpse, now controlled
+    by parasites, tore apart everything he had worked so hard to build, cursing his
+    own weakness for failing to protect his people, vowing to take revenge...
+
+
+    <color=orange>STRATEGY:</color>
+
+    -
+    Minos Prime''s attacks are fast and relentless. It''s rare for him to give a
+    window of opportunity to heal, so it''s vital to learn what attacks leave him
+    momentarily vulnerable and how to be in an advantageous position during those
+    moments.
+
+
+    - His snake projectiles can be parried using the Feedbacker for
+    a full heal, even if the projectile doesn''t hit Minos Prime.'
+  gameObject: {fileID: 1709254077376921, guid: db808f64e70d78e4aa61c115f0f999ce, type: 3}
+  preview: {fileID: 1709254077376921, guid: 100c0baf7fa4cbb49aec6eb390e96e49, type: 3}
+  gridIcon: {fileID: 21300000, guid: d0ddb716ab7fca3418a6fa7820b7029a, type: 2}
+  backgroundColor: {r: 0.34901962, g: 0.34901962, b: 0.34901962, a: 1}
+  enemyType: 18
+  armOffset: {x: 0, y: 0, z: 0}
+  armRotationOffset: {x: 0, y: 0, z: 0}
+  menuOffset: {x: 0, y: 0, z: 0}

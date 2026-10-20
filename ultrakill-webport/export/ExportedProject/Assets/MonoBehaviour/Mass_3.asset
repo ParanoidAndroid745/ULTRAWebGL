@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e07e7aa04a3dcfacc826789b2d1e8174, type: 3}
+  m_Name: Mass_3
+  m_EditorClassIdentifier: 
+  objectName: HIDEOUS MASS
+  description: "<color=orange>TYPE: GREATER DEMON\n\nDATA:</color>\nHideous Masses
+    are a rare occurence, when an excessive amount of Hell Mass is poured into a
+    single shell, causing it to overflow and burst at the seams. \n\nDue to the broken
+    seams allowing for mobility without having to bend the exterior, the stone has
+    hardened more than the shell of most demons, making it completely impervious
+    to all currently known attacks. \n\nIts belly remains exposed, however, making
+    it and the thin tail excellent targets.\n\n<color=orange>STRATEGY:</color>\n-
+    Hideous Masses typically stay in one of two formations. \n\n- While standing
+    up, a quick burst of close range damage is the most effective way to deal damage,
+    though this will most likely cause it to change formations, so being quick and
+    decisive is the key. \n\n- When in its low formation, keeping a safe distance
+    is recommended due to its melee capabilities and high speed tail harpoon, though
+    the brave or suicidal may attempt to climb on its back to continue dealing close
+    range damage to the tail.\n\n- When caught by the harpoon, it's recommendable
+    to either punch the harpoon or damage the tail to remove it."
+  gameObject: {fileID: 1709254077376921, guid: 66e2532dfd61265478e173a9f5d2c2d8, type: 3}
+  preview: {fileID: 1709254077376921, guid: a5fe21416b3f62d4ea3b191afa68add7, type: 3}
+  gridIcon: {fileID: 21300000, guid: acd85da47b54b494caafd4eef1d6038d, type: 2}
+  backgroundColor: {r: 0.5176471, g: 0.90588236, b: 0.50980395, a: 1}
+  enemyType: 2
+  armOffset: {x: 0, y: 0, z: 0}
+  armRotationOffset: {x: 0, y: 0, z: 0}
+  menuOffset: {x: 0, y: 0, z: 0}

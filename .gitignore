@@ -28,31 +28,6 @@ ultrakill-webport/export/ExportedProject_act1b/
 # ------------------------------------------------- assets binarios del juego
 # (se regeneran; su .meta tampoco se versiona: sin el asset binario, un .meta
 #  suelto deja referencias colgando en el proyecto de Unity)
-ultrakill-webport/export/ExportedProject/Assets/**/*.ogg
-ultrakill-webport/export/ExportedProject/Assets/**/*.ogg.meta
-ultrakill-webport/export/ExportedProject/Assets/**/*.wav
-ultrakill-webport/export/ExportedProject/Assets/**/*.wav.meta
-ultrakill-webport/export/ExportedProject/Assets/**/*.unity
-ultrakill-webport/export/ExportedProject/Assets/**/*.unity.meta
-ultrakill-webport/export/ExportedProject/Assets/**/*.asset
-ultrakill-webport/export/ExportedProject/Assets/**/*.asset.meta
-ultrakill-webport/export/ExportedProject/Assets/**/*.prefab
-ultrakill-webport/export/ExportedProject/Assets/**/*.prefab.meta
-ultrakill-webport/export/ExportedProject/Assets/**/*.anim
-ultrakill-webport/export/ExportedProject/Assets/**/*.anim.meta
-ultrakill-webport/export/ExportedProject/Assets/**/*.png
-ultrakill-webport/export/ExportedProject/Assets/**/*.png.meta
-ultrakill-webport/export/ExportedProject/Assets/**/*.tga
-ultrakill-webport/export/ExportedProject/Assets/**/*.tga.meta
-ultrakill-webport/export/ExportedProject/Assets/**/*.jpg
-ultrakill-webport/export/ExportedProject/Assets/**/*.jpg.meta
-ultrakill-webport/export/ExportedProject/Assets/**/*.psd
-ultrakill-webport/export/ExportedProject/Assets/**/*.psd.meta
-ultrakill-webport/export/ExportedProject/Assets/**/*.exr
-ultrakill-webport/export/ExportedProject/Assets/**/*.exr.meta
-ultrakill-webport/export/ExportedProject/Assets/StreamingAssets/
-ultrakill-webport/export/ExportedProject/Assets/**/*.unityweb
-ultrakill-webport/export/ExportedProject/Assets/**/*.unityweb.meta
 ultrakill-webport/export/ExportedProject/Assets/**/*.data
 ultrakill-webport/export/ExportedProject/Assets/**/*.data.meta
 
@@ -87,19 +62,7 @@ Desktop.ini
 .DS_Store
 
 # ---- assets binarios del juego que quedaban fuera de las reglas anteriores
-ultrakill-webport/export/ExportedProject/Assets/**/*.ttf
-ultrakill-webport/export/ExportedProject/Assets/**/*.ttf.meta
-ultrakill-webport/export/ExportedProject/Assets/**/*.mask
-ultrakill-webport/export/ExportedProject/Assets/**/*.mask.meta
-ultrakill-webport/export/ExportedProject/Assets/**/*.physicMaterial
-ultrakill-webport/export/ExportedProject/Assets/**/*.physicMaterial.meta
-ultrakill-webport/export/ExportedProject/Assets/**/*.webm
-ultrakill-webport/export/ExportedProject/Assets/**/*.webm.meta
-ultrakill-webport/export/ExportedProject/Assets/**/*.renderTexture
-ultrakill-webport/export/ExportedProject/Assets/**/*.renderTexture.meta
-ultrakill-webport/export/ExportedProject/Assets/**/*.overrideController
-ultrakill-webport/export/ExportedProject/Assets/**/*.overrideController.meta
-ultrakill-webport/export/ExportedProject/Assets/**/*.controller
-ultrakill-webport/export/ExportedProject/Assets/**/*.controller.meta
-ultrakill-webport/export/ExportedProject/Assets/**/*.mixer
-ultrakill-webport/export/ExportedProject/Assets/**/*.mixer.meta
+
+# Bundles WebGL construidos (los unicos ficheros >100 MB que GitHub bloquea):
+# son salidas de build, se regeneran con WebGLBundleBuilder.BuildAll (~5 min).
+ultrakill-webport/export/ExportedProject/Assets/StreamingAssets/

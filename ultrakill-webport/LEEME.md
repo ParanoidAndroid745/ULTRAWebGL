@@ -57,9 +57,22 @@ ultrakill-webport/
 └── logs/                 logs de build (no se versionan)
 ```
 
-## Reconstruir los assets
+## Reconstruir
 
-Los assets binarios del juego (~3 GB) **no están en el repositorio**: se
-regeneran con AssetRipper desde la copia del juego. El procedimiento completo
-está en [`REGENERAR-ASSETS.md`](../REGENERAR-ASSETS.md) (depot de Steam,
-manifest, AssetRipper y scripts de build).
+El repositorio contiene el proyecto de Unity **completo**, con los assets del
+juego incluidos (2,6 GB). Solo faltan los **bundles WebGL construidos**
+(`Assets/StreamingAssets/acts/`): son salidas de build, los dos mayores superan
+el límite de 100 MB por fichero de GitHub, y se regeneran en ~5 minutos.
+
+```powershell
+$unity = "C:\Program Files\Unity\Hub\Editor\2019.4.16f1\Editor\Unity.exe"
+$proj  = "export\ExportedProject"
+& $unity -batchmode -quit -projectPath $proj -logFile bundles.log `
+        -buildTarget WebGL -executeMethod WebGLBundleBuilder.BuildAll
+Copy-Item "$proj\Builds\WebGLBundles\acts\*" "$proj\Assets\StreamingAssets\acts\" -Force
+& $unity -batchmode -quit -projectPath $proj -logFile player.log `
+        -buildTarget WebGL -executeMethod WebGLBuilder.Build
+```
+
+El procedimiento completo (incluido cómo regenerar los assets desde cero con
+AssetRipper) está en [`REGENERAR-ASSETS.md`](../REGENERAR-ASSETS.md).

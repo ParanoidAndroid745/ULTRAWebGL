@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e07e7aa04a3dcfacc826789b2d1e8174, type: 3}
+  m_Name: Minos
+  m_EditorClassIdentifier:
+  objectName: THE CORPSE OF KING MINOS
+  description: "<color=orange>TYPE: SUPREME HUSK\n\nDATA:</color>\nOnce the great and beloved king of the Lust layer, Minos has now been reduced to a shambling corpse. \n\nDue to his incredible power of will and status as a just ruler in life remembered even millenia after his death, the manifestation of his soul is the largest Husk to ever have been recorded. \n\nSmall traces of the original soul can still be detected in the body, but the corpse itself is animated and controlled entirely by the snakelike Parasites that he once commanded. \n\nDespite once bringing upon the renaissance of the Lust layer, his corpse now only seeks sinners to punish.\n\n<color=orange>STRATEGY:</color>\n- Due to his large stature, it can be quite difficult to recover blood from him, but his hands are usually holding on to the walls of the arena, which can be used for refueling. \n\n- Any weapon will work against an enemy this large, but melee and projectile parries make for a quick way to inflict grave damage."
+  gameObject: {fileID: 1709254077376921, guid: 176ac2c4272a215408435ebc691e4d64, type: 2}
+  preview: {fileID: 1709254077376921, guid: d5dd406d7cf55cd49af77f21d9efdb6c, type: 2}
+  gridIcon: {fileID: 21300000, guid: 2e0be89cd7f5b8445913028d2d5c4629, type: 2}
+  backgroundColor: {r: 0.8980392, g: 0.65882355, b: 0.65882355, a: 1}
+  enemyType: 11
+  armOffset: {x: 0, y: 0, z: 0}
+  armRotationOffset: {x: 0, y: 0, z: 0}
+  menuOffset: {x: 0, y: 0, z: 0}

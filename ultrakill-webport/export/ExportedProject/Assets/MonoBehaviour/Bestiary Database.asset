@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85ea43849252d389f9eb2955956cfb40, type: 3}
+  m_Name: Bestiary Database
+  m_EditorClassIdentifier:
+  enemies:
+  - {fileID: 11400000, guid: 0a17e94f179c1b449b17f525ce9b3213, type: 2}
+  - {fileID: 11400000, guid: a7e552bdda2188a41b05d553e6bbc644, type: 2}
+  - {fileID: 11400000, guid: e733e05e03bc77d49b678954ce6df2a2, type: 2}
+  - {fileID: 11400000, guid: 7c59b1512c07bfc4c8b7c8d2d11b659f, type: 2}
+  - {fileID: 11400000, guid: ca61db1286e723f4b8acd9c1b8ade8f3, type: 2}
+  - {fileID: 11400000, guid: 2c5cfe797d3469c4694a12f8b6d9aa82, type: 2}
+  - {fileID: 11400000, guid: 903178b031bf4244cba115cb7ed3e629, type: 2}
+  - {fileID: 11400000, guid: 1224357a3736d7740a65e2195dac0165, type: 2}
+  - {fileID: 11400000, guid: f7edabeff8500e0408734c2c14fa4009, type: 2}
+  - {fileID: 11400000, guid: ac66357215a7a164fb6a33255e9fdace, type: 2}
+  - {fileID: 11400000, guid: f7773bc3911d80e42bce1a4799bd03e9, type: 2}
+  - {fileID: 11400000, guid: 4f2bd27d70372b84497fa592dd380b22, type: 2}
+  - {fileID: 11400000, guid: 90c176e6c823d5d4a81595130519e598, type: 2}
+  - {fileID: 11400000, guid: a64f17826b2cbc148a7e4400205ab37c, type: 2}
+  - {fileID: 11400000, guid: f8d9f4f913580684d82ba7e45fe4d48f, type: 2}
+  - {fileID: 11400000, guid: f77bd7c3f5639224582d9e4196879c85, type: 2}
+  - {fileID: 11400000, guid: 9381b4a7b9af42641a9e73151e336029, type: 2}
+  objects: []
+  debug: []

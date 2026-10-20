@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e07e7aa04a3dcfacc826789b2d1e8174, type: 3}
+  m_Name: Drone_0
+  m_EditorClassIdentifier: 
+  objectName: DRONE
+  description: "<color=orange>TYPE: LESSER MACHINE\n\nDATA:</color>\nA mass-produced
+    security device built as both a surveillance camera and a security guard. \n\nThough
+    originally built to only use non-lethal ammunition, they have scavenged parts
+    from the defunct machines on the surface for greater efficiency at collecting
+    blood.\n\nCurious by nature, but to keep production costs low, their intelligence
+    is very limited.\n\n<color=orange>STRATEGY:</color>\n- Due to their light weight,
+    physical projectiles will push them around, making them harder to deal consistent
+    damage to. \n\n- On death they will make a last ditch effort to harm their opponent
+    with a self-destruct, but powerful single attacks and explosives will make them
+    explode instantly. \n\n- A diving drone can be punched to redirect them."
+  gameObject: {fileID: 1709254077376921, guid: a147a47f5ab201d43810d0eee7cb4ebb, type: 3}
+  preview: {fileID: 1709254077376921, guid: dba4ddbacc498d342afabaa21223bbf3, type: 3}
+  gridIcon: {fileID: 21300000, guid: e77444e5c5be1954e986a6b1fd2445d6, type: 2}
+  backgroundColor: {r: 0.4784314, g: 0.61960787, b: 0.85098046, a: 1}
+  enemyType: 1
+  armOffset: {x: 0.154, y: 0, z: 0}
+  armRotationOffset: {x: -14.179, y: 0, z: 0}
+  menuOffset: {x: 0, y: 1, z: 0}

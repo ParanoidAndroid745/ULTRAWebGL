@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e07e7aa04a3dcfacc826789b2d1e8174, type: 3}
+  m_Name: Street Cleaner_2
+  m_EditorClassIdentifier: 
+  objectName: STREETCLEANER
+  description: "<color=orange>TYPE: LESSER MACHINE\n\nDATA:</color>\nOriginally built
+    as a way to purify the tainted air of cities after the climate catastrophe, Streetcleaners
+    were made obsolete during the New Peace, and were repurposed as scouts for Hell
+    expeditions. \n\nHowever, their urge to clean remained, and after the fall of
+    mankind, they began burning any organic matter they came across in an effort
+    to purify the world.\n\n<color=orange>STRATEGY:</color>\n- Due to their combat
+    experience, they can be tricky to take down with projectiles or explosives. \n\n-
+    The canister on their back is a major weakpoint that can be shattered with a
+    precision shot, such as a Marksman coin ricochet from behind. \n\n- Point-blank
+    attacks can also be very efficient, but must be performed quickly to avoid the
+    fire of their flamethrowers."
+  gameObject: {fileID: 1709254077376921, guid: 2eee07207d0a3984cb936da67bd176b7, type: 3}
+  preview: {fileID: 1709254077376921, guid: 879ab50c44a41424c93dbd68844461ff, type: 3}
+  gridIcon: {fileID: 21300000, guid: 247001304fba85641a99dbe67f854c66, type: 2}
+  backgroundColor: {r: 0.47843137, g: 0.61960787, b: 0.8509804, a: 1}
+  enemyType: 6
+  armOffset: {x: 0, y: 0, z: 0}
+  armRotationOffset: {x: 0, y: 0, z: 0}
+  menuOffset: {x: 0, y: 0, z: 0}

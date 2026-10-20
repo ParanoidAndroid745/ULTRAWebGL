@@ -1,26 +1,27 @@
 #!/usr/bin/env python3
 """
-ukshot.py - Arnés visual del port WebGL de ULTRAKILL.
+ukshot.py - Herramienta de pruebas visuales del port WebGL de ULTRAKILL.
 
-Por que existe: el tool `browser` de este entorno NO puede hacer capturas
-(la ventana del escritorio esta oculta) y su navegador automatizado no concede
-pointer lock ni fullscreen reales, ni entrega eventos de teclado. Con Playwright
-(Chromium headless) los eventos son *trusted* -> el navegador concede el pointer
-lock como lo haria el usuario, y ademas hay diff de pixeles entre capturas para
-demostrar si un cambio ha alterado la imagen.
+Abre el juego en un navegador headless (Chromium via Playwright), interactua con
+el como lo haria una persona (teclado y raton con eventos de confianza, de modo
+que el navegador concede el pointer lock), guarda capturas y calcula el
+porcentaje de pixeles que cambian entre dos de ellas. Sirve para comprobar de
+forma objetiva que un cambio altera la imagen.
 
 Uso:
   python ukshot.py --url http://localhost:8000/?v=205 --out C:/temp/shots \
-      --actions "wait:20,state,key:Escape,wait:3,shot:pausa,state"
+      --actions "wait:20;state;key:Escape;wait:3;shot:pausa;state"
 
   python ukshot.py --diff shots/a.png shots/b.png     # % de pixeles distintos
 
-Acciones (DSL separada por comas):
+Acciones (separadas por ';'):
   wait:N        espera N segundos
   key:ESC       pulsa una tecla (Escape, F3, W, ...)
   click:X,Y     clic en coordenadas de la pagina
+  scroll:N@X,Y  rueda del raton en un punto
   shot:NOMBRE   guarda una captura
   state         vuelca el estado (pointer lock, cursor, errores de consola)
+  send:Obj,M,V  llama a unityInstance.SendMessage(Obj, M, V)
 """
 import argparse
 import json

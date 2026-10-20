@@ -66,11 +66,17 @@ bundle-*.log
 
 # ------------------------------------------------- herramientas de un solo uso
 ultrakill-webport/tools/AssetRipper/
+ultrakill-webport/export/AuxiliaryFiles/
+ultrakill-webport/export/ExportedProject/Assets/VideoClip/
+ultrakill-webport/logs/
 ultrakill-webport/original-bundles/
 ultrakill-webport/removed-plugins/
 
 # ------------------------------------------- indice generado (se reconstruye)
 ultrakill-webport/tools/assetindex/index/
+
+# ------------------------------------------------ configuracion local del editor
+.opencode/
 
 # ------------------------------------------------------------- sistema y editor
 Thumbs.db

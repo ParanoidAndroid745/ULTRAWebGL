@@ -85,3 +85,21 @@ Desktop.ini
 .idea/
 *.swp
 .DS_Store
+
+# ---- assets binarios del juego que quedaban fuera de las reglas anteriores
+ultrakill-webport/export/ExportedProject/Assets/**/*.ttf
+ultrakill-webport/export/ExportedProject/Assets/**/*.ttf.meta
+ultrakill-webport/export/ExportedProject/Assets/**/*.mask
+ultrakill-webport/export/ExportedProject/Assets/**/*.mask.meta
+ultrakill-webport/export/ExportedProject/Assets/**/*.physicMaterial
+ultrakill-webport/export/ExportedProject/Assets/**/*.physicMaterial.meta
+ultrakill-webport/export/ExportedProject/Assets/**/*.webm
+ultrakill-webport/export/ExportedProject/Assets/**/*.webm.meta
+ultrakill-webport/export/ExportedProject/Assets/**/*.renderTexture
+ultrakill-webport/export/ExportedProject/Assets/**/*.renderTexture.meta
+ultrakill-webport/export/ExportedProject/Assets/**/*.overrideController
+ultrakill-webport/export/ExportedProject/Assets/**/*.overrideController.meta
+ultrakill-webport/export/ExportedProject/Assets/**/*.controller
+ultrakill-webport/export/ExportedProject/Assets/**/*.controller.meta
+ultrakill-webport/export/ExportedProject/Assets/**/*.mixer
+ultrakill-webport/export/ExportedProject/Assets/**/*.mixer.meta

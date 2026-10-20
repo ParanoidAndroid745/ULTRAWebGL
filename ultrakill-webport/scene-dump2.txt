@@ -1,0 +1,146 @@
+[SCENEDUMP]
+=== SCENE: Tutorial ===
+--- PlayerPosInfo ---
+--- NewMovement (player) ---
+FirstRoom/Player pos=(-0.300, 105.800, -66.300) active=True
+--- DeathZone ---
+OutOfBounds/Cube pos=(0.000, -300.000, 0.000) notInstakill=False checkOutside=False respawnTarget=(0.000, 0.000, 0.000) affected=EnemiesOnly deathType=OUT OF BOUNDS active=True enabled=True col=BoxCollider isTrigger=True center=(0.00, -300.00, 0.00) size=(2000.00, 150.00, 2000.00)
+--- OutOfBounds ---
+OutOfBounds pos=(0.000, -200.000, 0.000) targets=All active=True col=BoxCollider isTrigger=True center=(0.00, -200.00, 0.00) size=(2000.00, 50.00, 2000.00)
+--- OutOfBoundsTargetSetter ---
+--- TeleportPlayer ---
+FirstRoom/Room/Pit (3)/Cube (1) pos=(0.000, 7.700, -66.720) affectPosition=True notRelative=False relativeToCollider=False relativePosition=(0.000, 70.000, 0.000) objectivePosition=(-0.300, 105.800, -46.300) active=True col=BoxCollider isTrigger=True center=(0.00, 7.70, -66.72) size=(10.00, 20.00, 10.00)
+Pit (2)/Cube pos=(0.000, -111.000, 122.000) affectPosition=True notRelative=False relativeToCollider=False relativePosition=(0.000, 70.000, 20.000) objectivePosition=(-0.300, 105.800, -46.300) active=True col=BoxCollider isTrigger=True center=(0.00, -111.00, 122.00) size=(10.00, 20.00, 10.00)
+Pit (3)/Cube pos=(0.000, -111.000, 142.000) affectPosition=True notRelative=False relativeToCollider=False relativePosition=(0.000, 70.000, 0.000) objectivePosition=(-0.300, 105.800, -46.300) active=True col=BoxCollider isTrigger=True center=(0.00, -111.00, 142.00) size=(10.00, 20.00, 10.00)
+--- Colliders en el punto del suelo (-0.3, -0.4, -66.3) ---
+total=2
+  FirstRoom/Room/Pit (3)/Cube (1) type=BoxCollider isTrigger=True boundsCenter=(0.00, 7.70, -66.72) boundsSize=(10.00, 20.00, 10.00) layer=16 active=True scripts=TeleportPlayer
+  FirstRoom/Room/Room/Cube type=BoxCollider isTrigger=True boundsCenter=(0.00, -0.75, -62.53) boundsSize=(80.00, 0.20, 30.00) layer=16 active=True scripts=PlayerActivator,ObjectActivator
+--- Colliders en el punto de spawn (-0.3, 105.8, -66.3) ---
+total=5
+  FirstRoom/Player/Main Camera/Punch/Projectile Parry Zone type=BoxCollider isTrigger=True boundsCenter=(-0.30, 106.98, -63.30) boundsSize=(1.00, 1.00, 6.00) layer=2 active=True scripts=ProjectileParryZone
+  FirstRoom/Player type=CapsuleCollider isTrigger=False boundsCenter=(-0.30, 106.05, -66.30) boundsSize=(1.00, 3.50, 1.00) layer=2 active=True scripts=NewMovement,CheatsController,ClimbStep,PlayerActivatorRelay
+  FirstRoom/Player/GroundCheck type=CapsuleCollider isTrigger=True boundsCenter=(-0.30, 104.54, -66.30) boundsSize=(0.43, 1.04, 0.43) layer=20 active=True scripts=GroundCheck
+  FirstRoom/Player/SlopeCheck type=CapsuleCollider isTrigger=True boundsCenter=(-0.30, 105.95, -66.30) boundsSize=(0.90, 3.50, 0.90) layer=20 active=True scripts=GroundCheck
+  FirstRoom/Player/WallCheck type=SphereCollider isTrigger=True boundsCenter=(-0.30, 105.70, -66.30) boundsSize=(1.80, 1.80, 1.80) layer=20 active=True scripts=WallCheck
+--- Colliders en el punto de spawn+70 (-0.3, 69.4, -66.3) ---
+total=0
+--- Colliders en el centro de la sala 1 (0, -1, -77) ---
+total=3
+  FirstRoom/Room/Room/Cube type=BoxCollider isTrigger=True boundsCenter=(0.00, -0.75, -62.53) boundsSize=(80.00, 0.20, 30.00) layer=16 active=True scripts=PlayerActivator,ObjectActivator
+  FirstRoom/Room/Room/Cube (1) type=BoxCollider isTrigger=True boundsCenter=(0.00, -1.75, -62.53) boundsSize=(80.00, 0.20, 30.00) layer=16 active=True scripts=ObjectActivator
+  1 - Starting Room/Cube type=MeshCollider isTrigger=False boundsCenter=(0.00, 3.00, -77.50) boundsSize=(20.00, 10.00, 1.00) layer=8 active=True scripts=none
+--- CheckPoint ---
+--- Nombres: Starting/Elevator/Platform/Spawn/Respawn ---
+1 - Starting Room pos=(0.000, -2.000, -77.000) active=True
+FirstRoom/Player/Canvas/Spawning Menu Wrapper/Spawning Menu pos=(320.000, 240.000, 0.000) active=True
+FirstRoom/Player/Canvas/Spawning Menu Wrapper pos=(320.000, 240.000, 0.000) active=False
+FirstRoom/Player/Canvas/OptionsMenu/Video Options/Scroll Rect/Contents/Simplified Spawn Effects pos=(320.000, 206.283, 0.000) active=True
+--- Root objects ---
+2 - Slide Hallway @ (1.493, 1.061, -35.088) active=True
+Ambiance @ (-3.000, 5.000, 122.000) active=True
+6 - Final Hallway @ (0.000, 0.000, 91.000) active=True
+Cube (1)-clone @ (-11.000, 0.000, 132.000) active=True
+Cube(Clone) @ (5.000, -2.000, -56.500) active=True
+Level Info @ (0.000, 0.000, 0.000) active=True
+PlayerPref @ (22.438, 9.680, 29.891) active=True
+Cube-clone @ (10.000, -1.000, 127.000) active=True
+Arch @ (6.000, 10.000, 91.500) active=True
+Cube (1) @ (11.000, 0.000, 132.000) active=True
+Point Light @ (0.000, 3.000, -25.000) active=True
+Cube @ (-5.000, -2.000, -56.500) active=True
+Cube @ (-10.000, 0.000, 133.000) active=True
+Cube @ (-6.000, 10.000, 111.500) active=True
+Directional Light @ (-2.165, -3.105, 70.711) active=False
+Cube-clone @ (10.000, 0.000, 112.000) active=True
+Cube(Clone) @ (5.000, -2.000, -76.500) active=True
+5 - Wall Jump Room @ (0.000, 5.000, 51.000) active=True
+Cube(Clone)(Clone)(Clone) @ (-5.000, -2.000, -57.500) active=True
+Directional Light (1) @ (-2.165, -3.105, 70.711) active=False
+Cube @ (-10.000, -1.000, 117.000) active=True
+4 - Health Room @ (0.000, 5.000, 30.000) active=True
+Cube @ (-10.000, -1.000, 127.000) active=True
+Cube(Clone)(Clone) @ (5.000, -2.000, -57.500) active=True
+Cube @ (-10.000, 11.000, 132.000) active=True
+Cube @ (-10.000, 0.000, 112.000) active=True
+1 - Starting Room @ (0.000, -2.000, -77.000) active=True
+3 - Dash Hallway @ (0.000, -2.000, -16.000) active=True
+EventSystem @ (0.000, 0.000, 0.000) active=True
+Cube @ (-5.000, 7.500, -56.500) active=True
+Cube-clone @ (-10.000, -1.000, 127.000) active=True
+Cube(Clone)(Clone) @ (-5.000, -2.000, -76.500) active=True
+FirstRoom @ (0.000, 0.000, -20.000) active=True
+StatsManager @ (42.454, 1.040, 89.818) active=True
+Pipes 2S @ (-10.000, 10.000, 93.000) active=True
+Statue (1) @ (8.000, 0.000, 130.000) active=True
+Statue @ (-8.000, 0.000, 130.000) active=True
+Bonus @ (0.000, 3.000, 107.000) active=True
+Door (Large) With Controllers (5) @ (0.000, -2.000, -16.500) active=True
+Door (Large) With Controllers (3) @ (0.000, 5.000, 50.500) active=True
+Door (Large) With Controllers @ (65.600, 23.000, 297.900) active=True
+Door (Large) With Controllers (1) @ (0.000, -2.000, -36.500) active=True
+Door (Large) With Controllers (4) @ (0.000, 0.000, 111.500) active=True
+Door (Large) With Controllers (2) @ (0.000, 5.000, 29.500) active=True
+Pit (2) @ (0.000, -1.000, 117.000) active=True
+Pit (3) @ (0.000, -1.000, 137.000) active=True
+Doorframe (Large) (1) @ (0.000, 0.000, 112.000) active=True
+Doorframe (Large) @ (0.000, 0.000, 111.000) active=True
+Pipes 2B1S @ (-10.000, 6.500, 94.000) active=True
+FloorLamp @ (0.000, 30.000, 89.000) active=True
+OutOfBounds @ (0.000, -200.000, 0.000) active=True
+
+UnityEngine.DebugLogHandler:Internal_Log(LogType, LogOption, String, Object)
+UnityEngine.DebugLogHandler:LogFormat(LogType, Object, String, Object[])
+UnityEngine.Logger:Log(LogType, Object)
+UnityEngine.Debug:Log(Object)
+WebGLSceneDump:Run() (at Assets\Editor\WebGLSceneDump.cs:114)
+ 
+(Filename: Assets/Editor/WebGLSceneDump.cs Line: 114)
+
+Batchmode quit successfully invoked - shutting down!
+[Performance] WinEditorMain                                               :        1 samples, Peak.  3.40 s (1.0x), Avg.  3.40 s, Total. 3.405 s (9.2%)
+[Performance] WinEditorMain.ConfigureCrashHandler                         :        1 samples, Peak.  37.0 us (1.0x), Avg.  37.0 us, Total. 37.00 us (0.0%)
+[Performance] WinEditorMain.CurlRequestInitialize                         :        1 samples, Peak.  1.79 ms (1.0x), Avg.  1.79 ms, Total. 1.791 ms (0.0%)
+[Performance] WinEditorMain.SetupLogFile                                  :        1 samples, Peak.   658 us (1.0x), Avg.   658 us, Total. 657.6 us (0.0%)
+[Performance] WinEditorMain.RunNativeTestsIfRequiredAndExit               :        1 samples, Peak.  4.40 us (1.0x), Avg.  4.40 us, Total. 4.400 us (0.0%)
+[Performance] WinEditorMain.Licensing                                     :        1 samples, Peak.  3.38 s (1.0x), Avg.  3.38 s, Total. 3.379 s (9.1%)
+[Performance] WinEditorMain.InitializeCrashHandler                        :        1 samples, Peak.  19.7 ms (1.0x), Avg.  19.7 ms, Total. 19.65 ms (0.1%)
+[Performance] WinEditorMain.CreateApplication                             :        1 samples, Peak.   478 us (1.0x), Avg.   478 us, Total. 477.7 us (0.0%)
+[Performance] Application.InitializeProject                               :        1 samples, Peak.  29.2 s (1.0x), Avg.  29.2 s, Total. 29.18 s (78.5%)
+[Performance] Application.PackageManager.StartServer                      :        1 samples, Peak.  10.7 ms (1.0x), Avg.  10.7 ms, Total. 10.73 ms (0.0%)
+[Performance] Application.IsBrowserCacheEmpty                             :        1 samples, Peak.  1.04 ms (1.0x), Avg.  1.04 ms, Total. 1.043 ms (0.0%)
+[Performance] Application.AcquireProjectLock                              :        1 samples, Peak.  11.1 ms (1.0x), Avg.  11.1 ms, Total. 11.07 ms (0.0%)
+[Performance] Application.InitializeEngineNoGraphics                      :        1 samples, Peak.  61.2 ms (1.0x), Avg.  61.2 ms, Total. 61.24 ms (0.2%)
+[Performance] Application.PackageManager.Initialize                       :        1 samples, Peak.  1.49 s (1.0x), Avg.  1.49 s, Total. 1.494 s (4.0%)
+[Performance] CurlRequestCheck                                            :       25 samples, Peak.   158 us (4.5x), Avg.  34.8 us, Total. 870.6 us (0.0%)
+[Performance] PackageManager::RunRequestSynchronously                     :        6 samples, Peak.  86.7 us (2.7x), Avg.  32.2 us, Total. 193.0 us (0.0%)
+[Performance] Application.EngineGraphics.Initialize                       :        1 samples, Peak.   530 ms (1.0x), Avg.   530 ms, Total. 529.8 ms (1.4%)
+[Performance] Application.GI.Initialize                                   :        1 samples, Peak.   647 ms (1.0x), Avg.   647 ms, Total. 646.7 ms (1.7%)
+[Performance] Application.LoadAllDefaultResourcesFromEditor               :        1 samples, Peak.  6.45 ms (1.0x), Avg.  6.45 ms, Total. 6.453 ms (0.0%)
+[Performance] Application.LoadMonoAssemblies                              :        1 samples, Peak.  6.34 s (1.0x), Avg.  6.34 s, Total. 6.336 s (17.0%)
+[Performance] ProcessService.EditorAfterLoadAllAssemblies                 :        3 samples, Peak.  40.9 ms (1.0x), Avg.  40.0 ms, Total. 119.9 ms (0.3%)
+[Performance] Application.ReadLicenseInfo                                 :        1 samples, Peak.  15.4 ms (1.0x), Avg.  15.4 ms, Total. 15.44 ms (0.0%)
+[Performance] Application.InitialScriptRefresh                            :        1 samples, Peak.  13.1 s (1.0x), Avg.  13.1 s, Total. 13.11 s (35.3%)
+[Performance] BuildCatalog                                                :        1 samples, Peak.   458 ms (1.0x), Avg.   458 ms, Total. 458.1 ms (1.2%)
+[Performance] Application.AssetDatabase.Refresh                           :        1 samples, Peak.  2.31 s (1.0x), Avg.  2.31 s, Total. 2.313 s (6.2%)
+[Performance] Application.ImportAssetsWithMismatchingAssetImporterVersion :        1 samples, Peak.   741 ms (1.0x), Avg.   741 ms, Total. 740.7 ms (2.0%)
+[Performance] Application.SyncCurrentColorSpace                           :        1 samples, Peak.   194 ms (1.0x), Avg.   194 ms, Total. 193.5 ms (0.5%)
+[Performance] Application.OnUsbDevicesChanged                             :        1 samples, Peak.  4.45 ms (1.0x), Avg.  4.45 ms, Total. 4.451 ms (0.0%)
+[Performance] Application.AssetInstanceCacheUpdate                        :        1 samples, Peak.   300 ns (1.0x), Avg.   300 ns, Total. 300.0 ns (0.0%)
+[Performance] Application.UnityExtensions.Initialize                      :        1 samples, Peak.  4.15 ms (1.0x), Avg.  4.15 ms, Total. 4.154 ms (0.0%)
+[Performance] Application.InitializeManagedCompilationPipeline            :        1 samples, Peak.  43.3 ms (1.0x), Avg.  43.3 ms, Total. 43.32 ms (0.1%)
+[Performance] Application.ExecuteStartups                                 :        1 samples, Peak.   219 ms (1.0x), Avg.   219 ms, Total. 218.6 ms (0.6%)
+[Performance] Application.RebuildOSMenu                                   :        1 samples, Peak.   361 ms (1.0x), Avg.   361 ms, Total. 360.9 ms (1.0%)
+[Performance] UpdateAllMenus                                              :        1 samples, Peak.   351 ms (1.0x), Avg.   351 ms, Total. 351.3 ms (0.9%)
+[Performance] Application.editorInitializingProject                       :        1 samples, Peak.  53.7 us (1.0x), Avg.  53.7 us, Total. 53.70 us (0.0%)
+[Performance] GUIView.RepaintAll.PlayerLoopController                     :        1 samples, Peak.  3.90 us (1.0x), Avg.  3.90 us, Total. 3.900 us (0.0%)
+[Performance] Application.InvokeFinishedLoadingProject                    :        1 samples, Peak.   106 ms (1.0x), Avg.   106 ms, Total. 106.4 ms (0.3%)
+[Performance] ProcessService.OnProjectLoaded                              :        1 samples, Peak.  46.1 ms (1.0x), Avg.  46.1 ms, Total. 46.06 ms (0.1%)
+Setting up 4 worker threads for Enlighten.
+  Thread -> id: 65e0 -> priority: 1 
+  Thread -> id: 58dc -> priority: 1 
+  Thread -> id: 6ae0 -> priority: 1 
+  Thread -> id: 4a50 -> priority: 1 
+Cleanup mono
+Exiting batchmode successfully now!
+Exiting without the bug reporter. Application will terminate with return code 0

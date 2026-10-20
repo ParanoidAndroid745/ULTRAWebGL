@@ -1,0 +1,23 @@
+using UnityEngine;
+
+public class EnrageEffect : MonoBehaviour
+{
+	public GameObject endSound;
+
+	public bool noParticle;
+
+	private void Start()
+	{
+		CameraController instance = MonoSingleton<CameraController>.Instance;
+		MonoSingleton<StyleHUD>.Instance.AddPoints(250, "<color=red>ENRAGED</color>");
+		instance.CameraShake(1f);
+	}
+
+	private void OnDestroy()
+	{
+		if (!noParticle && base.gameObject.scene.isLoaded)
+		{
+			Object.Instantiate(endSound, base.transform.position, base.transform.rotation);
+		}
+	}
+}

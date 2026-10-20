@@ -1,0 +1,81 @@
+# ============================================================================
+# Port WebGL de ULTRAKILL - .gitignore
+#
+# El repo versiona NUESTRO trabajo: los scripts parcheados, los shaders, los
+# materiales, la pagina web, las herramientas y la documentacion.
+#
+# NO se versionan los assets binarios del juego (audio, texturas, mallas,
+# animaciones, prefabs y escenas): son ~3 GB extraidos con AssetRipper de la
+# copia del juego, se regeneran con AssetRipper (ver REGENERAR-ASSETS.md) y
+# GitHub bloquea los ficheros de mas de 100 MB (los bundles WebGL pesan 118 MB).
+# Los .meta SI se versionan: llevan los GUID que unen los assets.
+# ============================================================================
+
+# ------------------------------------------------------- Unity: carpetas generadas
+ultrakill-webport/export/ExportedProject/Library/
+ultrakill-webport/export/ExportedProject/Temp/
+ultrakill-webport/export/ExportedProject/Builds/
+ultrakill-webport/export/ExportedProject/obj/
+ultrakill-webport/export/ExportedProject/UserSettings/
+ultrakill-webport/export/ExportedProject/Logs/
+ultrakill-webport/export/ExportedProject/*.csproj
+ultrakill-webport/export/ExportedProject/*.sln
+ultrakill-webport/export/ExportedProject/.vs/
+ultrakill-webport/export/ExportedProject/.vscode/
+# copia de trabajo para reconstruir el bundle de act-1
+ultrakill-webport/export/ExportedProject_act1b/
+
+# ------------------------------------------------- assets binarios del juego
+# (se regeneran; su .meta tampoco se versiona: sin el asset binario, un .meta
+#  suelto deja referencias colgando en el proyecto de Unity)
+ultrakill-webport/export/ExportedProject/Assets/**/*.ogg
+ultrakill-webport/export/ExportedProject/Assets/**/*.ogg.meta
+ultrakill-webport/export/ExportedProject/Assets/**/*.wav
+ultrakill-webport/export/ExportedProject/Assets/**/*.wav.meta
+ultrakill-webport/export/ExportedProject/Assets/**/*.unity
+ultrakill-webport/export/ExportedProject/Assets/**/*.unity.meta
+ultrakill-webport/export/ExportedProject/Assets/**/*.asset
+ultrakill-webport/export/ExportedProject/Assets/**/*.asset.meta
+ultrakill-webport/export/ExportedProject/Assets/**/*.prefab
+ultrakill-webport/export/ExportedProject/Assets/**/*.prefab.meta
+ultrakill-webport/export/ExportedProject/Assets/**/*.anim
+ultrakill-webport/export/ExportedProject/Assets/**/*.anim.meta
+ultrakill-webport/export/ExportedProject/Assets/**/*.png
+ultrakill-webport/export/ExportedProject/Assets/**/*.png.meta
+ultrakill-webport/export/ExportedProject/Assets/**/*.tga
+ultrakill-webport/export/ExportedProject/Assets/**/*.tga.meta
+ultrakill-webport/export/ExportedProject/Assets/**/*.jpg
+ultrakill-webport/export/ExportedProject/Assets/**/*.jpg.meta
+ultrakill-webport/export/ExportedProject/Assets/**/*.psd
+ultrakill-webport/export/ExportedProject/Assets/**/*.psd.meta
+ultrakill-webport/export/ExportedProject/Assets/**/*.exr
+ultrakill-webport/export/ExportedProject/Assets/**/*.exr.meta
+ultrakill-webport/export/ExportedProject/Assets/StreamingAssets/
+ultrakill-webport/export/ExportedProject/Assets/**/*.unityweb
+ultrakill-webport/export/ExportedProject/Assets/**/*.unityweb.meta
+ultrakill-webport/export/ExportedProject/Assets/**/*.data
+ultrakill-webport/export/ExportedProject/Assets/**/*.data.meta
+
+# ------------------------------------------------------------ builds y paquetes
+ultrakill-webport/dist/
+*.rar
+*.zip
+build-webgl*.log
+bundle-*.log
+*.log
+
+# ------------------------------------------------- herramientas de un solo uso
+ultrakill-webport/tools/AssetRipper/
+ultrakill-webport/original-bundles/
+ultrakill-webport/removed-plugins/
+
+# ------------------------------------------- indice generado (se reconstruye)
+ultrakill-webport/tools/assetindex/index/
+
+# ------------------------------------------------------------- sistema y editor
+Thumbs.db
+Desktop.ini
+.vs/
+.idea/
+*.swp
+.DS_Store

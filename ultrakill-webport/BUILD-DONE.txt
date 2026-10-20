@@ -1,0 +1,25 @@
+﻿BUILD TERMINADO: 2026-10-19 18:52:24
+Resultado: BUILD RESULT: Succeeded | errors=0 | warnings=27 | sizeMB=339,1
+Salida: 183 MB / 21 archivos
+
+Ultimas lineas:
+[Performance] Application.ReadLicenseInfo                                 :        1 samples, Peak.  14.0 ms (1.0x), Avg.  14.0 ms, Total. 14.01 ms (0.0%)
+[Performance] Application.InitialScriptRefresh                            :        1 samples, Peak.  17.3 s (1.0x), Avg.  17.3 s, Total. 17.33 s (3.8%)
+[Performance] BuildCatalog                                                :        1 samples, Peak.   343 ms (1.0x), Avg.   343 ms, Total. 342.5 ms (0.1%)
+[Performance] Application.AssetDatabase.Refresh                           :        1 samples, Peak.  10.3 s (1.0x), Avg.  10.3 s, Total. 10.33 s (2.2%)
+[Performance] Application.ImportAssetsWithMismatchingAssetImporterVersion :        1 samples, Peak.   324 ms (1.0x), Avg.   324 ms, Total. 324.2 ms (0.1%)
+[Performance] Application.SyncCurrentColorSpace                           :        1 samples, Peak.   147 ms (1.0x), Avg.   147 ms, Total. 147.1 ms (0.0%)
+[Performance] Application.OnUsbDevicesChanged                             :        1 samples, Peak.  3.13 ms (1.0x), Avg.  3.13 ms, Total. 3.135 ms (0.0%)
+[Performance] Application.AssetInstanceCacheUpdate                        :        1 samples, Peak.   300 ns (1.0x), Avg.   300 ns, Total. 300.0 ns (0.0%)
+[Performance] Application.UnityExtensions.Initialize                      :        1 samples, Peak.  2.26 ms (1.0x), Avg.  2.26 ms, Total. 2.259 ms (0.0%)
+[Performance] Application.InitializeManagedCompilationPipeline            :        1 samples, Peak.  15.2 ms (1.0x), Avg.  15.2 ms, Total. 15.23 ms (0.0%)
+[Performance] Application.ExecuteStartups                                 :        1 samples, Peak.   118 ms (1.0x), Avg.   118 ms, Total. 118.0 ms (0.0%)
+[Performance] Application.RebuildOSMenu                                   :        1 samples, Peak.   136 ms (1.0x), Avg.   136 ms, Total. 135.6 ms (0.0%)
+[Performance] UpdateAllMenus                                              :        1 samples, Peak.   134 ms (1.0x), Avg.   134 ms, Total. 134.0 ms (0.0%)
+[Performance] Application.editorInitializingProject                       :        1 samples, Peak.   476 us (1.0x), Avg.   476 us, Total. 475.9 us (0.0%)
+[Performance] GUIView.RepaintAll.PlayerLoopController                     :        4 samples, Peak.   505 us (4.0x), Avg.   128 us, Total. 510.4 us (0.0%)
+[Performance] Application.InvokeFinishedLoadingProject                    :        1 samples, Peak.  73.5 ms (1.0x), Avg.  73.5 ms, Total. 73.53 ms (0.0%)
+[Performance] ProcessService.OnProjectLoaded                              :        1 samples, Peak.  24.2 ms (1.0x), Avg.  24.2 ms, Total. 24.17 ms (0.0%)
+Cleanup mono
+Exiting batchmode successfully now!
+Exiting without the bug reporter. Application will terminate with return code 0

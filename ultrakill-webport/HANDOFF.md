@@ -1,6 +1,19 @@
 # HANDOFF — ULTRAKILL WebGL port
 
-Estado al 2026-10-20 ~19:20. Leer esto antes de continuar.
+Estado al 2026-10-20 ~20:30. Leer esto antes de continuar.
+
+## 📦 Repo: https://github.com/ParanoidAndroid745/ULTRAWebGL (privada)
+
+7.465 ficheros, 35 MB. Versiona **nuestro trabajo**: los scripts parcheados, los
+107 shaders reales, los materiales, la página web, las herramientas y la doc.
+**NO** versiona los assets binarios del juego (~3 GB) ni los builds → se
+regeneran con AssetRipper (ver `REGENERAR-ASSETS.md` en la raíz del repo).
+
+- `git push` con la credencial de `gh` (HTTPS, keyring de Windows).
+- El README conserva el descargo legal original y añade debajo la sección del
+  proyecto.
+- `git` y `gh` instalados vía winget; si el PATH no los tiene, están en
+  `C:\Program Files\Git\cmd\git.exe` y `C:\Program Files\GitHub CLI\gh.exe`.
 
 ## ✅ VERIFICACIÓN DE v20.5 HECHA POR MÍ (no depende del usuario)
 

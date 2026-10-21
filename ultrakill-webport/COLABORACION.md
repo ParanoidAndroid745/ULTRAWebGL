@@ -34,16 +34,15 @@ git clone https://github.com/ParanoidAndroid745/ULTRAWebGL.git
 cd ULTRAWebGL
 ```
 
-### 1. Los assets binarios del juego (NO están en el repo)
+### 1. Los assets del juego
 
-El repo versiona el **código, las escenas, los prefabs, los materiales y los
-shaders**, pero **no** los binarios del juego (texturas, mallas, audio): son
-~10 GB y GitHub bloquea ficheros de más de 100 MB. Sin ellos Unity abre el
-proyecto con referencias rotas y el build falla.
+**Van en el repo** ✓: texturas, audio, mallas, animaciones, prefabs, materiales,
+escenas y shaders (~57.000 ficheros). Así que un `git clone` normal vale: no hay
+que pasarle nada aparte.
 
-Hay que copiarlos de la máquina que ya tenga el proyecto exportado
-(`ultrakill-webport/export/ExportedProject/Assets/`) o regenerarlos con
-AssetRipper desde una copia del juego original.
+Lo único que **no** está en el repo son los **bundles WebGL construidos**
+(`Assets/StreamingAssets/`, ~340 MB): son salidas de build, y GitHub bloquea
+ficheros de más de 100 MB. Se regeneran con `tools/build-webgl.ps1` (~12 min).
 
 ### 2. Abrir el agente
 
@@ -139,19 +138,20 @@ haz un clic de inflating antes de medir.
 
 ## Traerse el contexto de una sesión
 
-Si quieres el contexto de una sesión concreta (por ejemplo la que hizo la
-v20.8, adjunta a la release), se exporta desde la base de datos local:
+Las sesiones con las que se hizo la v20.8 (el agente principal y las dos
+rondas de revisión) están en `ultrakill-webport/sesiones/` ✓, en el formato que
+devuelve `GET /api/experimental/session/<id>/export` (un JSON con `info` y
+`messages`).
 
-```powershell
-python .\ultrakill-webport\tools\export-sesion.py <carpeta-destino>
-```
-
-Y se importa en la otra máquina con la API de opencode:
+Para importar una en tu opencode:
 
 ```
 opencode api post /api/experimental/session/import --data @sesion-ULTRA-v20.8.json
 ```
 
-El formato es el mismo que devuelve `GET /api/experimental/session/<id>/export`
-(un JSON con `info` y `messages`).
+Y para exportar una sesión nueva desde la base de datos local:
+
+```powershell
+python .\ultrakill-webport\tools\export-sesion.py <carpeta-destino>
+```
 

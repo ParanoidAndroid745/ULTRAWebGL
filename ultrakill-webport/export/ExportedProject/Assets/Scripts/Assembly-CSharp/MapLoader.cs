@@ -15,8 +15,9 @@ using UnityEngine.SceneManagement;
 public class MapLoader : MonoSingleton<MapLoader>
 {
 	// Cambiar al reconstruir act-0 (evita que el navegador sirva el bundle viejo).
-	// v208: bundles reconstruidos con el parcheo PSX (afin) y los shaders graphics-cableados (_ResY).
-	private const string WebGLBundleQuery = "?v=208";
+	// v21: shaders transparentes (agua, cristal, sangre, grietas) reparados: el
+	// header "Pass Blend ..." estaba mal formado y Unity los compilaba vacios.
+	private const string WebGLBundleQuery = "?v=210";
 
 	public delegate void LoadCallback(AssetBundle actBundle);
 

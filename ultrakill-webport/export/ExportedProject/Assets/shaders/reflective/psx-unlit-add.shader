@@ -20,7 +20,8 @@ Shader "psx/reflective/unlit-Add" {
 // Uniform SUELTO (no en Properties): en el backend GLES de
 // Unity/HLSLcc los uniforms del cbuffer UnityPerMaterial no se
 // declaran en la etapa de vertex (undeclared identifier).
-uniform float _ResY;
+uniform float _ResY;
+uniform float _TextureWarping;
 uniform float _ColorPrecision;
 
 	struct v2f
@@ -69,7 +70,7 @@ uniform float _ColorPrecision;
 		//Affine Texture Mapping
 		float4 affinePos = vertex;//vertex;				
 		o.uv_MainTex = TRANSFORM_TEX(v.texcoord, _MainTex);
-		o.uv_MainTex *= distance + (vertex.w*(UNITY_LIGHTMODEL_AMBIENT.a * 8)) / distance / 2;
+		if (_TextureWarping > 0.001) { o.uv_MainTex *= distance + (vertex.w*(UNITY_LIGHTMODEL_AMBIENT.a * 8)) / distance / 2; }
 		o.normal = distance + (vertex.w*(UNITY_LIGHTMODEL_AMBIENT.a * 8)) / distance / 2;
 
 		//Affine texturing for cubemap
@@ -100,7 +101,7 @@ uniform float _ColorPrecision;
 
 	float4 frag(v2f IN) : COLOR
 	{
-		half4 c = tex2D(_MainTex, IN.uv_MainTex / IN.normal.r)*IN.color;
+		half4 c = tex2D(_MainTex, (_TextureWarping > 0.001 ? IN.uv_MainTex / IN.normal.r : IN.uv_MainTex))*IN.color;
 		c += texCUBE(_Cube, IN.reflect);
 		half4 color = c*(IN.colorFog.a);
 		color.rgb += IN.colorFog.rgb*(1 - IN.colorFog.a);

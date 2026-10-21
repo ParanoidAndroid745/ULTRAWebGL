@@ -25,9 +25,9 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
       _OpacScale: 1
-      _TextureWarping: 1
+      _TextureWarping: 0
       _VertexWarpScale: 1
-      _VertexWarping: 160
+      _VertexWarping: 9999
     m_Colors:
       _Color: {r: 1, g: 1, b: 1, a: 1}
       _FresnelCol: {r: 0, g: 0.25, b: 1, a: 1}

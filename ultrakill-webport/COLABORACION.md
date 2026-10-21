@@ -135,3 +135,23 @@ haz un clic de inflating antes de medir.
 | Comparar el bundle construido con el original | `tools/verify_bundle.py`, `tools/match_scenes.py` |
 | Build, empaquetado y servidor | `tools/build-webgl.ps1`, `tools/package-webgl.ps1`, `tools/serve-local.ps1` |
 | Informes de las rondas de revisión | `tools/review/` |
+| Exportar/importar sesiones de opencode | `tools/export-sesion.py` |
+
+## Traerse el contexto de una sesión
+
+Si quieres el contexto de una sesión concreta (por ejemplo la que hizo la
+v20.8, adjunta a la release), se exporta desde la base de datos local:
+
+```powershell
+python .\ultrakill-webport\tools\export-sesion.py <carpeta-destino>
+```
+
+Y se importa en la otra máquina con la API de opencode:
+
+```
+opencode api post /api/experimental/session/import --data @sesion-ULTRA-v20.8.json
+```
+
+El formato es el mismo que devuelve `GET /api/experimental/session/<id>/export`
+(un JSON con `info` y `messages`).
+

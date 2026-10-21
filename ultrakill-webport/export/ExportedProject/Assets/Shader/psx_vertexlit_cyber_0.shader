@@ -18,7 +18,7 @@ Shader "psx/vertexlit/cyber_v1" {
 					// Uniform SUELTO (no en Properties): en el backend GLES de
 					// Unity/HLSLcc los uniforms del cbuffer UnityPerMaterial no se
 					// declaran en la etapa de vertex (undeclared identifier).
-					uniform float _ResY;
+					uniform float _ResY;
 					uniform float _TextureWarping;
 					uniform float _ColorPrecision;
 

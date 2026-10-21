@@ -15,8 +15,8 @@ using UnityEngine.SceneManagement;
 public class MapLoader : MonoSingleton<MapLoader>
 {
 	// Cambiar al reconstruir act-0 (evita que el navegador sirva el bundle viejo).
-	// v205: bundles reconstruidos con los shaders graphics-cableados (_ResY).
-	private const string WebGLBundleQuery = "?v=207";
+	// v208: bundles reconstruidos con el parcheo PSX (afin) y los shaders graphics-cableados (_ResY).
+	private const string WebGLBundleQuery = "?v=208";
 
 	public delegate void LoadCallback(AssetBundle actBundle);
 

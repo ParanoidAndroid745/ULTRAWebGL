@@ -18,9 +18,11 @@ README del repositorio).
 - **PRIME**: P-1 SOUL SURVIVOR.
 - Iluminación original (vertex lighting PSX, niebla, mapeo afín).
 - Menú de niveles (F3) para saltar a cualquier nivel sin avanzar la campaña.
-- **Gráficos siempre-PC**: sin pixelización, sin compresión de color y sin
-  warping de textura o vértices. Los ajustes PSX se han eliminado del menú
-  GRAPHICS y el juego los ignora aunque el navegador tenga valores guardados.
+- **Gráficos siempre-PC**: sin pixelización, sin compresión de color, sin
+  warping de vértices y **sin el mapeo afín de textura** (el "warping" que
+  estiraba las texturas hacia el punto de fuga). Los ajustes PSX se han
+  eliminado del menú GRAPHICS —también del menú de pausa de los niveles— y el
+  juego los ignora aunque el navegador tenga valores guardados de antes.
 - Menú de pausa funcional, ratón capturado y recuperable, atajos del navegador
   bloqueados en pantalla completa.
 

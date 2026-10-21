@@ -48,6 +48,9 @@ el juego original), 1,22 GB.
 | `GraphicsOptions.cs` | `ApplyNeutral()` fuerza siempre el aspecto PC (`_ResY=0`, `_ColorPrecision=2048`, warping 0) e **ignora los `PlayerPrefs`**; `PSXPreset()` ya no aplica el look PSX; todo null-safe | El port es siempre-PC: el `_ResY` decide la rejilla de vértices y la compresión de color cuantiza los píxeles. Ignorar los `PlayerPrefs` evita que un «Pix=3» guardado en el navegador traiga el look PSX de una partida anterior |
 | `Assets/prefabs/Canvas.prefab`, `Assets/Scenes/Tutorial.unity`, `Assets/Scenes/Main Menu.unity` | **Eliminada** la sección «--PSX SETTINGS--» del menú GRAPHICS (Pixelization, Texture Warping, Vertex Warping, Color Compression) y el botón «PSX» de la calibración de vídeo | El usuario pidió quitar la opción de los ajustes gráficos. Se borraron los GameObjects del YAML de Unity (con sus referencias) y se pusieron a `{fileID: 0}` las 4 referencias del componente `GraphicsOptions` |
 | `Assets/Editor/WebGLBundleBuilder.cs` | act-1 = `Level 1-*` + `Level 2-*` + `Level 3-*` + `Intermission1`; act-0 = `Tutorial` + `Level 0-*` | El reparto de escenas por bundle debe ser **idéntico al del juego original**: el bundle act-1 original lleva 13 escenas, e `Intermission1` estaba en el bundle equivocado |
+| Los **107 shaders reales** (`Assets/Shader/**` y `Assets/shaders/**`) | El *mapeo afín* de textura (el "warping" del juego) pasa a depender del global `_TextureWarping`: con valor 0 la UV va sin premultiplicar y el fragment no divide por la distancia interpolada, o sea **mapeo perspectivamente correcto** | El vertex premultiplicaba la UV por `S = distance + (w*UNITY_LIGHTMODEL_AMBIENT.a*8)/distance/2` y el fragment dividía por `IN.normal.r` (la distancia interpolada linealmente). Esa división **es** la deformación: las texturas se estiran hacia el punto de fuga (las "rayas" radiales). El global `_TextureWarping` no lo leía **ningún** shader real, por eso ponerlo a 0 no cambiaba nada |
+| **1726 materiales** | `_TextureWarping: 0` y `_VertexWarping: 9999` (los valores neutros que indica la documentación del juego) | Los materiales traían `_TextureWarping: 1` y `_VertexWarping: 160` (justo lo que sale en el Inspector del juego original) |
+| Las **22 escenas de nivel** | La sección `--PSX SETTINGS--` del menú de pausa queda desactivada (`m_IsActive: 0`) en los 5 objetos de cada escena | v20.7 la borró solo del prefab `Canvas` y de `Tutorial`/`Main Menu`; los niveles llevan su propia copia horneada y con ella se podía volver a activar la pixelización en mitad de la partida |
 | `ControlsOptions.cs` | Con Ctrl/Alt/Meta no se reasigna ninguna tecla | Con el teclado sin bloquear, un Ctrl+D abre los marcadores del navegador **y** se guarda como tecla del juego |
 | `WebGLRenderFix.cs` | Reposiciona al jugador al inicio del Tutorial, apaga el trigger `TeleportPlayer` del pozo, desactiva la cadena de post-proceso | El salto de intro dejaba al jugador en el aire y el trigger del pozo lo teletransportaba +70 en Y en bucle |
 | `Assets/Editor/WebGLTemplate.html` | Página propia: pantalla completa (automática al primer gesto) con bloqueo de teclado, *pointer lock*, menú de niveles (F3). El menú F3 y el estado del teclado se **mueven dentro** de `#unityContainer` al entrar en pantalla completa | Unity no gestiona el teclado del navegador; hace falta capturarlo a nivel de página. En pantalla completa el navegador solo pinta el elemento fullscreen: lo que esté fuera no se ve (y el loader de Unity vacia el contenedor al arrancar, así que el menú se mueve en runtime, no en el HTML) |
@@ -59,7 +62,16 @@ el juego original), 1,22 GB.
    completa hay que moverlo en runtime (mover conserva la identidad y los
    handlers), porque el navegador solo pinta el elemento fullscreen.
 
-1. **Chrome solo concede el bloqueo de teclado en pantalla completa iniciada por
+1. **Un uniform global no sustituye a una property por material.** Los shaders
+   del juego reescalaban el "texture warping" con
+   `UNITY_LIGHTMODEL_AMBIENT.a`, no con `_TextureWarping`, así que poner el
+   global a 0 no hacía nada: el warping se quedaba. Para gobernarlo hay que
+   **cambiar el shader**, no solo el C#. Y al revés: un uniform **suelto**
+   (declarado fuera de `Properties`) lo gana siempre al valor serializado del
+   material, porque el material solo manda sobre lo que el shader declara en
+   `Properties`.
+
+2. **Chrome solo concede el bloqueo de teclado en pantalla completa iniciada por
    JavaScript.** La documentación de Chrome dice: *"The Keyboard Lock API is
    only available when JavaScript-initiated full screen is active"*. Fuera de
    pantalla completa, `navigator.keyboard.lock()` falla y los atajos del
@@ -159,3 +171,4 @@ shaders hay que rehacer **ambos**.
 | v20.2 | Corrección de los shaders con el bloque `Properties` mal formado (objetos negros), bloqueo de teclado del navegador, presets de gráficos que sí aplican, rejilla de *vertex snapping* unificada |
 | v20.5 | Ajustes de gráficos cableados a los shaders (`_ResY`, `_ColorPrecision`), pausa y cámara verificadas |
 | v20.7 | Nombres de escena de act-1 corregidos contra el bundle original (1-4, 2-S, 3-2, Intermission1); **gráficos siempre-PC** (sin pixelización, sin compresión de color, sin warping) y ajustes PSX eliminados del menú; bloqueo de teclado arreglado para Chrome |
+| v20.8 | **Texture warping eliminado de verdad** (mapeo afín apagado en los 107 shaders reales y valores de warping a neutro en 1726 materiales); la sección `--PSX SETTINGS--` también desaparece del menú de pausa de los 22 niveles |

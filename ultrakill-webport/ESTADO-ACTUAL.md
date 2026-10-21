@@ -178,7 +178,10 @@ Ctrl+D sigue anulado ✓; el panel F3 está dentro del fullscreen ✓; 0 errores
 
 - Los **61 shaders dummy** (latido, railgun, sangre, UI) → aplazado por el usuario.
 - El **post-proceso real** (viñeta, gradiente, scanlines) → pendiente.
-- Los 61 stubs se pueden traer del repo `genizy/web-port` (~4 GB).
+- Para los stubs **no hay fuente pública conocida**: los repos de terceros que
+  hemos comprobado (y el `genizy`, que resultó ser un ZIP de juegos web ajenos)
+  solo traen stubs, y el build no conserva los snippets. O se escribe el shader a
+  mano, o se reexporta un build antiguo donde AssetRipper sí pudiera decompilar.
 
 ## Cómo construir y verificar
 

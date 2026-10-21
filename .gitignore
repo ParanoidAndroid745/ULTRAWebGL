@@ -46,6 +46,8 @@ ultrakill-webport/export/ExportedProject/Assets/VideoClip/
 ultrakill-webport/logs/
 ultrakill-webport/original-bundles/
 ultrakill-webport/removed-plugins/
+# referencias descartadas: el "genizy" eran juegos web ajenos, no shaders del juego
+genizy*
 
 # ------------------------------------------- indice generado (se reconstruye)
 ultrakill-webport/tools/assetindex/index/

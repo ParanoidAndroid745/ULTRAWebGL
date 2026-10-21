@@ -53,6 +53,17 @@
         font-size: 12px;
         font-family: Helvetica, Verdana, Arial, sans-serif;
       }
+      /* Cuando el estado se mete dentro del contenedor de pantalla completa
+         (en pantalla completa el navegador solo pinta ese elemento y sus
+         descendientes, asi que fuera de ahi no se veria). */
+      .uk-status.in-fs {
+        position: absolute;
+        top: 8px;
+        right: 12px;
+        z-index: 9998;
+        text-shadow: 0 0 4px #000, 0 0 4px #000;
+        pointer-events: none;
+      }
       .uk-dbg {
         display: none;
         /* Fijo y centrado: asi el menu se ve tambien en pantalla completa
@@ -118,7 +129,7 @@
   </head>
   <body>
     <div class="webgl-content">
-      <div id="unityContainer" style="width: 1280px; height: 720px"></div>
+      <div id="unityContainer" style="width: 1280px; height: 720px; position: relative;"></div>
       <div class="footer">
         <div class="webgl-logo"></div>
         <div class="fullscreen" onclick="UKFullscreen.toggle()" title="Pantalla completa"></div>
@@ -131,9 +142,12 @@
         <span id="uk-fs-status" class="uk-status"></span>
       </div>
     </div>
-    <!-- El menu de niveles va FUERA de .webgl-content: asi es hijo directo del
-         body y, con position:fixed, se ve tambien en pantalla completa (dentro
-         de .webgl-content quedaria escalado y fuera de la vista). -->
+
+    <!-- El menu de niveles, el aviso y el estado del teclado se mueven dentro
+         de #unityContainer al entrar en pantalla completa (fuera de ahi no se
+         ven: en fullscreen el navegador solo pinta ese elemento). No pueden
+         vivir en el HTML de dentro porque el loader de Unity vacia el
+         contenedor al arrancar. -->
     <div id="uk-dbg-panel" class="uk-dbg">
       <div class="uk-dbg-title">MENU DE NIVELES (debug)</div>
       <div id="uk-dbg-list" class="uk-dbg-list"></div>
@@ -141,6 +155,7 @@
       del acto que le toca. Cierra con F3 o con Esc.</div>
     </div>
     <div id="uk-toast" class="uk-toast"></div>
+
 
     <script>
       (function () {
@@ -269,6 +284,17 @@
         var escapeHeldSince = 0;
         var lastEscapeHeldMs = 0;
         var lastEscapeAt = 0;
+        // Chrome SOLO concede el bloqueo de teclado (navigator.keyboard.lock)
+        // en pantalla completa iniciada por JavaScript ("The Keyboard Lock API
+        // is only available when JavaScript-initiated full screen is active",
+        // docs de Chrome). Sin fullscreen el lock() falla y los atajos del
+        // navegador (Ctrl+D, Ctrl+T, Ctrl+W) se cuelan. Por eso se entra en
+        // pantalla completa con el primer gesto real del usuario.
+        var autoFs = true;
+        // Momento en el que se concedio el bloqueo por ultima vez: Chrome
+        // puede soltarlo en silencio (Escape, perdida de foco) sin avisar,
+        // asi que no basta con fiar de lockActive.
+        var lockGrantedAt = 0;
         var btn = document.getElementById('uk-fs-btn');
         var statusEl = document.getElementById('uk-fs-status');
 
@@ -354,9 +380,14 @@
             ? 'Ratón bloqueado'
             : (gameCursorHidden() ? 'Ratón sin bloqueo: pulsa una tecla' : '');
           if (navigator.keyboard && navigator.keyboard.lock) {
-            var tec = lockActive
-              ? 'Teclado bloqueado'
-              : 'Pulsa una tecla para bloquear los atajos';
+            var tec;
+            if (lockActive) {
+              tec = 'Teclado bloqueado';
+            } else if (!isFs()) {
+              tec = 'Entra en pantalla completa para bloquear los atajos';
+            } else {
+              tec = 'Pulsa una tecla para bloquear los atajos';
+            }
             statusEl.textContent = raton ? (raton + ' · ' + tec) : tec;
           } else if (oldFirefox) {
             statusEl.textContent = 'Firefox antiguo: no puede bloquear atajos. Usa Chrome/Edge.';
@@ -374,6 +405,7 @@
             if (p && p.then) {
               p.then(function () {
                 lockActive = true;
+                lockGrantedAt = Date.now();
                 updateStatus();
               }).catch(function () {
                 lockActive = false;
@@ -381,6 +413,7 @@
               });
             } else {
               lockActive = true;
+              lockGrantedAt = Date.now();
               updateStatus();
             }
           } catch (e) {
@@ -419,9 +452,44 @@
           btn.classList.add('flash');
         }
 
+        // Los overlays (menu de niveles, aviso, estado del teclado) tienen que
+        // estar DENTRO del elemento fullscreen para que se vean. Moverlos
+        // conserva su identidad y sus handlers.
+        function moveOverlays(inside) {
+          try {
+            var c = canvasEl();
+            var cont = (c && c.parentNode) || document.getElementById('unityContainer');
+            if (!cont) return;
+            var panel = document.getElementById('uk-dbg-panel');
+            var toast = document.getElementById('uk-toast');
+            var status = document.getElementById('uk-fs-status');
+            if (!panel || !toast || !status) return;
+            if (!moveOverlays.home) {
+              moveOverlays.home = {panel: panel.parentNode, toast: toast.parentNode, status: status.parentNode};
+            }
+            var home = moveOverlays.home;
+            if (inside) {
+              if (panel.parentNode !== cont) cont.appendChild(panel);
+              if (toast.parentNode !== cont) cont.appendChild(toast);
+              if (status.parentNode !== cont) {
+                cont.appendChild(status);
+                status.classList.add('in-fs');
+              }
+            } else {
+              if (panel.parentNode !== home.panel) home.panel.appendChild(panel);
+              if (toast.parentNode !== home.toast) home.toast.appendChild(toast);
+              if (status.parentNode !== home.status) {
+                home.status.appendChild(status);
+                status.classList.remove('in-fs');
+              }
+            }
+          } catch (e) {}
+        }
+
         function onFullscreenChange() {
           fsRequestInFlight = false;
           if (isFs()) {
+            moveOverlays(true);
             desired = true;
             reentryToken++;
             setLabel('SALIR DE PANTALLA COMPLETA');
@@ -433,6 +501,7 @@
 
           // Al salir de fullscreen el bloqueo de teclado se desactiva solo
           // (Chrome lo libera en cuanto sales de pantalla completa).
+          moveOverlays(false);
           unlockKeyboard();
           for (var i = 0; i < lockTimers.length; i++) clearTimeout(lockTimers[i]);
           lockTimers = [];
@@ -479,6 +548,7 @@
           if (isFs() || desired) {
             desired = false;
             fsFallback = false;
+            autoFs = false;      // el usuario no quiere pantalla completa
             escapeHeldSince = 0;
             unlockKeyboard();
             exitFs();
@@ -575,14 +645,31 @@
         // "if (isFs())" y por eso los atajos del navegador (Ctrl+D, Ctrl+T,
         // Ctrl+W) se colaban fuera de fullscreen.
         setInterval(function () {
-          if (lockActive) return;
           if (!navigator.keyboard || !navigator.keyboard.lock) return;
           var now = Date.now();
           if (now - lastGestureAt > 5000) return;   // sin gesto reciente no hay activacion
+          // lockActive puede quedarse obsoleto: Chrome suelta el bloqueo al
+          // pulsar Escape o al perder el foco, y no avisa. Si el bloqueo no se
+          // ha confirmado hace poco, se vuelve a pedir.
+          if (lockActive && now - lockGrantedAt < 1500) return;
           if (now < kbRetryAt) return;
           kbRetryAt = now + 800;
           lockKeyboard();
         }, 600);
+
+        // Al perder el foco de la ventana Chrome suelta el bloqueo de teclado
+        // sin avisar: hay que olvidarse del estado para que los reintentos
+        // vuelvan a pedirlo.
+        window.addEventListener('blur', function () {
+          lockActive = false;
+          updateStatus();
+        });
+        document.addEventListener('visibilitychange', function () {
+          if (document.hidden) {
+            lockActive = false;
+            updateStatus();
+          }
+        });
 
         function capturePointer() {
           var c = canvasEl();
@@ -593,7 +680,7 @@
           if (dbgOpen) return;
           // Un gesto nuevo del usuario reinicia la espera de los reintentos.
           lockBackoff = 700;
-          if (fsFallback && !isFs() && gameCursorHidden()) {
+          if (!isFs() && gameCursorHidden() && (fsFallback || autoFs)) {
             fsFallback = false;
             requestFs();
           }
@@ -644,6 +731,14 @@
 
         function onUserGesture() {
             lastGestureAt = Date.now();
+            // Chrome SOLO concede el bloqueo de teclado en pantalla completa
+            // iniciada por JavaScript. Este gesto es justo lo que el navegador
+            // exige para concederla, asi que se pide aqui: sin esto el juego
+            // puede quedarse en ventana y los atajos del navegador (Ctrl+D,
+            // Ctrl+T, Ctrl+W) funcionan.
+            if (autoFs && !isFs() && !fsRequestInFlight) {
+                requestFs();
+            }
             lockKeyboard();
         }
 
@@ -689,6 +784,7 @@
             e.preventDefault();
             desired = false;
             fsFallback = false;
+            autoFs = false;      // salida voluntaria
             escapeHeldSince = 0;
             unlockKeyboard();
             exitFs();
@@ -725,8 +821,7 @@
                 ['Level 2-4', '2-4 COURT OF THE CORPSE KING'],
                 ['Level 2-S', '2-S (secreto)'],
                 ['Level 3-1', '3-1 BELLY OF THE BEAST'],
-                ['Level 3-2', '3-2 IN THE FLESH'],
-                ['Level 3-S', '3-S (secreto)']
+                ['Level 3-2', '3-2 IN THE FLESH']
             ]],
             ['PRIME', [['Level P-1', 'P-1 SOUL SURVIVOR']]]
         ];

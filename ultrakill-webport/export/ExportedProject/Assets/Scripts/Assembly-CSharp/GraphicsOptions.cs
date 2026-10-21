@@ -4,6 +4,11 @@ using UnityEngine.UI;
 [ExecuteAlways]
 public class GraphicsOptions : MonoBehaviour
 {
+	// Port WebGL: se han eliminado los ajustes PSX del menu de GRAPHICS.
+	// Los GameObjects de los controles (pixelization, textureWarping,
+	// vertexWarping, colorCompression) se han BORRADO del prefab Canvas y de
+	// las escenas (Tutorial y Main Menu), asi que estas referencias son null
+	// y hay que comprobarlas antes de usarlas.
 	public Dropdown pixelization;
 
 	public Slider textureWarping;
@@ -13,6 +18,20 @@ public class GraphicsOptions : MonoBehaviour
 	public Dropdown colorCompression;
 
 	public Toggle vSync;
+
+	// Valores neutros (el juego se ve SIEMPRE como el preset PC, y ademas sin
+	// compresion de color):
+	//   Pixelization 0     -> _ResY = 0      => sin rejilla de vertices
+	//   TextureWarping 0   -> _TextureWarping = 0
+	//   VertexWarping 0    -> _VertexWarping = 9999 (valor "off" del juego)
+	//   ColorCompression 0 -> _ColorPrecision = 2048 (sin cuantizar color)
+	private const int NeutralPixelization = 0;
+
+	private const float NeutralTextureWarping = 0f;
+
+	private const int NeutralVertexWarping = 0;
+
+	private const int NeutralColorCompression = 0;
 
 	private CameraController cc;
 
@@ -26,68 +45,51 @@ public class GraphicsOptions : MonoBehaviour
 		Initialize();
 	}
 
+	/// <summary>
+	/// Aplica el aspecto neutro (PC) del port. Se ignora cualquier valor
+	/// guardado en PlayerPrefs: el port es siempre-PC.
+	/// </summary>
+	public void ApplyNeutral()
+	{
+		Pixelization(NeutralPixelization);
+		TextureWarping(NeutralTextureWarping);
+		VertexWarping(NeutralVertexWarping);
+		ColorCompression(NeutralColorCompression);
+	}
+
 	public void PCPreset()
 	{
-		pixelization.value = 0;
-		pixelization.RefreshShownValue();
-		textureWarping.value = 0f;
-		vertexWarping.value = 0;
-		vertexWarping.RefreshShownValue();
-		colorCompression.value = 2;
-		colorCompression.RefreshShownValue();
-		// Asignar Dropdown.value NO dispara onValueChanged, asi que el preset
-		// solo cambiaba la etiqueta y no aplicaba nada. Hay que llamar a los
-		// metodos de aplicacion a mano.
-		Pixelization(0);
-		TextureWarping(0f);
-		VertexWarping(0);
-		ColorCompression(2);
-		PlayerPrefs.Save();
+		ApplyNeutral();
 	}
 
 	public void PSXPreset()
 	{
-		pixelization.value = 3;
-		pixelization.RefreshShownValue();
-		textureWarping.value = 100f;
-		vertexWarping.value = 2;
-		vertexWarping.RefreshShownValue();
-		colorCompression.value = 2;
-		colorCompression.RefreshShownValue();
-		// Ver PCPreset(): el preset no aplicaba los valores.
-		Pixelization(3);
-		TextureWarping(100f);
-		VertexWarping(2);
-		ColorCompression(2);
-		PlayerPrefs.Save();
+		// El boton "PSX" se ha eliminado del menu, pero por si acaso se llama
+		// desde algun sitio, se aplican los valores neutros: nunca el look PSX.
+		ApplyNeutral();
 	}
 
 	public void Initialize()
 	{
-		int num = PlayerPrefs.GetInt("Pix", 3);
-		pixelization.value = num;
-		pixelization.RefreshShownValue();
-		Pixelization(num);
-		float num2 = PlayerPrefs.GetFloat("TexWar", 100f);
-		textureWarping.value = num2;
-		TextureWarping(num2);
-		num = PlayerPrefs.GetInt("VerWar", 2);
-		vertexWarping.value = num;
-		vertexWarping.RefreshShownValue();
-		VertexWarping(num);
-		num = PlayerPrefs.GetInt("ColCom", 2);
-		colorCompression.value = num;
-		colorCompression.RefreshShownValue();
-		ColorCompression(num);
+		// Los PlayerPrefs ("Pix", "TexWar", "VerWar", "ColCom") se IGNORAN a
+		// proposito: aunque el navegador tenga "Pix" = 3 (PSX) guardado de una
+		// partida anterior, este port arranca siempre en neutro.
+		ApplyNeutral();
 		if (PlayerPrefs.GetInt("VSync", 1) == 1)
 		{
 			QualitySettings.vSyncCount = 1;
-			vSync.isOn = true;
+			if (vSync != null)
+			{
+				vSync.isOn = true;
+			}
 		}
 		else
 		{
 			QualitySettings.vSyncCount = 0;
-			vSync.isOn = false;
+			if (vSync != null)
+			{
+				vSync.isOn = false;
+			}
 		}
 	}
 
@@ -123,6 +125,11 @@ public class GraphicsOptions : MonoBehaviour
 		// En WebGL no se llama a OnApplicationQuit, asi que PlayerPrefs no se
 		// guarda solo: hay que forzar el flush.
 		PlayerPrefs.Save();
+		if (pixelization != null)
+		{
+			pixelization.value = stuff;
+			pixelization.RefreshShownValue();
+		}
 		DownscaleChangeSprite[] array = Object.FindObjectsOfType<DownscaleChangeSprite>();
 		for (int i = 0; i < array.Length; i++)
 		{
@@ -136,6 +143,10 @@ public class GraphicsOptions : MonoBehaviour
 		float value = stuff * 0.003f;
 		Shader.SetGlobalFloat("_TextureWarping", value);
 		PlayerPrefs.Save();
+		if (textureWarping != null)
+		{
+			textureWarping.value = stuff;
+		}
 	}
 
 	public void VertexWarping(int stuff)
@@ -165,6 +176,11 @@ public class GraphicsOptions : MonoBehaviour
 		}
 		Shader.SetGlobalFloat("_VertexWarping", value);
 		PlayerPrefs.Save();
+		if (vertexWarping != null)
+		{
+			vertexWarping.value = stuff;
+			vertexWarping.RefreshShownValue();
+		}
 	}
 
 	public void ColorCompression(int stuff)
@@ -192,6 +208,11 @@ public class GraphicsOptions : MonoBehaviour
 			break;
 		}
 		PlayerPrefs.Save();
+		if (colorCompression != null)
+		{
+			colorCompression.value = stuff;
+			colorCompression.RefreshShownValue();
+		}
 	}
 
 	public void VSync(bool stuff)

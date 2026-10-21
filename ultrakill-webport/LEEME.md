@@ -10,7 +10,7 @@ README del repositorio).
 
 ## Estado
 
-**v20.5** — jugable de principio a fin:
+**v20.7** — jugable de principio a fin:
 
 - **PRELUDE** (acto 0): 0-1 INTO THE FIRE, 0-2 THE MEATGRINDER, 0-3 DOUBLE DOWN,
   0-4 A ONE-MACHINE ARMY, 0-5 CERBERUS y el secreto 0-S.
@@ -18,8 +18,9 @@ README del repositorio).
 - **PRIME**: P-1 SOUL SURVIVOR.
 - Iluminación original (vertex lighting PSX, niebla, mapeo afín).
 - Menú de niveles (F3) para saltar a cualquier nivel sin avanzar la campaña.
-- Ajustes de gráficos funcionales (pixelización, compresión de color, presets
-  PC/PSX).
+- **Gráficos siempre-PC**: sin pixelización, sin compresión de color y sin
+  warping de textura o vértices. Los ajustes PSX se han eliminado del menú
+  GRAPHICS y el juego los ignora aunque el navegador tenga valores guardados.
 - Menú de pausa funcional, ratón capturado y recuperable, atajos del navegador
   bloqueados en pantalla completa.
 
@@ -30,7 +31,7 @@ README del repositorio).
 .\serve-lan.ps1 -Port 8010 # http://<ip-del-equipo>:8010/  (otro dispositivo)
 ```
 
-El paquete distribuible (`dist/ULTRAKILL-WebGL-v20.5.zip`, 262 MB) es
+El paquete distribuible (`dist/ULTRAKILL-WebGL-v20.7.zip`, 262 MB) es
 **autocontenido**: incluye el player, los tres bundles WebGL, la página y un
 lanzador (`JUGAR.bat`). Se descomprime y se juega; no hace falta recompilar
 nada ni tener los assets originales.

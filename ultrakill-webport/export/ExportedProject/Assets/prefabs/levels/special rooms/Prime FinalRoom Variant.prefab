@@ -36633,7 +36633,7 @@ MonoBehaviour:
   rankless: 0
   secondPit: 0
   forcePrimeLevel: 0
-  targetLevelName: Level 3-S
+  targetLevelName: Level 2-4
   musicFadeOut: 1
 --- !u!114 &114649153637225918
 MonoBehaviour:
@@ -60839,7 +60839,7 @@ MonoBehaviour:
   rankless: 0
   secondPit: 1
   forcePrimeLevel: 0
-  targetLevelName: Level 3-S
+  targetLevelName: Level 2-4
   musicFadeOut: 0
 --- !u!4 &4455149682615108
 Transform:

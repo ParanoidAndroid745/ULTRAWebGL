@@ -20,8 +20,7 @@ public static class WebGLBundleBuilder
         {
             { "acts/act-0", FindScenes(n =>
                 n == "Tutorial" ||
-                n.StartsWith("Level 0-") ||
-                n == "Intermission1") }
+                n.StartsWith("Level 0-")) }
         });
     }
 
@@ -30,14 +29,21 @@ public static class WebGLBundleBuilder
     {
         BuildBundles(new Dictionary<string, string[]>
         {
+            // Reparto IDENTICO al de los bundles originales del juego:
+            //   act-0 = Tutorial + Level 0-*        (6 niveles + tutorial)
+            //   act-1 = Level 1-* + Level 2-* + Level 3-* + Intermission1 (13)
+            //   prime = Level P-*
+            // El nombre de cada escena es el que espera el juego: el bundle
+            // original de act-1 contenia Level 1-4, Level 2-S, Level 3-2 e
+            // Intermission1 (AssetRipper habia permutado los nombres al exportar).
             { "acts/act-0", FindScenes(n =>
                 n == "Tutorial" ||
-                n.StartsWith("Level 0-") ||
-                n == "Intermission1") },
+                n.StartsWith("Level 0-")) },
             { "acts/act-1", FindScenes(n =>
                 n.StartsWith("Level 1-") ||
                 n.StartsWith("Level 2-") ||
-                n.StartsWith("Level 3-")) },
+                n.StartsWith("Level 3-") ||
+                n == "Intermission1") },
             { "acts/prime", FindScenes(n => n.StartsWith("Level P-")) }
         });
     }

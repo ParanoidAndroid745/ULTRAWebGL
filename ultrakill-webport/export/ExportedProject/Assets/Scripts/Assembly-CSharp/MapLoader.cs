@@ -16,7 +16,7 @@ public class MapLoader : MonoSingleton<MapLoader>
 {
 	// Cambiar al reconstruir act-0 (evita que el navegador sirva el bundle viejo).
 	// v205: bundles reconstruidos con los shaders graphics-cableados (_ResY).
-	private const string WebGLBundleQuery = "?v=205";
+	private const string WebGLBundleQuery = "?v=207";
 
 	public delegate void LoadCallback(AssetBundle actBundle);
 

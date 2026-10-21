@@ -66,3 +66,6 @@ Desktop.ini
 # Bundles WebGL construidos (los unicos ficheros >100 MB que GitHub bloquea):
 # son salidas de build, se regeneran con WebGLBundleBuilder.BuildAll (~5 min).
 ultrakill-webport/export/ExportedProject/Assets/StreamingAssets/
+
+# estado de trabajo de la sesion (no es documentacion del port)
+ultrakill-webport/ESTADO-ACTUAL.md

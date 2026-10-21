@@ -16,8 +16,13 @@ param(
 )
 
 $ErrorActionPreference = "Stop"
-$tools = Split-Path $PSScriptRoot -Parent
-$root  = Split-Path $tools -Parent        # ultrakill-webport
+$tools = $PSScriptRoot
+# La raiz del port es la carpeta que contiene export\ExportedProject.
+$root = $PSScriptRoot
+while ($root -and -not (Test-Path (Join-Path $root "export\ExportedProject"))) {
+    $root = Split-Path $root -Parent
+}
+if (-not $root) { throw "no encuentro export\ExportedProject desde $tools" }
 $main  = Join-Path $root "export\ExportedProject"
 $out   = Join-Path $env:TEMP ("opencode\build_" + (Get-Date -Format 'yyyyMMdd_HHmmss'))
 New-Item -ItemType Directory -Force -Path $out | Out-Null

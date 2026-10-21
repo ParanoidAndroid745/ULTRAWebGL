@@ -13,7 +13,7 @@ param(
 
 $ErrorActionPreference = "Stop"
 $tools = Split-Path $PSScriptRoot -Parent
-$root  = Split-Path $tools -Parent        # ultrakill-webport
+$root  = $tools                           # ultrakill-webport (esta carpeta)
 $web   = Join-Path $root "export\ExportedProject\Builds\WebGL"
 
 if (-not (Test-Path $web)) { throw "no existe el build: $web" }

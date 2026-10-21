@@ -1,6 +1,6 @@
 param(
     [int]$Port = 8010,
-    [string]$Root = "C:\Users\JJ\Documents\Proyecto predeterminado\ultrakill-webport\export\ExportedProject\Builds\WebGL"
+    [string]$Root = "$PSScriptRoot\export\ExportedProject\Builds\WebGL"
 )
 
 # Servidor estatico minimo para poder jugar desde OTRO dispositivo de la misma

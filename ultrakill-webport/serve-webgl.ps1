@@ -1,6 +1,6 @@
 param(
     [int]$Port = 8000,
-    [string]$Root = "C:\Users\JJ\Documents\Proyecto predeterminado\ultrakill-webport\export\ExportedProject\Builds\WebGL",
+    [string]$Root = "$PSScriptRoot\export\ExportedProject\Builds\WebGL",
     [string]$Bind = "localhost"
 )
 

@@ -70,3 +70,6 @@ Desktop.ini
 # son salidas de build, se regeneran con WebGLBundleBuilder.BuildAll (~5 min).
 ultrakill-webport/export/ExportedProject/Assets/StreamingAssets/
 
+
+# Caches de python de las herramientas (ukshot, etc.)
+__pycache__/

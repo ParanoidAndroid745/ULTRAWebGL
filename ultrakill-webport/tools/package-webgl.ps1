@@ -12,8 +12,13 @@ param(
 )
 
 $ErrorActionPreference = "Stop"
-$tools = Split-Path $PSScriptRoot -Parent
-$root  = Split-Path $tools -Parent        # ultrakill-webport
+$tools = $PSScriptRoot
+# La raiz del port es la carpeta que contiene export\ExportedProject.
+$root = $PSScriptRoot
+while ($root -and -not (Test-Path (Join-Path $root "export\ExportedProject"))) {
+    $root = Split-Path $root -Parent
+}
+if (-not $root) { throw "no encuentro export\ExportedProject desde $tools" }
 $build = Join-Path $root "export\ExportedProject\Builds\WebGL"
 $dist  = Join-Path $root "dist"
 $stage = Join-Path $dist "ULTRAKILL-WebGL-$Ver"
@@ -27,12 +32,15 @@ New-Item -ItemType Directory -Force -Path $stage | Out-Null
 # 1) contenido del build
 Copy-Item "$build\*" -Destination $stage -Recurse -Force
 
-# 2) lanzador (viene de la release anterior)
+# 2) lanzador: tools\launcher (versionado); si falta, se copia de la release anterior
+$launcher = Join-Path $tools "launcher"
 $prev = Get-ChildItem $dist -Directory -Filter "ULTRAKILL-WebGL-*" -ErrorAction SilentlyContinue |
         Where-Object { $_.Name -ne "ULTRAKILL-WebGL-$Ver" } | Sort-Object LastWriteTime -Descending | Select-Object -First 1
-if ($prev) {
-    foreach ($f in @("JUGAR.bat", "servidor.ps1")) {
-        if (Test-Path (Join-Path $prev.FullName $f)) { Copy-Item (Join-Path $prev.FullName $f) -Destination $stage -Force }
+foreach ($f in @("JUGAR.bat", "servidor.ps1")) {
+    $src = Join-Path $launcher $f
+    if (Test-Path $src) { Copy-Item $src -Destination $stage -Force; continue }
+    if ($prev -and (Test-Path (Join-Path $prev.FullName $f))) {
+        Copy-Item (Join-Path $prev.FullName $f) -Destination $stage -Force
     }
 }
 

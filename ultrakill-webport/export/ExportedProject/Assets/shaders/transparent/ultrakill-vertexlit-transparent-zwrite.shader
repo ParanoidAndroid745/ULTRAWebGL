@@ -6,13 +6,12 @@ Shader "psx/transparent/vertexlit-noambient-zwrite_v6" {
 		_MainTex("Base (RGB)", 2D) = "white" {}
 	}
 		SubShader{
-			Tags { "RenderType" = "Opaque" }
+			Tags { "Queue" = "Transparent" "RenderType" = "Transparent" "IgnoreProjector" = "True" }
 			LOD 200
 
-			Pass Blend SrcAlpha OneMinusSrcAlpha
-ZWrite Off
-ZWrite Off
-			{
+			Pass {
+			Blend SrcAlpha OneMinusSrcAlpha
+			ZWrite Off
 			Lighting On
 				CGPROGRAM
 

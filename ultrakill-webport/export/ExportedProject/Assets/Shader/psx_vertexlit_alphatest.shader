@@ -9,9 +9,9 @@ Shader "psx/vertexlit/alphatest" {
 			Tags { "RenderType" = "Opaque" }
 			LOD 200
 
-			Pass Blend SrcAlpha OneMinusSrcAlpha
-ZWrite Off
-			{
+			Pass {
+			Blend SrcAlpha OneMinusSrcAlpha
+			ZWrite Off
 			Lighting On
 				CGPROGRAM
 

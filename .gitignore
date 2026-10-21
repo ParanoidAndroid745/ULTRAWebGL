@@ -43,6 +43,8 @@ bundle-*.log
 ultrakill-webport/tools/AssetRipper/
 ultrakill-webport/export/AuxiliaryFiles/
 ultrakill-webport/export/ExportedProject/Assets/VideoClip/
+# Unity regenera este .meta al abrir si la carpeta VideoClip existe en local
+ultrakill-webport/export/ExportedProject/Assets/VideoClip.meta
 ultrakill-webport/logs/
 ultrakill-webport/original-bundles/
 ultrakill-webport/removed-plugins/

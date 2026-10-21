@@ -51,7 +51,10 @@ ultrakill-webport/removed-plugins/
 ultrakill-webport/tools/assetindex/index/
 
 # ------------------------------------------------ configuracion local del editor
-.opencode/
+# (el .opencode/ del PROYECTO si se versiona: es la config de opencode
+#  - agents/  ULTRA, STRAWBERRY, TOWER
+#  - skills/   las trampas de Unity/WebGL
+#  - commands/ /build, /shots, /idx)
 
 # ------------------------------------------------------------- sistema y editor
 Thumbs.db
@@ -67,5 +70,3 @@ Desktop.ini
 # son salidas de build, se regeneran con WebGLBundleBuilder.BuildAll (~5 min).
 ultrakill-webport/export/ExportedProject/Assets/StreamingAssets/
 
-# estado de trabajo de la sesion (no es documentacion del port)
-ultrakill-webport/ESTADO-ACTUAL.md

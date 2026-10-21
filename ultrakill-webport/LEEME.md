@@ -10,7 +10,7 @@ README del repositorio).
 
 ## Estado
 
-**v20.7** — jugable de principio a fin:
+**v21** — jugable de principio a fin:
 
 - **PRELUDE** (acto 0): 0-1 INTO THE FIRE, 0-2 THE MEATGRINDER, 0-3 DOUBLE DOWN,
   0-4 A ONE-MACHINE ARMY, 0-5 CERBERUS y el secreto 0-S.
@@ -25,6 +25,10 @@ README del repositorio).
   juego los ignora aunque el navegador tenga valores guardados de antes.
 - Menú de pausa funcional, ratón capturado y recuperable, atajos del navegador
   bloqueados en pantalla completa.
+- **v21 — agua, cristales, sangre y grietas arreglados**: sus shaders se
+  compilaban vacíos porque el header `Pass` venía mal formado en el export
+  (Unity no avisa), así que se dibujaban con el shader de error (rosa/negro).
+  Reparados los 10 shaders transparentes y pasados a la cola *Transparent*.
 
 ## Jugar
 

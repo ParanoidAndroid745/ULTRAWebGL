@@ -7,7 +7,7 @@ montar el entorno en otra máquina). Lo que hace falta para trabajar aquí.
 
 Un port jugable de **ULTRAKILL** (Unity 2019.4.16f1) al navegador, reconstruido
 con AssetRipper a partir del build pre-GREED y recompilado con el módulo WebGL de
-Unity. Estado actual: **v20.8** (pre-release en GitHub).
+Unity. Estado actual: **v21** (pre-release en GitHub).
 
 - `LEEME.md` — qué se puede jugar y cómo.
 - `NOTAS.md` — **los cambios del port y las trampas de Unity/WebGL**. Léelo antes de
@@ -103,7 +103,7 @@ Arnés de pruebas visuales (Playwright: eventos de confianza, pointer lock real)
 
 ```powershell
 $py = "$env:LOCALAPPDATA\Programs\Python\Python312\python.exe"
-& $py .\ultrakill-webport\tools\visual\ukshot.py --url "http://localhost:8000/?v=208" `
+& $py .\ultrakill-webport\tools\visual\ukshot.py --url "http://localhost:8000/?v=210" `
       --out "$env:TEMP\opencode\shots" --actions "wait:45;key:Escape;wait:5;shot:pausa"
 & $py .\ultrakill-webport\tools\visual\ukshot.py --diff "$env:TEMP\opencode\shots\a.png" "$env:TEMP\opencode\shots\b.png"
 ```
@@ -117,8 +117,8 @@ haz un clic de inflating antes de medir.
 
 - El usuario tiene que **aprobar** el build antes de publicarlo.
 - Publicar = commit + `git push` + release con el ZIP:
-  `powershell -ExecutionPolicy Bypass -File .\ultrakill-webport\tools\package-webgl.ps1 -Ver v20.9`
-  y `gh release create v20.9 --prerelease --title "..." --notes-file notas.md <zip>`.
+  `powershell -ExecutionPolicy Bypass -File .\ultrakill-webport\tools\package-webgl.ps1 -Ver v21`
+  y `gh release create v21 --prerelease --title "..." --notes-file notas.md <zip>`.
 - **Las releases llevan el disclaimer**: el proyecto original, sus assets y su código
   pertenecen a Arsi "Hakita" Patala / New Blood Interactive.
 

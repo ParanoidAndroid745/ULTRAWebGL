@@ -2,7 +2,54 @@
 
 > Esto se escribe para que el trabajo no dependa de la memoria de la sesión:
 > si opencode compacta el contexto, si la sesión se cae, o si abres otra, el
-> estado está aquí. Última actualización: 2026-10-21 05:55 (v20.7 publicada).
+> estado está aquí. Última actualización: 2026-10-21 (v21 empaquetada y
+> publicada como pre-release).
+
+## v21 (pre-release) — agua/cristal/sangre/grietas: shaders transparentes reparados
+
+**Síntoma**: el agua de 1-2 (y cristales, sangre, grietas) salía rosa y negra.
+
+**Causa**: en los shaders exportados el header del `Pass` estaba mal formado:
+
+```
+Pass Blend SrcAlpha OneMinusSrcAlpha
+ZWrite Off
+ZWrite Off
+{
+```
+
+Unity **no da error**: compila el shader a NADA (el asset de 132 bytes que hay
+en los bundles) y el material se dibuja con el shader de error. Afectaba a 10
+shaders (`psx_vertexlit_alphatest`, `psx_vertexlit_transparent_transparent`,
+`psx_vertexlit_transparent_zwrite` + `_0/_1/_2`, `ultrakill-vertexlit-alphatest`
+y los `ultrakill-*-transparent-*`) y a los materiales que los usan (`Water`,
+`Water 1`, `Blood`, `forgiveme`, `Glass`, `GlassFake`, `crack`, `crack 1`,
+`StainedGlass1A 10-13`, `ExplosionShockwave`, ...).
+
+**Arreglo** (en el proyecto Unity, sin parchear el build a mano):
+
+1. `Pass {` + `Blend SrcAlpha OneMinusSrcAlpha` + un solo `ZWrite Off`
+   + `Lighting On`.
+2. `Tags { "Queue"="Transparent" "RenderType"="Transparent" }` en los 8
+   transparentes: estaban en cola *Geometry* con `ZWrite Off`, así que el suelo
+   opaco se dibujaba después y tapaba el agua.
+3. `MapLoader.WebGLBundleQuery` → `?v=209` (cache-busting).
+4. Rebuild: `WebGLBundleBuilder.BuildAll` y después `WebGLBuilder.Build`.
+
+**Verificación sobre el bundle construido**:
+
+- 0 `Shader error in` y 0 `error CS` en los dos logs.
+- `Water` (Level 1-3) → shader **8.972 bytes** (antes 132) y con `_MainTex`
+  (el material de 576 B la había perdido).
+- Ningún shader de 132 B en el bundle; el más pequeño mide 3.608 B.
+- `BUILD RESULT: Succeeded | errors=0 | warnings=27 | sizeMB=464,2`.
+
+**Entorno**: Unity 2019.4.16f1 instalado en `C:\Users\Damian\Unity\2019.4.16f1`
+(licencia Personal activa). Los scripts `serve-webgl.ps1` / `serve-lan.ps1` ya
+no llevan la ruta de la máquina anterior: usan `$PSScriptRoot`.
+
+**Pendiente**: probar en navegador (nivel 1-2) y afinar `ZWrite`/alpha si el
+agua no queda como debe.
 
 ## ESTADO: v20.7 PUBLICADA (pre-release) — las 3 tareas están hechas
 

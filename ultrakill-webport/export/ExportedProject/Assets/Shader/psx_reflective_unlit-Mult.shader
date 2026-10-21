@@ -63,7 +63,10 @@ uniform float _ColorPrecision;
 		o.reflect = reflect(-viewDir, worldN);
 
 		//Vertex lighting 
-		o.color = v.color*UNITY_LIGHTMODEL_AMBIENT;;
+		// El ambiente de estas escenas es negro (AmbientMode Flat, color 0,0,0):
+		// multiplicar por el dejaba el cielo (ScreenSky) y los fondos (ScreenField)
+		// en negro pese a que el cubemap y la textura son claros.
+		o.color = v.color;
 
 		float distance = length(mul(UNITY_MATRIX_MV,v.vertex));
 

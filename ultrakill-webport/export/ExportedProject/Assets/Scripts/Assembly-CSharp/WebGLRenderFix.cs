@@ -388,7 +388,12 @@ public class WebGLRenderFix : MonoBehaviour
             {
                 c.enabled = true;
                 c.targetTexture = null;
-                c.clearFlags = CameraClearFlags.SolidColor;
+                // Los niveles con skybox (Lust) traen la camara con ClearFlags.Skybox.
+                // Forzar SolidColor dejaba el cielo en negro; solo se fuerza cuando
+                // la escena no tiene skybox (niveles interiores).
+                c.clearFlags = RenderSettings.skybox != null
+                    ? CameraClearFlags.Skybox
+                    : CameraClearFlags.SolidColor;
                 c.depth = -1f;
             }
             else if (c.name == "HUD Camera")

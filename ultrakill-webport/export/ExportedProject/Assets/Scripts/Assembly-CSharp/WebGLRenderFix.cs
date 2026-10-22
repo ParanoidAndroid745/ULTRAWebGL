@@ -29,8 +29,6 @@ public class WebGLRenderFix : MonoBehaviour
     private static Vector3 floorSpawn;
     private static bool floorSpawnValid;
 
-    private static string ambientScene;
-
     private float nextCheck;
 
     private const float TutorialCeiling = 50f;
@@ -46,7 +44,6 @@ public class WebGLRenderFix : MonoBehaviour
         GameObject go = new GameObject("WebGLRenderFix");
         Object.DontDestroyOnLoad(go);
         instance = go.AddComponent<WebGLRenderFix>();
-        ApplyAmbient();
     }
 
     private void OnEnable()
@@ -75,32 +72,8 @@ public class WebGLRenderFix : MonoBehaviour
     private IEnumerator ApplyDelayed(float seconds)
     {
         yield return new WaitForSecondsRealtime(seconds);
-        ApplyAmbient();
         ApplyCameras();
         FixTutorialState();
-    }
-
-    /// <summary>
-    /// Las escenas traen ambiente plano negro (m_AmbientMode 3, color 0,0,0) y
-    /// los shaders unlit multiplican por UNITY_LIGHTMODEL_AMBIENT, asi que los
-    /// enemigos y props con esos materiales salen negros. Forzamos ambiente
-    /// blanco tras cada carga de escena (la escena lo sobrescribe al activarse).
-    /// OJO: los shaders vertexlit tambien parten del ambiente, asi que esto
-    /// puede aclarar el mundo; es una prueba, no el arreglo definitivo.
-    /// </summary>
-    private static void ApplyAmbient()
-    {
-        RenderSettings.ambientMode = UnityEngine.Rendering.AmbientMode.Flat;
-        RenderSettings.ambientIntensity = 1f;
-        RenderSettings.ambientLight = Color.white;
-
-        Scene scene = SceneManager.GetActiveScene();
-        if (ambientScene != scene.name)
-        {
-            ambientScene = scene.name;
-            Debug.Log("[WebGLRenderFix] Ambiente forzado a blanco en '" + scene.name +
-                      "': " + RenderSettings.ambientLight);
-        }
     }
 
     private void Update()

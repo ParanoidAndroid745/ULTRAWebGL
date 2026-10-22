@@ -63,7 +63,7 @@ uniform float _ColorPrecision;
 		o.reflect = reflect(-viewDir, worldN);
 
 		//Vertex lighting 
-		o.color = v.color*UNITY_LIGHTMODEL_AMBIENT;;
+		o.color = v.color;
 
 		float distance = length(mul(UNITY_MATRIX_MV,v.vertex));
 

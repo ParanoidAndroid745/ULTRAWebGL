@@ -56,7 +56,7 @@ uniform float _ColorPrecision;
 		o.pos = vertex;
 
 		//Vertex lighting 
-		o.color = v.color*UNITY_LIGHTMODEL_AMBIENT + half4(0.5,0.5,0.5,1);
+		o.color = v.color;
 
 		float distance = length(mul(UNITY_MATRIX_MV,v.vertex));
 

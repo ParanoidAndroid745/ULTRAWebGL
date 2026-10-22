@@ -5,8 +5,9 @@ param(
 
 # Servidor estatico minimo para poder jugar desde OTRO dispositivo de la misma
 # red (http://<IP-de-este-PC>:8010/). No necesita permisos de administrador
-# (a diferencia de HttpListener con una IP concreta) y sirve el .html siempre
-# sin cache para que nunca se cargue una pagina antigua.
+# (a diferencia de HttpListener con una IP concreta) y sirve la pagina y el
+# player (.html/.js/.wasm/.data) sin cache para que nunca se cargue una
+# version antigua.
 
 $ErrorActionPreference = "Stop"
 $listener = New-Object System.Net.Sockets.TcpListener([System.Net.IPAddress]::Any, $Port)
@@ -68,7 +69,7 @@ while ($true) {
         if ((Test-Path $file -PathType Leaf) -and $file.StartsWith($Root, [System.StringComparison]::OrdinalIgnoreCase)) {
             $ext = [System.IO.Path]::GetExtension($file).ToLowerInvariant()
             $bytes = [IO.File]::ReadAllBytes($file)
-            $cache = if ($ext -eq '.html' -or $ext -eq '.htm') { 'no-store, no-cache, must-revalidate' } else { 'public, max-age=3600' }
+            $cache = if (@('.html', '.htm', '.js', '.wasm', '.data', '.unityweb', '.json') -contains $ext) { 'no-store, no-cache, must-revalidate' } else { 'public, max-age=3600' }
             $head = "HTTP/1.1 200 OK`r`nContent-Type: $(Get-Mime $ext)`r`nContent-Length: $($bytes.Length)`r`nCache-Control: $cache`r`nConnection: close`r`n`r`n"
             $hb = [Text.Encoding]::ASCII.GetBytes($head)
             $stream.Write($hb, 0, $hb.Length)

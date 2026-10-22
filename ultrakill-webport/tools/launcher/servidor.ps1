@@ -63,9 +63,11 @@ while ($listener.IsListening) {
             }
             $ctx.Response.ContentType = $mime
             $ctx.Response.ContentLength64 = $bytes.Length
-            if ($ext -eq '.html' -or $ext -eq '.htm') {
-                # La pagina lleva el arreglo del raton/fullscreen: nunca se
-                # debe servir una copia cacheada antigua.
+            if (@('.html', '.htm', '.js', '.wasm', '.data', '.unityweb', '.json') -contains $ext) {
+                # La pagina y el player no se cachean: el paquete no versiona
+                # los nombres de Build/*, asi que un .js/.wasm/.data cacheado
+                # haria arrancar la version anterior aunque se descomprima
+                # un ZIP nuevo (Ctrl+F5 no siempre basta).
                 $ctx.Response.Headers.Add('Cache-Control', 'no-store, no-cache, must-revalidate')
                 $ctx.Response.Headers.Add('Pragma', 'no-cache')
             }

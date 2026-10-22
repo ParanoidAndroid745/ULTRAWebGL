@@ -2,8 +2,44 @@
 
 > Esto se escribe para que el trabajo no dependa de la memoria de la sesión:
 > si opencode compacta el contexto, si la sesión se cae, o si abres otra, el
-> estado está aquí. Última actualización: 2026-10-21 (v21 empaquetada y
+> estado está aquí. Última actualización: 2026-10-22 (v21.1.2 empaquetada y
 > publicada como pre-release).
+
+## v21.1.2 (pre-release) - arreglo real de los unlit negros, sin fullbright
+
+**Causa**: las 25 escenas traen ambiente plano negro (`m_AmbientMode: 3`,
+`m_AmbientSkyColor: 0,0,0`) y los 66 shaders unlit multiplicaban el color de
+vertice por `UNITY_LIGHTMODEL_AMBIENT`. Los vertexlit usan
+`ShadeVertexLightsFull`, que tambien parte del ambiente: por eso la prueba
+v21.1.1 (ambiente blanco en runtime) arreglaba los enemigos pero dejaba el
+mundo en fullbright.
+
+**Arreglo**: fuera el factor de ambiente **solo** de la linea de color de los
+66 shaders unlit (`psx_unlit_*` con sufijos `_0.._3` y
+`ultrakill-unlit*`/`psx-unlit-*` de `Assets/shaders`):
+`o.color = v.color*UNITY_LIGHTMODEL_AMBIENT` -> `o.color = v.color`.
+La familia `-ambient` se unifica con la unlit normal (antes, con ambiente
+negro, daba un gris plano 0.5). No se toca la linea del warping
+(`UNITY_LIGHTMODEL_AMBIENT.a`), igual que en v21.1. `WebGLRenderFix` vuelve a
+no tocar el ambiente y `MapLoader.WebGLBundleQuery` sube a `?v=211`.
+
+**Servidores**: `serve-webgl.ps1`, `serve-lan.ps1` y el `servidor.ps1` del
+paquete mandan `no-store` tambien para `.js/.wasm/.data/.unityweb/.json`, para
+que un ZIP nuevo no arranque con el player viejo cacheado.
+
+**Build**: bundles (act-0/act-1/prime) con 0 `Shader error in` y 0 `error CS`.
+Player `BUILD RESULT: Succeeded | errors=0 | warnings=27 | sizeMB=466,0`, 0
+errores. Los bundles dentro del player coinciden (SHA256) con los recien
+construidos.
+
+**Revision**: STRAWBERRY (cobertura exacta de los 66, familia `-ambient`,
+alpha) y TOWER (vertexlit/reflectivos intactos, revert completo; corrigio
+finales de linea y el cache de los servidores). **Pendiente visual del
+usuario**: 1-2 (Streetcleaner), alas de Gabriel, lasers/Bonus, grietas y agua.
+
+**Fuera de alcance**: 20 shaders `psx_unlit_transparent_*` (79 materiales) en
+cola Geometry con `ZWrite Off` sin `Queue=Transparent`; 74 materiales con
+shader dummy (Water 3/4/5, railgun, puertas...).
 
 ## v21.1.1 (pre-release) - prueba: ambiente blanco en runtime
 

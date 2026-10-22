@@ -64,8 +64,12 @@ public class CustomPatterns : MonoBehaviour
 
 	private void Awake()
 	{
+#if !UNITY_WEBGL
+		// En WebGL no hay sistema de ficheros (Application.dataPath es una URL):
+		// Directory.CreateDirectory lanza excepcion y aborta el Awake.
 		Directory.CreateDirectory(Path.GetDirectoryName(PatternsPath));
 		Directory.CreateDirectory(PatternsPath);
+#endif
 		LoadEnabledPatterns();
 		BuildButtons();
 	}
@@ -146,6 +150,10 @@ public class CustomPatterns : MonoBehaviour
 
 	public void BuildButtons()
 	{
+#if UNITY_WEBGL
+		// Sin sistema de ficheros no hay patrones custom que listar.
+		return;
+#else
 		GridTile[] collection = (from f in Directory.GetDirectories(PatternsPath, "*", SearchOption.TopDirectoryOnly)
 			select new GridTile
 			{
@@ -240,6 +248,7 @@ public class CustomPatterns : MonoBehaviour
 		}
 		pageText.text = $"{currentPage}/{maxPages}";
 		buttonTemplate.SetActive(value: false);
+#endif
 	}
 
 	private bool GeneratePatternPreview(ArenaPattern pattern, Vector2Int offset, ref Texture2D target)

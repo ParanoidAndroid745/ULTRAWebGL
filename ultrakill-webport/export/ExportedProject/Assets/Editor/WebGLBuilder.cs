@@ -9,7 +9,11 @@ public static class WebGLBuilder
         string[] scenes =
         {
             "Assets/Scenes/Main Menu.unity",
-            "Assets/Scenes/Tutorial.unity"
+            "Assets/Scenes/Tutorial.unity",
+            // El Cyber Grind (escena "Endless") es una escena del player, no de
+            // los bundles. Sin esto, OptionsManager.ChangeLevel("Endless") cae en
+            // CanStreamedLevelBeLoaded == false y vuelve al menu principal.
+            "Assets/Scenes/Endless.unity"
         };
 
         PlayerSettings.WebGL.template = "APPLICATION:Default";

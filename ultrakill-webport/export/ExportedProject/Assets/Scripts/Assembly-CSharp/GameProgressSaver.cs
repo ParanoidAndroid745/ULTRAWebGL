@@ -56,6 +56,7 @@ public static class GameProgressSaver
 
 	private static void CreateSavesDirectory()
 	{
+#if !UNITY_WEBGL
 		if (!Directory.Exists(savesPath))
 		{
 			Directory.CreateDirectory(savesPath);
@@ -64,6 +65,7 @@ public static class GameProgressSaver
 		{
 			Directory.CreateDirectory(customSavesDir);
 		}
+#endif
 	}
 
 	private static FileStream GetOpenStreamSafe(string path)
@@ -217,6 +219,11 @@ public static class GameProgressSaver
 		{
 			fileCache.Add(path, graph);
 		}
+#if UNITY_WEBGL
+		// En WebGL no hay disco: la cache en memoria es la unica persistencia.
+		// Evita la excepcion de FileStream con la ruta URL de Application.dataPath.
+		return true;
+#else
 		string text = path + "-temp";
 		if (File.Exists(text))
 		{
@@ -263,6 +270,7 @@ public static class GameProgressSaver
 			Debug.LogError("Failed to move the temp file!");
 		}
 		return true;
+#endif
 	}
 
 	public static void FlushCache()

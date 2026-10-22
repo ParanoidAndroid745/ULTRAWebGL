@@ -288,8 +288,12 @@ public class CustomTextures : MonoBehaviour
 
 	private void Start()
 	{
+#if !UNITY_WEBGL
+		// En WebGL no hay sistema de ficheros: Directory.CreateDirectory lanza
+		// excepcion con la ruta URL de Application.dataPath.
 		Directory.CreateDirectory(Path.GetDirectoryName(TexturesPath));
 		Directory.CreateDirectory(TexturesPath);
+#endif
 		BuildButtons();
 		string[] array = new string[3]
 		{
@@ -341,6 +345,10 @@ public class CustomTextures : MonoBehaviour
 
 	public void BuildButtons()
 	{
+#if UNITY_WEBGL
+		// Sin sistema de ficheros no hay texturas custom que listar.
+		return;
+#else
 		GridTile[] collection = (from f in Directory.GetDirectories(Path.Combine(TexturesPath, currentRelativePath), "*", SearchOption.TopDirectoryOnly)
 			select new GridTile
 			{
@@ -424,6 +432,7 @@ public class CustomTextures : MonoBehaviour
 		}
 		pageText.text = $"{currentPage}/{maxPages}";
 		textureButtonTemplate.SetActive(value: false);
+#endif
 	}
 
 	private Texture2D LoadTexture(string name)

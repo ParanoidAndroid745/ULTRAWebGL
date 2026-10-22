@@ -264,6 +264,20 @@ public class MapLoader : MonoSingleton<MapLoader>
 	public void DebugLoadLevel(string levelName)
 	{
 		if (string.IsNullOrEmpty(levelName)) return;
+		// "Endless" (Cyber Grind) vive en el player, no en los bundles.
+		if (levelName == "Endless")
+		{
+			if (Application.CanStreamedLevelBeLoaded("Endless"))
+			{
+				Debug.Log("[DebugLoadLevel] Endless -> escena del player");
+				SceneManager.LoadScene("Endless");
+			}
+			else
+			{
+				Debug.LogError("[DebugLoadLevel] Endless no esta en el build del player");
+			}
+			return;
+		}
 		string act = "act-0";
 		if (levelName.StartsWith("Level 1-") || levelName.StartsWith("Level 2-") || levelName.StartsWith("Level 3-"))
 		{

@@ -40,6 +40,16 @@ Juggle), 2) MinosPrimeBody, 3) BloodDrop/BloodDrop_Trail, 4) MinosPrimeVeins y
 MinosWire, 5) BonusGhost/VirtueSphere, 6) HealingEffect/StainedGlass, 7)
 aditivos (Rimlight, LaserGrid, NailgunGlow, MinosSearchLights).
 
+**Rayos de Minos Prime (2-4)**: los haces (materiales `MinosSearchLights`,
+shaders unlit additive, textura `shockwavetex.png` de RGB casi blanco con alpha
+plano que el blend aditivo ignora) salian como conos blancos solidos. Se anade
+`_OpacScale` a esos 5 shaders (como uniform **suelto**: los properties
+numericos no existen en la etapa de vertex, por eso da "undeclared identifier"
+y hay que fijarlo desde codigo como `_ResY` o `_ColorPrecision`) y
+`WebGLRenderFix.Init()` hace `Shader.SetGlobalFloat("_OpacScale", 0.4f)`
+= 60% menos luz. El resto de la familia additive no cambia (solo declaran el
+uniform los shaders de los haces).
+
 **Sin rebuild de bundles no se ve nada**: los shaders viajan en los bundles.
 
 ## Fondo negro en Prelude, Limbo y Gluttony (cambiado, SIN publicar)

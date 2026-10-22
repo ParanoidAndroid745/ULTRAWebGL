@@ -2,10 +2,20 @@
 
 > Esto se escribe para que el trabajo no dependa de la memoria de la sesión:
 > si opencode compacta el contexto, si la sesión se cae, o si abres otra, el
-> estado está aquí. Última actualización: 2026-10-22 (v21.1.3 empaquetada y
-> publicada como pre-release en la rama risky).
+> estado está aquí. Última actualización: 2026-10-22 (v21.1.4 pre-release, todo
+> en `main`; `risky` eliminada).
 
-## v21.1.3 (pre-release, rama risky)
+## v21.1.4 (pre-release, `main`) — rayos de Minos al 0.1
+
+Unico cambio respecto a v21.1.3: `WebGLRenderFix.Init()` fija
+`_OpacScale = 0.1` (antes 0.4) → los haces de Minos Prime (2-4) salen un **90%
+mas transparentes**. Solo se toco C#, asi que **solo se recompilo el player**
+(los bundles de v21.1.3 son validos y se copiaron tal cual).
+
+- Rama `risky` eliminada (local y remota): todo el trabajo vive en `main`.
+- Build del player: 0 `Shader error in`, 0 `error CS`, `BUILD RESULT: Succeeded`.
+
+## v21.1.3 (pre-release; su tag sigue apuntando a su commit)
 
 **Cambios respecto a v21.1.2:**
 - **Colas de render de los unlit**: 28 shaders transparent + 6 additive a `Queue=Transparent` y 12 alphatest a `AlphaTest/TransparentCutout` (colas del juego original, verificadas en el CAB). Las alas de Gabriel (3-2) dejan de ser invisibles: con blend alfa en la cola Geometry las tapaba la geometria opaca posterior.

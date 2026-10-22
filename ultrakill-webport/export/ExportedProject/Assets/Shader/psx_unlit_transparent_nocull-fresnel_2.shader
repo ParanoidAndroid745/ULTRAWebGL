@@ -6,7 +6,7 @@ Shader "psx/transparent/unlit-noambient-nocull-fresnel_v3" {
 		_MainTex("Base (RGB)", 2D) = "white" {}
 	}
 		SubShader{
-		Tags{ "RenderType" = "Opaque" }
+		Tags{ "Queue" = "Transparent" "RenderType" = "Transparent" "IgnoreProjector" = "True" }
 		LOD 200
 
 		Pass{Cull Off

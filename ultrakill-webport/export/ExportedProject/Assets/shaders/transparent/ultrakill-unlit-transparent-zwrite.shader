@@ -6,12 +6,12 @@ Shader "psx/unlit/transparent/zwrite_v4" {
 		_MainTex("Base (RGB)", 2D) = "white" {}
 	}
 		SubShader{
-		Tags{ "RenderType" = "Opaque" }
+		Tags{ "Queue" = "Transparent" "RenderType" = "Transparent" "IgnoreProjector" = "True" }
 		LOD 200
 
 		Pass{Blend SrcAlpha OneMinusSrcAlpha
 ZWrite Off
-ZWrite Off
+
 			
 		Lighting On
 		CGPROGRAM

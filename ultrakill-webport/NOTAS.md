@@ -172,3 +172,4 @@ shaders hay que rehacer **ambos**.
 | v20.5 | Ajustes de gráficos cableados a los shaders (`_ResY`, `_ColorPrecision`), pausa y cámara verificadas |
 | v20.7 | Nombres de escena de act-1 corregidos contra el bundle original (1-4, 2-S, 3-2, Intermission1); **gráficos siempre-PC** (sin pixelización, sin compresión de color, sin warping) y ajustes PSX eliminados del menú; bloqueo de teclado arreglado para Chrome |
 | v20.8 | **Texture warping eliminado de verdad** (mapeo afín apagado en los 107 shaders reales y valores de warping a neutro en 1726 materiales); la sección `--PSX SETTINGS--` también desaparece del menú de pausa de los 22 niveles |
+| v21.1.1 | Prueba de **ambiente blanco en runtime** (`WebGLRenderFix.ApplyAmbient`) para los materiales unlit negros (Streetcleaner de 1-2); sin tocar shaders ni bundles. Pendiente de validacion visual |

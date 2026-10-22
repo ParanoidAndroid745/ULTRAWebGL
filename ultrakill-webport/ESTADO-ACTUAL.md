@@ -5,6 +5,30 @@
 > estado está aquí. Última actualización: 2026-10-21 (v21 empaquetada y
 > publicada como pre-release).
 
+## v21.1.1 (pre-release) - prueba: ambiente blanco en runtime
+
+**Hipotesis**: los enemigos/props negros (p. ej. el Streetcleaner de 1-2) usan
+materiales unlit (`psx_unlit_*`, `ultrakill-unlit*`) que multiplican el color
+por `UNITY_LIGHTMODEL_AMBIENT`. Las 25 escenas traen ambiente plano negro
+(`m_AmbientMode: 3`, `m_AmbientSkyColor: 0,0,0`), asi que ese factor es 0 y el
+objeto sale completamente negro.
+
+**Cambio**: `WebGLRenderFix.ApplyAmbient()` fuerza `AmbientMode.Flat`,
+`ambientLight = Color.white` y `ambientIntensity = 1` en `Init()` y despues de
+cada carga de escena (0.1/0.75/2 s). Solo se toco C#: **no** hay cambios en
+shaders, materiales ni bundles; los bundles son los de v21.1.
+
+**Riesgo esperado**: los shaders vertexlit usan `ShadeVertexLightsFull`, que
+tambien parte del ambiente, asi que el mundo puede verse mas claro o lavado.
+Es una prueba: si el resultado no convence, se revierte el archivo y se
+reconstruye el player.
+
+**Build**: `BUILD RESULT: Succeeded | errors=0 | warnings=27 | sizeMB=466,0`,
+0 `Shader error in` y 0 `error CS` en el log del player.
+
+**Pendiente**: validacion visual del usuario en 1-2 (Streetcleaners) y del
+aspecto general del mundo.
+
 ## v21 (pre-release) — agua/cristal/sangre/grietas: shaders transparentes reparados
 
 **Síntoma**: el agua de 1-2 (y cristales, sangre, grietas) salía rosa y negra.

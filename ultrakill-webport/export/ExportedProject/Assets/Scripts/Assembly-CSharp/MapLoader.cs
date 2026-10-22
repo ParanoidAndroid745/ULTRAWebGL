@@ -18,7 +18,7 @@ public class MapLoader : MonoSingleton<MapLoader>
 	// v21: shaders transparentes (agua, cristal, sangre, grietas) reparados: el
 	// header "Pass Blend ..." estaba mal formado y Unity los compilaba vacios.
 	// v212: cola Transparent/AlphaTest de los shaders unlit (alas de Gabriel y efectos).
-	private const string WebGLBundleQuery = "?v=212";
+	private const string WebGLBundleQuery = "?v=213";
 
 	public delegate void LoadCallback(AssetBundle actBundle);
 

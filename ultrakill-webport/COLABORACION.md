@@ -103,7 +103,7 @@ Arnés de pruebas visuales (Playwright: eventos de confianza, pointer lock real)
 
 ```powershell
 $py = "$env:LOCALAPPDATA\Programs\Python\Python312\python.exe"
-& $py .\ultrakill-webport\tools\visual\ukshot.py --url "http://localhost:8000/?v=212" `
+& $py .\ultrakill-webport\tools\visual\ukshot.py --url "http://localhost:8000/?v=213" `
       --out "$env:TEMP\opencode\shots" --actions "wait:45;key:Escape;wait:5;shot:pausa"
 & $py .\ultrakill-webport\tools\visual\ukshot.py --diff "$env:TEMP\opencode\shots\a.png" "$env:TEMP\opencode\shots\b.png"
 ```

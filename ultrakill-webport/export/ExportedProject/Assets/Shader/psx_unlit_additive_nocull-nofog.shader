@@ -5,7 +5,7 @@ Shader "psx/unlit/additive/nocull-nofog" {
 		_MainTex("Base (RGB)", 2D) = "white" {}
 	}
 		SubShader{
-		Tags{ "RenderType" = "Opaque" }
+		Tags{ "Queue" = "Transparent" "RenderType" = "Transparent" "IgnoreProjector" = "True" }
 		LOD 200
 
 		Pass{Cull Off

@@ -66,6 +66,13 @@ public class WebGLRenderFix : MonoBehaviour
         GameObject go = new GameObject("WebGLRenderFix");
         Object.DontDestroyOnLoad(go);
         instance = go.AddComponent<WebGLRenderFix>();
+
+        // Los haces de luz de Minos Prime (materiales MinosSearchLights, shaders
+        // unlit additive) se atenuan con _OpacScale. Es un uniform SUELTO: los
+        // properties numericos no existen en la etapa de vertex (el backend
+        // GLES no declara el cbuffer de material), asi que lo fija el codigo,
+        // igual que _ResY o _ColorPrecision. 0.4 = un 60% menos luz.
+        Shader.SetGlobalFloat("_OpacScale", 0.4f);
     }
 
     private void OnEnable()

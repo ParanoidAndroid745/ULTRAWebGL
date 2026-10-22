@@ -3,7 +3,6 @@
 Shader "psx/unlit/additive/nocull-nofog" {
 	Properties {
 		_MainTex("Base (RGB)", 2D) = "white" {}
-		_OpacScale("Opacity", Range(0,1)) = 1
 	}
 		SubShader{
 		Tags{ "Queue" = "Transparent" "RenderType" = "Transparent" "IgnoreProjector" = "True" }
@@ -25,6 +24,7 @@ ZWrite Off
 uniform float _ResY;
 uniform float _TextureWarping;
 uniform float _ColorPrecision;
+uniform float _OpacScale;
 
 	struct v2f
 	{
@@ -90,8 +90,8 @@ uniform float _ColorPrecision;
 	float4 frag(v2f IN) : COLOR
 	{
 		half4 c = tex2D(_MainTex, (_TextureWarping > 0.001 ? IN.uv_MainTex / IN.normal.r : IN.uv_MainTex))*IN.color;
-		// _OpacScale: el juego original lo usaba para atenuar estos haces
-		// (ScaleNFade lo anima en el material) y el export no lo declaraba.
+		// _OpacScale (uniform SUELTO, lo fija el codigo: los
+		// properties numericos no existen en la etapa de vertex)
 		half4 color = c * _OpacScale;
 		
 		// Compresion de color (_ColorPrecision) y pixelizacion (_ResY).

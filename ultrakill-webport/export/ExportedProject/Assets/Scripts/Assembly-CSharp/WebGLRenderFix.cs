@@ -71,8 +71,8 @@ public class WebGLRenderFix : MonoBehaviour
         // unlit additive) se atenuan con _OpacScale. Es un uniform SUELTO: los
         // properties numericos no existen en la etapa de vertex (el backend
         // GLES no declara el cbuffer de material), asi que lo fija el codigo,
-        // igual que _ResY o _ColorPrecision. 0.4 = un 60% menos luz.
-        Shader.SetGlobalFloat("_OpacScale", 0.4f);
+        // igual que _ResY o _ColorPrecision. 0.1 = un 90% menos luz (muy transparentes).
+        Shader.SetGlobalFloat("_OpacScale", 0.1f);
     }
 
     private void OnEnable()

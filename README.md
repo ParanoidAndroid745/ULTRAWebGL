@@ -2,7 +2,6 @@
 
 This repository is an unofficial, community-driven reverse engineering project aimed at porting **ULTRAKILL** to WebGL for educational, research, and platform-interoperability purposes.
 
-\---
 
 ## Support the Original Game
 
@@ -12,7 +11,6 @@ This repository is an unofficial, community-driven reverse engineering project a
 * The full game offers the complete, polished, officially supported experience: all levels, bosses, music, updates, and everything this port cannot and does not aim to replace.
 * This project is **not a substitute** for the game. It is a technical experiment. Buying the game is the best way to support *Hakita*, *New Blood Interactive*, and the future of ULTRAKILL.
 
-\---
 
 ## Legal Disclaimer \& Copyright Notice
 
@@ -28,13 +26,11 @@ If you are a rightsholder, representative, or member of **New Blood Interactive*
 * **Immediate Compliance:** This repository will be permanently taken down or modified immediately upon request by New Blood Interactive or any authorized individual holding legal rights to the *ULTRAKILL* intellectual property.
 * To request a takedown, you can open an Issue in this repository or contact us directly via e-mail, paranoidandroid745@proton.me.
 
-\---
 
 ## License
 
 No open-source license is granted for the original game logic or decompiled components contained herein. All original game code remains under the exclusive copyright of its original creators. Any custom boilerplate or build scripts created solely by this project's contributors are provided as-is without warranty.
 
-\---
 
 <sub>Parts of the code in this repository were written, modified, or reviewed with the help of AI tools.</sub>
 

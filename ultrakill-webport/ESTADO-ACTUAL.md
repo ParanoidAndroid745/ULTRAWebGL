@@ -2,8 +2,21 @@
 
 > Esto se escribe para que el trabajo no dependa de la memoria de la sesión:
 > si opencode compacta el contexto, si la sesión se cae, o si abres otra, el
-> estado está aquí. Última actualización: 2026-10-22 (v21.1.2 empaquetada y
-> publicada como pre-release).
+> estado está aquí. Última actualización: 2026-10-22 (v21.1.3 empaquetada y
+> publicada como pre-release en la rama risky).
+
+## v21.1.3 (pre-release, rama risky)
+
+**Cambios respecto a v21.1.2:**
+- **Colas de render de los unlit**: 28 shaders transparent + 6 additive a `Queue=Transparent` y 12 alphatest a `AlphaTest/TransparentCutout` (colas del juego original, verificadas en el CAB). Las alas de Gabriel (3-2) dejan de ser invisibles: con blend alfa en la cola Geometry las tapaba la geometria opaca posterior.
+- **Rayos de Minos Prime (2-4)**: se añade `_OpacScale` como *uniform suelto* (los properties numéricos no existen en la etapa de vertex) a los 5 shaders unlit additive de los haces, y `WebGLRenderFix.Init()` hace `Shader.SetGlobalFloat("_OpacScale", 0.4f)` = 60% menos luz. Los rayos salen más transparentes.
+- **Fondo negro en Prelude, Limbo y Gluttony**: se quita la skybox por defecto de Unity (fileID 10304) de las escenas sin cielo propio; Lust y Cyber Grind conservan su skybox.
+- `MapLoader.WebGLBundleQuery`: `?v=213`.
+- Servidores con `no-store` para `.js/.wasm/.data/.unityweb/.json`.
+- Revisión en cadena: STRAWBERRY + TOWER (APTO).
+- Build: bundles 0 `Shader error in` / 0 `error CS`; player `BUILD RESULT: Succeeded | errors=0 | warnings=27 | sizeMB=466,0`.
+
+## Rama `risky` (cola de render de los unlit: las alas de Gabriel)
 
 ## Rama `risky` (SIN publicar) - cola de render de los unlit: las alas de Gabriel
 

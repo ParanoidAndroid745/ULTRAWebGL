@@ -5,6 +5,43 @@
 > estado está aquí. Última actualización: 2026-10-22 (v21.1.2 empaquetada y
 > publicada como pre-release).
 
+## Rama `risky` (SIN publicar) - cola de render de los unlit: las alas de Gabriel
+
+**Sintoma**: las alas de Gabriel salian **invisibles**.
+
+**Diagnostico** (con datos): el material real de las alas en 3-2 es
+`Material/GabrielWings_1.mat` -> shader `psx/unlit/transparent/nocull_v2`, que
+tiene `Blend SrcAlpha OneMinusSrcAlpha` y `ZWrite Off` pero estaba en la cola
+**Geometry** (opaca). En Unity, un material con blend alfa en una cola < 2500 se
+dibuja en el **pase opaco**, no escribe profundidad y lo tapa la geometria opaca
+que se dibuja despues (la pared del fondo de la arena). El cuerpo de Gabriel es
+opaco y escribe profundidad, por eso se veia. Descartado: la textura
+(`T_Wings.png` es RGBA con alpha real), las UVs (0.017-1.94), los vertex colors
+(255,255,255,255) y la niebla (el vertexlit usa el mismo codigo y se ve bien).
+
+**Arreglo** (las colas son las del juego original, verificadas en el CAB):
+- 28 shaders unlit **transparent** -> `Tags{ "Queue" = "Transparent" "RenderType" = "Transparent" "IgnoreProjector" = "True" }`
+- 6 shaders unlit **additive** -> mismo Tags
+- 12 shaders **alphatest** -> `Tags{ "Queue" = "AlphaTest" "RenderType" = "TransparentCutout" "IgnoreProjector" = "True" }`
+- El original lleva `IgnoreProjector` solo en los alphatest; en transparent y
+  additive es inerte aqui (0 proyectores activos) y se mantiene por coherencia
+  con el resto del port.
+- Se quita el `ZWrite Off` duplicado de las variantes zwrite (inerte).
+- `MapLoader.WebGLBundleQuery` -> `?v=212` (los bundles cambian).
+- Sin tocar CG, materiales ni escenas. 171 materiales usan la familia; 10 tienen
+  `m_CustomRenderQueue: 5000` (ExplosionShockwave, preexistente).
+
+**Revision**: STRAWBERRY (cobertura, trampas de nombre, materiales mas
+delicados) y TOWER (verifico las Tags contra el CAB del juego original,
+corrigio la familia alphatest a AlphaTest/TransparentCutout, subio el `?v=212`).
+
+**Pendiente de prueba visual** (en orden): 1) alas de Gabriel (normal/enrage y
+Juggle), 2) MinosPrimeBody, 3) BloodDrop/BloodDrop_Trail, 4) MinosPrimeVeins y
+MinosWire, 5) BonusGhost/VirtueSphere, 6) HealingEffect/StainedGlass, 7)
+aditivos (Rimlight, LaserGrid, NailgunGlow, MinosSearchLights).
+
+**Sin rebuild de bundles no se ve nada**: los shaders viajan en los bundles.
+
 ## Fondo negro en Prelude, Limbo y Gluttony (cambiado, SIN publicar)
 
 **Sintoma**: al salirse del nivel se veia la **skybox por defecto de Unity**
@@ -56,9 +93,9 @@ alpha) y TOWER (vertexlit/reflectivos intactos, revert completo; corrigio
 finales de linea y el cache de los servidores). **Pendiente visual del
 usuario**: 1-2 (Streetcleaner), alas de Gabriel, lasers/Bonus, grietas y agua.
 
-**Fuera de alcance**: 20 shaders `psx_unlit_transparent_*` (79 materiales) en
-cola Geometry con `ZWrite Off` sin `Queue=Transparent`; 74 materiales con
-shader dummy (Water 3/4/5, railgun, puertas...).
+**Fuera de alcance**: 74 materiales con shader dummy (Water 3/4/5, railgun,
+puertas...). (La cola de los `psx_unlit_transparent_*` se arreglo despues, en la
+rama `risky`.)
 
 ## v21.1.1 (pre-release) - prueba: ambiente blanco en runtime
 

@@ -5,6 +5,25 @@
 > estado está aquí. Última actualización: 2026-10-22 (v21.1.2 empaquetada y
 > publicada como pre-release).
 
+## Fondo negro en Prelude, Limbo y Gluttony (cambiado, SIN publicar)
+
+**Sintoma**: al salirse del nivel se veia la **skybox por defecto de Unity**
+(el cielo azul procedural). Las escenas sin cielo propio referencian el builtin
+`Default-Skybox` (fileID 10304, guid `0000000000000000f000000000000000`) en su
+`RenderSettings.skybox`, asi que nunca es null y la camara principal acababa
+con `ClearFlags.Skybox` (el "fix" de cielos de la v21.1 lo dejo asi).
+
+**Arreglo**: `WebGLRenderFix.ApplySkybox()` quita esa skybox y pone el fondo en
+negro (`backgroundColor = Color.black`) en los niveles de **Prelude** (0-1..0-S),
+**Limbo** (1-1..1-S) y **Gluttony** (3-1, 3-2). Lust (2-1..2-4) y Cyber Grind
+(Endless) tienen skybox propia y no se tocan. Ninguna shader del proyecto
+muestrea la skybox de la escena (el cielo de Limbo usa su propio `_Cube`), asi
+que quitarla no rompe nada.
+
+**Fuera de la lista** (tambien usan la skybox por defecto, pendientes de
+decidir): 2-S, Intermission1, Tutorial, Level P-1, Intro, Main Menu y
+DebugRoom.
+
 ## v21.1.2 (pre-release) - arreglo real de los unlit negros, sin fullbright
 
 **Causa**: las 25 escenas traen ambiente plano negro (`m_AmbientMode: 3`,

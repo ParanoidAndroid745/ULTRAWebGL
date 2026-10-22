@@ -21,6 +21,12 @@ using UnityEngine.SceneManagement;
 ///    queda activo; su TeleportPlayer suma +70 en Y y creaba un bucle. Se apaga
 ///    su collider al colocar al jugador en el suelo (la intro original lo
 ///    desactiva al terminar).
+/// 5) Las escenas que no tienen skybox propia usan la skybox por defecto de
+///    Unity (Default-Skybox, el builtin fileID 10304). Como RenderSettings.skybox
+///    nunca es null, la camara principal acababa con ClearFlags.Skybox y se veia
+///    el cielo azul de Unity al salirse del nivel. En Prelude, Limbo y
+///    Gluttony se quita esa skybox y el fondo se queda en negro. Lust (2-1..2-4)
+///    y Cyber Grind tienen skybox propia y no se tocan.
 /// </summary>
 public class WebGLRenderFix : MonoBehaviour
 {
@@ -33,6 +39,22 @@ public class WebGLRenderFix : MonoBehaviour
 
     private const float TutorialCeiling = 50f;
     private const float TutorialFloorLimit = -50f;
+
+    /// <summary>
+    /// Niveles a los que se les pone fondo negro (quitan la skybox por defecto
+    /// de Unity). Son los que usan el builtin Default-Skybox en su
+    /// RenderSettings, asi que al salirse del nivel se veia el cielo azul de
+    /// Unity. Lust (2-1..2-4) y Cyber Grind tienen skybox propia: fuera.
+    /// </summary>
+    private static readonly string[] BlackBackgroundScenes =
+    {
+        // Prelude (acto 0)
+        "Level 0-1", "Level 0-2", "Level 0-3", "Level 0-4", "Level 0-5", "Level 0-S",
+        // Limbo (acto 1)
+        "Level 1-1", "Level 1-2", "Level 1-3", "Level 1-4", "Level 1-S",
+        // Gluttony (acto 1)
+        "Level 3-1", "Level 3-2"
+    };
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     private static void Init()
@@ -66,14 +88,52 @@ public class WebGLRenderFix : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        ApplySkybox();
         StartDelayed();
     }
 
     private IEnumerator ApplyDelayed(float seconds)
     {
         yield return new WaitForSecondsRealtime(seconds);
+        ApplySkybox();
         ApplyCameras();
         FixTutorialState();
+    }
+
+    /// <summary>
+    /// Quita la skybox por defecto de Unity (el builtin Default-Skybox, fileID
+    /// 10304) en los niveles de la lista y deja el fondo en negro. Sin esto,
+    /// RenderSettings.skybox nunca es null, la camara principal limpia con
+    /// ClearFlags.Skybox y al salirse del nivel se ve el cielo azul de Unity.
+    /// Los niveles de la lista referencian ese builtin en su RenderSettings
+    /// (comprobado en las 25 escenas), asi que no hay ningun cielo real que
+    /// perder: Lust (2-1..2-4) y Cyber Grind tienen skybox propia y no estan
+    /// en la lista.
+    /// </summary>
+    private static void ApplySkybox()
+    {
+        string sceneName = SceneManager.GetActiveScene().name;
+        if (System.Array.IndexOf(BlackBackgroundScenes, sceneName) < 0)
+        {
+            return;
+        }
+
+        Material sky = RenderSettings.skybox;
+        if (sky == null)
+        {
+            return;
+        }
+
+        RenderSettings.skybox = null;
+        Debug.Log("[WebGLRenderFix] Fondo negro en '" + sceneName + "' (se quita la skybox '" + sky.name + "').");
+
+        foreach (Camera c in Resources.FindObjectsOfTypeAll<Camera>())
+        {
+            if (c.name == "Main Camera" && c.gameObject.scene.isLoaded)
+            {
+                c.backgroundColor = Color.black;
+            }
+        }
     }
 
     private void Update()

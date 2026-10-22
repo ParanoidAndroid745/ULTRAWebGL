@@ -6,7 +6,7 @@ Shader "psx/vertexlit/alphatest_v1" {
 		_MainTex("Base (RGB)", 2D) = "white" {}
 	}
 		SubShader{
-			Tags { "RenderType" = "Opaque" }
+			Tags { "Queue" = "AlphaTest" "RenderType" = "TransparentCutout" "IgnoreProjector" = "True" }
 			LOD 200
 
 			Pass {

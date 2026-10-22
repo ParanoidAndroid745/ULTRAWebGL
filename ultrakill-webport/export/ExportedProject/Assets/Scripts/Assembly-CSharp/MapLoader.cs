@@ -17,7 +17,8 @@ public class MapLoader : MonoSingleton<MapLoader>
 	// Cambiar al reconstruir act-0 (evita que el navegador sirva el bundle viejo).
 	// v21: shaders transparentes (agua, cristal, sangre, grietas) reparados: el
 	// header "Pass Blend ..." estaba mal formado y Unity los compilaba vacios.
-	private const string WebGLBundleQuery = "?v=211";
+	// v212: cola Transparent/AlphaTest de los shaders unlit (alas de Gabriel y efectos).
+	private const string WebGLBundleQuery = "?v=212";
 
 	public delegate void LoadCallback(AssetBundle actBundle);
 

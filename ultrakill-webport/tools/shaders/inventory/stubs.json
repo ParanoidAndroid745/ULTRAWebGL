@@ -1,0 +1,830 @@
+[
+ {
+  "name": "psx/vertexlit-noambient-emissive",
+  "guid": "411a02c279df4134dbeab10100d896a7",
+  "path": "shaders\\main\\ultrakill-vertexlit-emissive.shader",
+  "size": 830,
+  "mats": 17,
+  "matlist": [
+   [
+    "CheckPointPlatform",
+    "materials\\CheckPointPlatform.mat"
+   ],
+   [
+    "Door2",
+    "materials\\Door2.mat"
+   ],
+   [
+    "Door3",
+    "materials\\Door3.mat"
+   ],
+   [
+    "Door4",
+    "materials\\Door4.mat"
+   ],
+   [
+    "Door5",
+    "materials\\Door5.mat"
+   ],
+   [
+    "Door5B",
+    "materials\\Door5B.mat"
+   ],
+   [
+    "DoorLock1B",
+    "materials\\DoorLock1B.mat"
+   ],
+   [
+    "DoorLock2B",
+    "materials\\DoorLock2B.mat"
+   ]
+  ]
+ },
+ {
+  "name": "psx/railgun",
+  "guid": "d769b45d1ac1b6c47a59b644c74699c3",
+  "path": "Shader\\psx_railgun_1.shader",
+  "size": 1408,
+  "mats": 4,
+  "matlist": [
+   [
+    "RailcannonHarpoon_1",
+    "Material\\RailcannonHarpoon_1.mat"
+   ],
+   [
+    "RailcannonMalicious_1",
+    "Material\\RailcannonMalicious_1.mat"
+   ],
+   [
+    "RailcannonWorld",
+    "Material\\RailcannonWorld.mat"
+   ],
+   [
+    "Railcannon_1",
+    "Material\\Railcannon_1.mat"
+   ]
+  ]
+ },
+ {
+  "name": "psx/railgun",
+  "guid": "2ebd27e4ec30a984a84a377288bb5d9c",
+  "path": "shaders\\special\\ultrakill-vertexlit-railgun.shader",
+  "size": 1408,
+  "mats": 4,
+  "matlist": [
+   [
+    "Railcannon",
+    "models\\railcannon\\Railcannon.mat"
+   ],
+   [
+    "RailcannonHarpoon",
+    "models\\railcannon\\RailcannonHarpoon.mat"
+   ],
+   [
+    "RailcannonMalicious",
+    "models\\railcannon\\RailcannonMalicious.mat"
+   ],
+   [
+    "RailcannonWorld",
+    "models\\railcannon\\RailcannonWorld.mat"
+   ]
+  ]
+ },
+ {
+  "name": "psx/railgun",
+  "guid": "3df265cd49b12cf40a8031c80c6a7e59",
+  "path": "Shader\\psx_railgun.shader",
+  "size": 1408,
+  "mats": 3,
+  "matlist": [
+   [
+    "Railcannon",
+    "Material\\Railcannon.mat"
+   ],
+   [
+    "RailcannonHarpoon",
+    "Material\\RailcannonHarpoon.mat"
+   ],
+   [
+    "RailcannonMalicious",
+    "Material\\RailcannonMalicious.mat"
+   ]
+  ]
+ },
+ {
+  "name": "psx/railgun",
+  "guid": "e588f6fd528685d42bcba11147289a94",
+  "path": "Shader\\psx_railgun_0.shader",
+  "size": 1408,
+  "mats": 3,
+  "matlist": [
+   [
+    "RailcannonHarpoon_0",
+    "Material\\RailcannonHarpoon_0.mat"
+   ],
+   [
+    "RailcannonMalicious_0",
+    "Material\\RailcannonMalicious_0.mat"
+   ],
+   [
+    "Railcannon_0",
+    "Material\\Railcannon_0.mat"
+   ]
+  ]
+ },
+ {
+  "name": "psx/railgun",
+  "guid": "a3d960c924aca28479e1af8d42b7caca",
+  "path": "Shader\\psx_railgun_2.shader",
+  "size": 1408,
+  "mats": 3,
+  "matlist": [
+   [
+    "RailcannonHarpoon_2",
+    "Material\\RailcannonHarpoon_2.mat"
+   ],
+   [
+    "RailcannonMalicious_2",
+    "Material\\RailcannonMalicious_2.mat"
+   ],
+   [
+    "Railcannon_2",
+    "Material\\Railcannon_2.mat"
+   ]
+  ]
+ },
+ {
+  "name": "psx/water",
+  "guid": "3ab59f5deb1adee40af708803e024dee",
+  "path": "Shader\\psx_water.shader",
+  "size": 1706,
+  "mats": 3,
+  "matlist": [
+   [
+    "Water 3",
+    "Material\\Water 3.mat"
+   ],
+   [
+    "Water 4",
+    "Material\\Water 4.mat"
+   ],
+   [
+    "Water 5",
+    "Material\\Water 5.mat"
+   ]
+  ]
+ },
+ {
+  "name": "psx/water",
+  "guid": "6e24c13c016f0554ba5bf31dae3e801a",
+  "path": "shaders\\special\\ultrakill-water.shader",
+  "size": 1706,
+  "mats": 3,
+  "matlist": [
+   [
+    "Water 3",
+    "materials\\Water 3.mat"
+   ],
+   [
+    "Water 4",
+    "materials\\Water 4.mat"
+   ],
+   [
+    "Water 5",
+    "materials\\Water 5.mat"
+   ]
+  ]
+ },
+ {
+  "name": "Hidden/ProBuilder/HideVertices",
+  "guid": "87b9c0abcb7226a46a38807fe6dfa453",
+  "path": "Shader\\Hidden_ProBuilder_HideVertices.shader",
+  "size": 847,
+  "mats": 2,
+  "matlist": [
+   [
+    "InvisibleFace",
+    "Material\\InvisibleFace.mat"
+   ],
+   [
+    "InvisibleFace",
+    "Resources\\materials\\InvisibleFace.mat"
+   ]
+  ]
+ },
+ {
+  "name": "Hidden/ProBuilder/HideVertices",
+  "guid": "e23d12231bddc4a49ab2860e1134a4f3",
+  "path": "Shader\\Hidden_ProBuilder_HideVertices_0.shader",
+  "size": 847,
+  "mats": 2,
+  "matlist": [
+   [
+    "InvisibleFace_0",
+    "Material\\InvisibleFace_0.mat"
+   ],
+   [
+    "InvisibleFace_1",
+    "Material\\InvisibleFace_1.mat"
+   ]
+  ]
+ },
+ {
+  "name": "Hidden/ProBuilder/HideVertices",
+  "guid": "2dcf3cedd2f05934bb8e0d0a8bfedd07",
+  "path": "Shader\\Hidden_ProBuilder_HideVertices_1.shader",
+  "size": 847,
+  "mats": 2,
+  "matlist": [
+   [
+    "InvisibleFace_2",
+    "Material\\InvisibleFace_2.mat"
+   ],
+   [
+    "InvisibleFace_3",
+    "Material\\InvisibleFace_3.mat"
+   ]
+  ]
+ },
+ {
+  "name": "Hidden/ProBuilder/HideVertices",
+  "guid": "a2cf5e8cf58acf748875a1fdbbbceecc",
+  "path": "Shader\\Hidden_ProBuilder_HideVertices_2.shader",
+  "size": 847,
+  "mats": 2,
+  "matlist": [
+   [
+    "InvisibleFace_4",
+    "Material\\InvisibleFace_4.mat"
+   ],
+   [
+    "InvisibleFace_5",
+    "Material\\InvisibleFace_5.mat"
+   ]
+  ]
+ },
+ {
+  "name": "Hidden/ProBuilder/HideVertices",
+  "guid": "2f4f7d6a20413b74a949e5db30be896f",
+  "path": "Shader\\Hidden_ProBuilder_HideVertices_3.shader",
+  "size": 847,
+  "mats": 2,
+  "matlist": [
+   [
+    "InvisibleFace_6",
+    "Material\\InvisibleFace_6.mat"
+   ],
+   [
+    "InvisibleFace",
+    "materials\\InvisibleFace.mat"
+   ]
+  ]
+ },
+ {
+  "name": "ULTRAKILL/Main_PostProcess",
+  "guid": "081006d8ea644334aa66400b6f21b705",
+  "path": "Shader\\ULTRAKILL_Main_PostProcess.shader",
+  "size": 1501,
+  "mats": 2,
+  "matlist": [
+   [
+    "HUD VSRM",
+    "Material\\HUD VSRM.mat"
+   ],
+   [
+    "Main VSRM",
+    "Material\\Main VSRM.mat"
+   ]
+  ]
+ },
+ {
+  "name": "ULTRAKILL/Main_PostProcess",
+  "guid": "328130809da1d8c4e898ee38a3244c5b",
+  "path": "Shader\\ULTRAKILL_Main_PostProcess_0.shader",
+  "size": 1388,
+  "mats": 2,
+  "matlist": [
+   [
+    "HUD VSRM_0",
+    "Material\\HUD VSRM_0.mat"
+   ],
+   [
+    "Main VSRM_0",
+    "Material\\Main VSRM_0.mat"
+   ]
+  ]
+ },
+ {
+  "name": "ULTRAKILL/Main_PostProcess",
+  "guid": "7fbfe4a45798d8e42823fd09231abf6f",
+  "path": "Shader\\ULTRAKILL_Main_PostProcess_1.shader",
+  "size": 1388,
+  "mats": 2,
+  "matlist": [
+   [
+    "HUD VSRM_1",
+    "Material\\HUD VSRM_1.mat"
+   ],
+   [
+    "Main VSRM_1",
+    "Material\\Main VSRM_1.mat"
+   ]
+  ]
+ },
+ {
+  "name": "ULTRAKILL/Main_PostProcess",
+  "guid": "cb6d50d8fe2471d4bad31cfea335560b",
+  "path": "Shader\\ULTRAKILL_Main_PostProcess_2.shader",
+  "size": 1388,
+  "mats": 2,
+  "matlist": [
+   [
+    "HUD VSRM_2",
+    "Material\\HUD VSRM_2.mat"
+   ],
+   [
+    "Main VSRM_2",
+    "Material\\Main VSRM_2.mat"
+   ]
+  ]
+ },
+ {
+  "name": "ULTRAKILL/Main_PostProcess",
+  "guid": "80c6d54b504b6a54d97d25d9f3b0fe41",
+  "path": "shaders\\postprocess\\ultrakill_main_postprocess.shader",
+  "size": 1388,
+  "mats": 2,
+  "matlist": [
+   [
+    "HUD VSRM",
+    "materials\\virtual screens\\HUD VSRM.mat"
+   ],
+   [
+    "Main VSRM",
+    "materials\\virtual screens\\Main VSRM.mat"
+   ]
+  ]
+ },
+ {
+  "name": "psx/heartbeat",
+  "guid": "cf5b0bca80ef3264ca24d852b055106a",
+  "path": "Shader\\psx_heartbeat.shader",
+  "size": 1656,
+  "mats": 2,
+  "matlist": [
+   [
+    "Arteries",
+    "Material\\Arteries.mat"
+   ],
+   [
+    "Heart",
+    "Material\\Heart.mat"
+   ]
+  ]
+ },
+ {
+  "name": "psx/heartbeat",
+  "guid": "c4f1b7887405bf74eace554bd4bcce33",
+  "path": "shaders\\special\\ultrakill_heartbeat.shader",
+  "size": 1656,
+  "mats": 2,
+  "matlist": [
+   [
+    "Arteries",
+    "models\\heart\\Arteries.mat"
+   ],
+   [
+    "Heart",
+    "models\\heart\\Heart.mat"
+   ]
+  ]
+ },
+ {
+  "name": "Hidden/ProBuilder/EdgePicker",
+  "guid": "fa2e47eb189791e4abf05e6bdffae780",
+  "path": "Shader\\Hidden_ProBuilder_EdgePicker.shader",
+  "size": 340,
+  "mats": 1,
+  "matlist": [
+   [
+    "EdgePicker",
+    "Resources\\materials\\EdgePicker.mat"
+   ]
+  ]
+ },
+ {
+  "name": "Hidden/ProBuilder/FacePicker",
+  "guid": "73c4fa0dd2e19114aba3388db2fbee5c",
+  "path": "Shader\\Hidden_ProBuilder_FacePicker.shader",
+  "size": 340,
+  "mats": 1,
+  "matlist": [
+   [
+    "FacePicker",
+    "Resources\\materials\\FacePicker.mat"
+   ]
+  ]
+ },
+ {
+  "name": "Hidden/ProBuilder/VertexPicker",
+  "guid": "d39ac9bd4f366374eb902b836300d1a3",
+  "path": "Shader\\Hidden_ProBuilder_VertexPicker.shader",
+  "size": 342,
+  "mats": 1,
+  "matlist": [
+   [
+    "VertexPicker",
+    "Resources\\materials\\VertexPicker.mat"
+   ]
+  ]
+ },
+ {
+  "name": "ProBuilder/Standard Vertex Color",
+  "guid": "fb7e6f4bf9bac3641a3c2083ed43a4eb",
+  "path": "Shader\\ProBuilder_Standard Vertex Color.shader",
+  "size": 655,
+  "mats": 1,
+  "matlist": [
+   [
+    "ProBuilderDefault",
+    "Resources\\materials\\ProBuilderDefault.mat"
+   ]
+  ]
+ },
+ {
+  "name": "ProBuilder/Standard Vertex Color",
+  "guid": "9abe5f5b9000c1845a776e2c5d69275f",
+  "path": "Shader\\ProBuilder_Standard Vertex Color_0.shader",
+  "size": 655,
+  "mats": 1,
+  "matlist": [
+   [
+    "ProBuilderDefault",
+    "Material\\ProBuilderDefault.mat"
+   ]
+  ]
+ },
+ {
+  "name": "ProBuilder/Standard Vertex Color",
+  "guid": "a6b9df9e206cc114cbcaecc4c1b70e6c",
+  "path": "Shader\\ProBuilder_Standard Vertex Color_1.shader",
+  "size": 655,
+  "mats": 1,
+  "matlist": [
+   [
+    "ProBuilderDefault_0",
+    "Material\\ProBuilderDefault_0.mat"
+   ]
+  ]
+ },
+ {
+  "name": "ProBuilder/Standard Vertex Color",
+  "guid": "420718ce0bdeccc43a51a09d7e0192e7",
+  "path": "Shader\\ProBuilder_Standard Vertex Color_2.shader",
+  "size": 655,
+  "mats": 1,
+  "matlist": [
+   [
+    "ProBuilderDefault_1",
+    "Material\\ProBuilderDefault_1.mat"
+   ]
+  ]
+ },
+ {
+  "name": "ProBuilder/Standard Vertex Color",
+  "guid": "3a0b32e4b1d04634ea4fddd75972f0ee",
+  "path": "Shader\\ProBuilder_Standard Vertex Color_3.shader",
+  "size": 655,
+  "mats": 1,
+  "matlist": [
+   [
+    "ProBuilderDefault_2",
+    "Material\\ProBuilderDefault_2.mat"
+   ]
+  ]
+ },
+ {
+  "name": "ProBuilder/UnlitVertexColor",
+  "guid": "f50c8a03d7bde4c42ba21ecaeb3045f6",
+  "path": "Shader\\ProBuilder_UnlitVertexColor.shader",
+  "size": 339,
+  "mats": 1,
+  "matlist": [
+   [
+    "UnlitVertexColor",
+    "Resources\\materials\\UnlitVertexColor.mat"
+   ]
+  ]
+ },
+ {
+  "name": "ULTRAKILL/Invert",
+  "guid": "5e6714b5a3c4376438c01b838d3949cb",
+  "path": "Shader\\ULTRAKILL_Invert.shader",
+  "size": 729,
+  "mats": 1,
+  "matlist": [
+   [
+    "invert",
+    "Material\\invert.mat"
+   ]
+  ]
+ },
+ {
+  "name": "ULTRAKILL/Invert",
+  "guid": "3a97fa522be308c4a8a9df2b7f82c672",
+  "path": "Shader\\ULTRAKILL_Invert_0.shader",
+  "size": 729,
+  "mats": 1,
+  "matlist": [
+   [
+    "invert_0",
+    "Material\\invert_0.mat"
+   ]
+  ]
+ },
+ {
+  "name": "ULTRAKILL/Invert",
+  "guid": "fb14ba793dfd6e040a2c7512d9ecc722",
+  "path": "Shader\\ULTRAKILL_Invert_1.shader",
+  "size": 729,
+  "mats": 1,
+  "matlist": [
+   [
+    "invert_1",
+    "Material\\invert_1.mat"
+   ]
+  ]
+ },
+ {
+  "name": "ULTRAKILL/Invert",
+  "guid": "c5fcca9451f07224e9d2acbfb3dfd04c",
+  "path": "Shader\\ULTRAKILL_Invert_2.shader",
+  "size": 729,
+  "mats": 1,
+  "matlist": [
+   [
+    "invert_2",
+    "Material\\invert_2.mat"
+   ]
+  ]
+ },
+ {
+  "name": "ULTRAKILL/Invert",
+  "guid": "c3fbf0a37ad9241459d7140633aa8b05",
+  "path": "shaders\\ultrakill_invert.shader",
+  "size": 729,
+  "mats": 1,
+  "matlist": [
+   [
+    "invert",
+    "materials\\invert.mat"
+   ]
+  ]
+ },
+ {
+  "name": "ULTRAKILL/bloodstain",
+  "guid": "0b4de1c333a3dc54f88985487b3a68d1",
+  "path": "Shader\\ULTRAKILL_bloodstain.shader",
+  "size": 1179,
+  "mats": 1,
+  "matlist": [
+   [
+    "Bloodstain_Sprite",
+    "Material\\Bloodstain_Sprite.mat"
+   ]
+  ]
+ },
+ {
+  "name": "ULTRAKILL/bloodstain",
+  "guid": "84554b6025fbfcf4083de2a4cb3621f2",
+  "path": "Shader\\ULTRAKILL_bloodstain_0.shader",
+  "size": 1179,
+  "mats": 1,
+  "matlist": [
+   [
+    "Bloodstain_Sprite_0",
+    "Material\\Bloodstain_Sprite_0.mat"
+   ]
+  ]
+ },
+ {
+  "name": "ULTRAKILL/bloodstain",
+  "guid": "b90ac8336194c8841bb2abd27c0fc679",
+  "path": "Shader\\ULTRAKILL_bloodstain_1.shader",
+  "size": 1179,
+  "mats": 1,
+  "matlist": [
+   [
+    "Bloodstain_Sprite_1",
+    "Material\\Bloodstain_Sprite_1.mat"
+   ]
+  ]
+ },
+ {
+  "name": "ULTRAKILL/bloodstain",
+  "guid": "bce6218fa3272204a9dadb49f8c97ee5",
+  "path": "Shader\\ULTRAKILL_bloodstain_2.shader",
+  "size": 1179,
+  "mats": 1,
+  "matlist": [
+   [
+    "Bloodstain_Sprite_2",
+    "Material\\Bloodstain_Sprite_2.mat"
+   ]
+  ]
+ },
+ {
+  "name": "ULTRAKILL/bloodstain",
+  "guid": "4a93dfac92f68b04f83d8994bfb3cc62",
+  "path": "shaders\\special\\ultrakill-bloodstain.shader",
+  "size": 1179,
+  "mats": 1,
+  "matlist": [
+   [
+    "Bloodstain_Sprite",
+    "materials\\sprites\\Bloodstain_Sprite.mat"
+   ]
+  ]
+ },
+ {
+  "name": "Unlit/Volumetric",
+  "guid": "678954c4bbd023b4088063e506db47b2",
+  "path": "shaders\\special\\volumetric.shader",
+  "size": 1120,
+  "mats": 1,
+  "matlist": [
+   [
+    "TestMaterial",
+    "shaders\\TestMaterial.mat"
+   ]
+  ]
+ },
+ {
+  "name": "UI Extensions/Particles/Additive",
+  "guid": "9ee480f5212a87d409c8b2ccc5d06674",
+  "path": "Resources\\shaders\\ui particle add.shader",
+  "size": 1553,
+  "mats": 0,
+  "matlist": []
+ },
+ {
+  "name": "UI Extensions/Particles/Additive (Soft)",
+  "guid": "196926d702433cf44969567f499dc417",
+  "path": "Resources\\shaders\\ui particle addsmooth.shader",
+  "size": 1504,
+  "mats": 0,
+  "matlist": []
+ },
+ {
+  "name": "UI Extensions/Particles/Alpha Blended",
+  "guid": "b7d487f7bcde89f43b79c31106a39cbd",
+  "path": "Resources\\shaders\\ui particle alpha blend.shader",
+  "size": 1558,
+  "mats": 0,
+  "matlist": []
+ },
+ {
+  "name": "UI Extensions/Particles/Alpha Blended Premultiply",
+  "guid": "45c5407f5d4e36441ab6bef46fea7f45",
+  "path": "Resources\\shaders\\ui particle premultiply blend.shader",
+  "size": 1514,
+  "mats": 0,
+  "matlist": []
+ },
+ {
+  "name": "UI Extensions/Particles/Blend",
+  "guid": "a9b6f3d56ff5c2c4eb101166d6c1d46b",
+  "path": "Resources\\shaders\\ui particle blend.shader",
+  "size": 1494,
+  "mats": 0,
+  "matlist": []
+ },
+ {
+  "name": "UI Extensions/Particles/Multiply",
+  "guid": "885719d4b4590df46a3be4877a29c8f7",
+  "path": "Resources\\shaders\\ui particle multiply.shader",
+  "size": 1497,
+  "mats": 0,
+  "matlist": []
+ },
+ {
+  "name": "UI Extensions/Particles/Multiply (Double)",
+  "guid": "823ff4f20b4316b4987a5a8476fc48b3",
+  "path": "Resources\\shaders\\ui particle multiplydouble.shader",
+  "size": 1506,
+  "mats": 0,
+  "matlist": []
+ },
+ {
+  "name": "UI Extensions/Particles/VertexLit Blended",
+  "guid": "2f86c864d8b8a624285db6a3015bacdc",
+  "path": "Resources\\shaders\\ui particle vertexlit blended.shader",
+  "size": 1507,
+  "mats": 0,
+  "matlist": []
+ },
+ {
+  "name": "UI Extensions/Particles/~Additive-Multiply",
+  "guid": "d37487753d6236d4e8c92cf64fbca56c",
+  "path": "Resources\\shaders\\ui particle addmultiply.shader",
+  "size": 1563,
+  "mats": 0,
+  "matlist": []
+ },
+ {
+  "name": "UI Extensions/SoftMaskShader",
+  "guid": "a601757d0f211f24e8e6b56f43027e07",
+  "path": "Resources\\shaders\\softmaskshader.shader",
+  "size": 1678,
+  "mats": 0,
+  "matlist": []
+ },
+ {
+  "name": "UI Extensions/UI Image Crop",
+  "guid": "443e8e916d83039458958173525352e2",
+  "path": "Resources\\shaders\\uiimagecrop.shader",
+  "size": 1144,
+  "mats": 0,
+  "matlist": []
+ },
+ {
+  "name": "UI Extensions/UIAdditive",
+  "guid": "4f205fb9ab3a25047917c260fcc49c64",
+  "path": "Resources\\shaders\\uiadditive.shader",
+  "size": 1436,
+  "mats": 0,
+  "matlist": []
+ },
+ {
+  "name": "UI Extensions/UILinearDodge",
+  "guid": "93b8904270d74f642a6e69abac54ea7b",
+  "path": "Resources\\shaders\\uilineardodge.shader",
+  "size": 1439,
+  "mats": 0,
+  "matlist": []
+ },
+ {
+  "name": "UI Extensions/UIMultiply",
+  "guid": "a53cef15719caff4eb949994abc180c4",
+  "path": "Resources\\shaders\\uimultiply.shader",
+  "size": 1436,
+  "mats": 0,
+  "matlist": []
+ },
+ {
+  "name": "UI Extensions/UIScreen",
+  "guid": "683e4165b8d088e47983db5d2b770941",
+  "path": "Resources\\shaders\\uiscreen.shader",
+  "size": 1434,
+  "mats": 0,
+  "matlist": []
+ },
+ {
+  "name": "UI Extensions/UISoftAdditive",
+  "guid": "8897fc9302735c4419e0cedc6cb1887c",
+  "path": "Resources\\shaders\\uisoftadditive.shader",
+  "size": 1440,
+  "mats": 0,
+  "matlist": []
+ },
+ {
+  "name": "UI/Particles/Hidden",
+  "guid": "08dbdae1ebd9cf0448f9f727ed251d94",
+  "path": "Resources\\shaders\\uiparticlehidden.shader",
+  "size": 732,
+  "mats": 0,
+  "matlist": []
+ },
+ {
+  "name": "ULTRAKILL/Additive",
+  "guid": "f964158563192104c930b00d3237d296",
+  "path": "shaders\\transparent\\ultrakill-simple-additive.shader",
+  "size": 1123,
+  "mats": 0,
+  "matlist": []
+ },
+ {
+  "name": "ULTRAKILL/Skybox",
+  "guid": "0beb00016020c8c4f9ee260f7190989a",
+  "path": "shaders\\special\\ultrakill_skybox.shader",
+  "size": 1445,
+  "mats": 0,
+  "matlist": []
+ },
+ {
+  "name": "ULTRAKILL/postblood",
+  "guid": "75a5fa72c1c90e443b045854ad372dc6",
+  "path": "shaders\\special\\ultrakill-postblood.shader",
+  "size": 1178,
+  "mats": 0,
+  "matlist": []
+ },
+ {
+  "name": "ddShaders/ddInvertMapped",
+  "guid": "5d74fc025e5ccd3448f8119a36e62a94",
+  "path": "shaders\\invert.shader",
+  "size": 541,
+  "mats": 0,
+  "matlist": []
+ }
+]

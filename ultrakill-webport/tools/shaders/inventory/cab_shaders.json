@@ -1,0 +1,1607 @@
+{
+ "ULTRAKILL/bloodstain": {
+  "props": [
+   {
+    "name": "_MainTex",
+    "type": 4,
+    "flags": 0,
+    "desc": "Texture",
+    "default": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "name": "_OpacScale",
+    "type": 3,
+    "flags": 0,
+    "desc": "Transparency Scalar",
+    "default": [
+     0.10000000149011612,
+     0.0,
+     1.0,
+     0.0
+    ]
+   },
+   {
+    "name": "_VertexWarpScale",
+    "type": 3,
+    "flags": 0,
+    "desc": "Vertex Warping Scalar",
+    "default": [
+     1.0,
+     0.0,
+     10.0,
+     0.0
+    ]
+   }
+  ],
+  "subshaders": [
+   {
+    "tags": [
+     [
+      "LIGHTMODE",
+      "FORWARDBASE"
+     ],
+     [
+      "PASSFLAGS",
+      "OnlyDirectional"
+     ],
+     [
+      "QUEUE",
+      "Transparent-1"
+     ],
+     [
+      "RenderType",
+      "Transparent"
+     ]
+    ],
+    "passes": [
+     {
+      "blendOp": null,
+      "src": null,
+      "dst": null,
+      "zwrite": null,
+      "ztest": null,
+      "cull": null,
+      "lighting": null,
+      "tags": []
+     }
+    ]
+   }
+  ],
+  "fallback": ""
+ },
+ "psx/heartbeat": {
+  "props": [
+   {
+    "name": "_MainTex",
+    "type": 4,
+    "flags": 0,
+    "desc": "Base (RGB)",
+    "default": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "name": "_OpacScale",
+    "type": 3,
+    "flags": 0,
+    "desc": "Transparency Scalar",
+    "default": [
+     1.0,
+     0.0,
+     1.0,
+     0.0
+    ]
+   },
+   {
+    "name": "_VertexWarpScale",
+    "type": 3,
+    "flags": 0,
+    "desc": "Vertex Warping Scalar",
+    "default": [
+     1.0,
+     0.0,
+     10.0,
+     0.0
+    ]
+   },
+   {
+    "name": "_UseVCols",
+    "type": 2,
+    "flags": 0,
+    "desc": "Use Vertex Color instead of UVs",
+    "default": [
+     1.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "name": "_VertexNoiseScale",
+    "type": 3,
+    "flags": 0,
+    "desc": "Vertex Distortion Density",
+    "default": [
+     1.0,
+     0.0,
+     10.0,
+     0.0
+    ]
+   },
+   {
+    "name": "_VertexNoiseSpeed",
+    "type": 3,
+    "flags": 0,
+    "desc": "Vertex Distortion Speed",
+    "default": [
+     1.0,
+     0.0,
+     10.0,
+     0.0
+    ]
+   },
+   {
+    "name": "_VertexNoiseAmplitude",
+    "type": 3,
+    "flags": 0,
+    "desc": "Vertex Distortion Amplitude",
+    "default": [
+     1.0,
+     0.0,
+     10.0,
+     0.0
+    ]
+   },
+   {
+    "name": "_FlowDirection",
+    "type": 0,
+    "flags": 0,
+    "desc": "Vertex Distortion Flow Direction (Normalized XYZ)",
+    "default": [
+     0.0,
+     1.0,
+     0.0,
+     1.0
+    ]
+   },
+   {
+    "name": "_ScrollMainTextureX",
+    "type": 2,
+    "flags": 0,
+    "desc": "Scroll MainTex X",
+    "default": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "name": "_ScrollMainTextureY",
+    "type": 2,
+    "flags": 0,
+    "desc": "Scroll MainTex Y",
+    "default": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   }
+  ],
+  "subshaders": [
+   {
+    "tags": [
+     [
+      "QUEUE",
+      "Transparent"
+     ],
+     [
+      "RenderType",
+      "Transparent"
+     ]
+    ],
+    "passes": [
+     {
+      "blendOp": null,
+      "src": null,
+      "dst": null,
+      "zwrite": null,
+      "ztest": null,
+      "cull": null,
+      "lighting": null,
+      "tags": []
+     }
+    ]
+   }
+  ],
+  "fallback": ""
+ },
+ "ddShaders/ddInvertMapped": {
+  "props": [
+   {
+    "name": "_Color",
+    "type": 0,
+    "flags": 0,
+    "desc": "Tint Color",
+    "default": [
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ]
+   },
+   {
+    "name": "_MainTex",
+    "type": 4,
+    "flags": 0,
+    "desc": "Main Texture",
+    "default": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   }
+  ],
+  "subshaders": [
+   {
+    "tags": [
+     [
+      "QUEUE",
+      "Transparent"
+     ]
+    ],
+    "passes": [
+     {
+      "blendOp": null,
+      "src": null,
+      "dst": null,
+      "zwrite": null,
+      "ztest": null,
+      "cull": null,
+      "lighting": null,
+      "tags": []
+     },
+     {
+      "blendOp": null,
+      "src": null,
+      "dst": null,
+      "zwrite": null,
+      "ztest": null,
+      "cull": null,
+      "lighting": null,
+      "tags": []
+     }
+    ]
+   }
+  ],
+  "fallback": ""
+ },
+ "ULTRAKILL/Skybox": {
+  "props": [
+   {
+    "name": "_RotateSky",
+    "type": 3,
+    "flags": 0,
+    "desc": "Sky Rotation",
+    "default": [
+     0.0,
+     0.0,
+     1.0,
+     0.0
+    ]
+   },
+   {
+    "name": "_TexMode",
+    "type": 2,
+    "flags": 0,
+    "desc": "Texture Type",
+    "default": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "name": "_MainTex",
+    "type": 4,
+    "flags": 0,
+    "desc": "Texture",
+    "default": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "name": "_Cubemap",
+    "type": 4,
+    "flags": 0,
+    "desc": "Cubemap",
+    "default": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "name": "_SkyTile",
+    "type": 3,
+    "flags": 0,
+    "desc": "Pano Sky Latitude Tile",
+    "default": [
+     4.0,
+     1.0,
+     4.0,
+     0.0
+    ]
+   },
+   {
+    "name": "_SkyHeightOffset",
+    "type": 2,
+    "flags": 0,
+    "desc": "Pano Sky Height Offset",
+    "default": [
+     0.5,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "name": "_SkyStretch",
+    "type": 2,
+    "flags": 0,
+    "desc": "Pano Sky Stretch",
+    "default": [
+     1.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "name": "_SkyTopSharpness",
+    "type": 2,
+    "flags": 0,
+    "desc": "Pano Sky Top Sharpness",
+    "default": [
+     4.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   }
+  ],
+  "subshaders": [
+   {
+    "tags": [
+     [
+      "RenderType",
+      "Opaque"
+     ]
+    ],
+    "passes": [
+     {
+      "blendOp": null,
+      "src": null,
+      "dst": null,
+      "zwrite": null,
+      "ztest": null,
+      "cull": null,
+      "lighting": null,
+      "tags": []
+     }
+    ]
+   }
+  ],
+  "fallback": ""
+ },
+ "ULTRAKILL/postblood": {
+  "props": [
+   {
+    "name": "_MainTex",
+    "type": 4,
+    "flags": 0,
+    "desc": "Texture",
+    "default": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "name": "_OpacScale",
+    "type": 3,
+    "flags": 0,
+    "desc": "Transparency Scalar",
+    "default": [
+     0.10000000149011612,
+     0.0,
+     1.0,
+     0.0
+    ]
+   },
+   {
+    "name": "_VertexWarpScale",
+    "type": 3,
+    "flags": 0,
+    "desc": "Vertex Warping Scalar",
+    "default": [
+     1.0,
+     0.0,
+     10.0,
+     0.0
+    ]
+   }
+  ],
+  "subshaders": [
+   {
+    "tags": [
+     [
+      "LIGHTMODE",
+      "FORWARDBASE"
+     ],
+     [
+      "PASSFLAGS",
+      "OnlyDirectional"
+     ],
+     [
+      "QUEUE",
+      "Geometry"
+     ],
+     [
+      "RenderType",
+      "Geometry"
+     ]
+    ],
+    "passes": [
+     {
+      "blendOp": null,
+      "src": null,
+      "dst": null,
+      "zwrite": null,
+      "ztest": null,
+      "cull": null,
+      "lighting": null,
+      "tags": []
+     }
+    ]
+   }
+  ],
+  "fallback": ""
+ },
+ "psx/vertexlit/pulsating": {
+  "props": [
+   {
+    "name": "_Color",
+    "type": 0,
+    "flags": 0,
+    "desc": "Color",
+    "default": [
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ]
+   },
+   {
+    "name": "_MainTex",
+    "type": 4,
+    "flags": 0,
+    "desc": "Base (RGB)",
+    "default": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "name": "_EmissiveColor",
+    "type": 0,
+    "flags": 0,
+    "desc": "Emissive Color (RGB)",
+    "default": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "name": "_EmissiveIntensity",
+    "type": 2,
+    "flags": 0,
+    "desc": "Emissive Strength",
+    "default": [
+     1.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "name": "_EmissivePosition",
+    "type": 3,
+    "flags": 0,
+    "desc": "Emissive Position",
+    "default": [
+     0.0,
+     0.0,
+     5.0,
+     0.0
+    ]
+   },
+   {
+    "name": "_VertexWarpScale",
+    "type": 3,
+    "flags": 0,
+    "desc": "Vertex Warping Scalar",
+    "default": [
+     1.0,
+     0.0,
+     10.0,
+     0.0
+    ]
+   },
+   {
+    "name": "_NoiseTex",
+    "type": 4,
+    "flags": 0,
+    "desc": "Noise",
+    "default": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "name": "_NoiseStrength",
+    "type": 3,
+    "flags": 0,
+    "desc": "NosieStrength Scalar",
+    "default": [
+     1.0,
+     0.0,
+     1.0,
+     0.0
+    ]
+   },
+   {
+    "name": "_Outline",
+    "type": 2,
+    "flags": 0,
+    "desc": "Assist Outline",
+    "default": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   }
+  ],
+  "subshaders": [
+   {
+    "tags": [
+     [
+      "RenderType",
+      "Opaque"
+     ]
+    ],
+    "passes": [
+     {
+      "blendOp": null,
+      "src": null,
+      "dst": null,
+      "zwrite": null,
+      "ztest": null,
+      "cull": null,
+      "lighting": null,
+      "tags": []
+     }
+    ]
+   }
+  ],
+  "fallback": ""
+ },
+ "ULTRAKILL/Main_PostProcess": {
+  "props": [
+   {
+    "name": "_MainTex",
+    "type": 4,
+    "flags": 0,
+    "desc": "Render Texture",
+    "default": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "name": "_NoiseTex",
+    "type": 4,
+    "flags": 0,
+    "desc": "Tiling Noise",
+    "default": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "name": "_UnderWaterScale",
+    "type": 2,
+    "flags": 0,
+    "desc": "Underwater Warp Scaling",
+    "default": [
+     1.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "name": "_UnderWaterStrength",
+    "type": 2,
+    "flags": 0,
+    "desc": "Underwater Warp Strength",
+    "default": [
+     1.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "name": "_UnderWaterSpeed",
+    "type": 2,
+    "flags": 0,
+    "desc": "Underwater Warp Speed",
+    "default": [
+     1.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "name": "_ClampFinalOpacity",
+    "type": 2,
+    "flags": 0,
+    "desc": "Ensure Final Opacity Never goes Below 0",
+    "default": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   }
+  ],
+  "subshaders": [
+   {
+    "tags": [],
+    "passes": [
+     {
+      "blendOp": null,
+      "src": null,
+      "dst": null,
+      "zwrite": null,
+      "ztest": null,
+      "cull": null,
+      "lighting": null,
+      "tags": []
+     }
+    ]
+   }
+  ],
+  "fallback": ""
+ },
+ "psx/water": {
+  "props": [
+   {
+    "name": "_Color",
+    "type": 0,
+    "flags": 0,
+    "desc": "Color",
+    "default": [
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ]
+   },
+   {
+    "name": "_MainTex",
+    "type": 4,
+    "flags": 0,
+    "desc": "Base (RGB)",
+    "default": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "name": "_OpacScale",
+    "type": 3,
+    "flags": 0,
+    "desc": "Transparency Scalar",
+    "default": [
+     1.0,
+     0.0,
+     1.0,
+     0.0
+    ]
+   },
+   {
+    "name": "_VertexWarpScale",
+    "type": 3,
+    "flags": 0,
+    "desc": "Vertex Warping Scalar",
+    "default": [
+     1.0,
+     0.0,
+     10.0,
+     0.0
+    ]
+   },
+   {
+    "name": "_VertexNoise",
+    "type": 4,
+    "flags": 0,
+    "desc": "Vertex Noise Texture Lookup",
+    "default": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "name": "_VertexNoiseScale",
+    "type": 3,
+    "flags": 0,
+    "desc": "Vertex Distortion Density",
+    "default": [
+     1.0,
+     0.0,
+     10.0,
+     0.0
+    ]
+   },
+   {
+    "name": "_VertexNoiseSpeed",
+    "type": 3,
+    "flags": 0,
+    "desc": "Vertex Distortion Speed",
+    "default": [
+     1.0,
+     0.0,
+     10.0,
+     0.0
+    ]
+   },
+   {
+    "name": "_VertexNoiseAmplitude",
+    "type": 3,
+    "flags": 0,
+    "desc": "Vertex Distortion Amplitude",
+    "default": [
+     1.0,
+     0.0,
+     10.0,
+     0.0
+    ]
+   },
+   {
+    "name": "_FlowDirection",
+    "type": 0,
+    "flags": 0,
+    "desc": "Vertex Distortion Flow Direction (Normalized XYZ)",
+    "default": [
+     0.0,
+     1.0,
+     0.0,
+     1.0
+    ]
+   },
+   {
+    "name": "_ScrollMainTextureX",
+    "type": 2,
+    "flags": 0,
+    "desc": "Scroll MainTex X",
+    "default": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "name": "_ScrollMainTextureY",
+    "type": 2,
+    "flags": 0,
+    "desc": "Scroll MainTex Y",
+    "default": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   }
+  ],
+  "subshaders": [
+   {
+    "tags": [
+     [
+      "QUEUE",
+      "Transparent"
+     ],
+     [
+      "RenderType",
+      "Transparent"
+     ]
+    ],
+    "passes": [
+     {
+      "blendOp": null,
+      "src": null,
+      "dst": null,
+      "zwrite": null,
+      "ztest": null,
+      "cull": null,
+      "lighting": null,
+      "tags": []
+     }
+    ]
+   }
+  ],
+  "fallback": ""
+ },
+ "Hidden/ProBuilder/HideVertices": {
+  "props": [],
+  "subshaders": [
+   {
+    "tags": [
+     [
+      "IGNOREPROJECTOR",
+      "true"
+     ],
+     [
+      "RenderType",
+      "Geometry"
+     ]
+    ],
+    "passes": [
+     {
+      "blendOp": null,
+      "src": null,
+      "dst": null,
+      "zwrite": null,
+      "ztest": null,
+      "cull": null,
+      "lighting": null,
+      "tags": []
+     }
+    ]
+   }
+  ],
+  "fallback": ""
+ },
+ "psx/railgun": {
+  "props": [
+   {
+    "name": "_Color",
+    "type": 0,
+    "flags": 0,
+    "desc": "Color",
+    "default": [
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ]
+   },
+   {
+    "name": "_MainTex",
+    "type": 4,
+    "flags": 0,
+    "desc": "Base (RGB)",
+    "default": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "name": "_EmissiveColor",
+    "type": 0,
+    "flags": 0,
+    "desc": "Emissive Color (RGB)",
+    "default": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "name": "_EmissiveIntensity",
+    "type": 2,
+    "flags": 0,
+    "desc": "Emissive Strength",
+    "default": [
+     1.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "name": "_EmissivePosition",
+    "type": 3,
+    "flags": 0,
+    "desc": "Emissive Position",
+    "default": [
+     0.0,
+     0.0,
+     5.0,
+     0.0
+    ]
+   },
+   {
+    "name": "_VertexWarpScale",
+    "type": 3,
+    "flags": 0,
+    "desc": "Vertex Warping Scalar",
+    "default": [
+     1.0,
+     0.0,
+     10.0,
+     0.0
+    ]
+   },
+   {
+    "name": "_Outline",
+    "type": 2,
+    "flags": 0,
+    "desc": "Assist Outline",
+    "default": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   }
+  ],
+  "subshaders": [
+   {
+    "tags": [
+     [
+      "RenderType",
+      "Opaque"
+     ]
+    ],
+    "passes": [
+     {
+      "blendOp": null,
+      "src": null,
+      "dst": null,
+      "zwrite": null,
+      "ztest": null,
+      "cull": null,
+      "lighting": null,
+      "tags": []
+     }
+    ]
+   }
+  ],
+  "fallback": ""
+ },
+ "ULTRAKILL/Invert": {
+  "props": [],
+  "subshaders": [
+   {
+    "tags": [
+     [
+      "LIGHTMODE",
+      "FORWARDBASE"
+     ],
+     [
+      "OnlyDirectional",
+      "true"
+     ]
+    ],
+    "passes": [
+     {
+      "blendOp": null,
+      "src": null,
+      "dst": null,
+      "zwrite": null,
+      "ztest": null,
+      "cull": null,
+      "lighting": null,
+      "tags": []
+     }
+    ]
+   }
+  ],
+  "fallback": ""
+ },
+ "ULTRAKILL/Additive": {
+  "props": [
+   {
+    "name": "_TintColor",
+    "type": 0,
+    "flags": 0,
+    "desc": "Tint Color",
+    "default": [
+     0.5,
+     0.5,
+     0.5,
+     0.5
+    ]
+   },
+   {
+    "name": "_MainTex",
+    "type": 4,
+    "flags": 0,
+    "desc": "Particle Texture",
+    "default": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   }
+  ],
+  "subshaders": [
+   {
+    "tags": [
+     [
+      "IGNOREPROJECTOR",
+      "true"
+     ],
+     [
+      "PreviewType",
+      "Plane"
+     ],
+     [
+      "QUEUE",
+      "Transparent"
+     ],
+     [
+      "RenderType",
+      "Transparent"
+     ]
+    ],
+    "passes": [
+     {
+      "blendOp": null,
+      "src": null,
+      "dst": null,
+      "zwrite": null,
+      "ztest": null,
+      "cull": null,
+      "lighting": null,
+      "tags": []
+     }
+    ]
+   }
+  ],
+  "fallback": ""
+ },
+ "psx/vertexlit/emissive": {
+  "props": [
+   {
+    "name": "_Color",
+    "type": 0,
+    "flags": 0,
+    "desc": "Color",
+    "default": [
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ]
+   },
+   {
+    "name": "_MainTex",
+    "type": 4,
+    "flags": 0,
+    "desc": "Base (RGB)",
+    "default": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "name": "_EmissiveTex",
+    "type": 4,
+    "flags": 0,
+    "desc": "Emissive Mask Texture (G)",
+    "default": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "name": "_UseAlbedoAsEmissive",
+    "type": 2,
+    "flags": 0,
+    "desc": "Use Base Texture as Emissve Color",
+    "default": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "name": "_EmissiveReplaces",
+    "type": 2,
+    "flags": 0,
+    "desc": "Emissive Replaces Instead of Adding to Underlying Color",
+    "default": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "name": "_EmissiveColor",
+    "type": 0,
+    "flags": 0,
+    "desc": "Emissive Color (RGB)",
+    "default": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "name": "_EmissiveIntensity",
+    "type": 2,
+    "flags": 0,
+    "desc": "Emissive Strength",
+    "default": [
+     1.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "name": "_VertexWarpScale",
+    "type": 3,
+    "flags": 0,
+    "desc": "Vertex Warping Scalar",
+    "default": [
+     1.0,
+     0.0,
+     10.0,
+     0.0
+    ]
+   },
+   {
+    "name": "_Outline",
+    "type": 2,
+    "flags": 0,
+    "desc": "Assist Outline",
+    "default": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   }
+  ],
+  "subshaders": [
+   {
+    "tags": [
+     [
+      "RenderType",
+      "Opaque"
+     ]
+    ],
+    "passes": [
+     {
+      "blendOp": null,
+      "src": null,
+      "dst": null,
+      "zwrite": null,
+      "ztest": null,
+      "cull": null,
+      "lighting": null,
+      "tags": []
+     }
+    ]
+   }
+  ],
+  "fallback": ""
+ },
+ "psx/vertexlit/cyber": {
+  "props": [
+   {
+    "name": "_Color",
+    "type": 0,
+    "flags": 0,
+    "desc": "Color",
+    "default": [
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ]
+   },
+   {
+    "name": "_MainTex",
+    "type": 4,
+    "flags": 0,
+    "desc": "Base (RGB)",
+    "default": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "name": "_VertexWarpScale",
+    "type": 3,
+    "flags": 0,
+    "desc": "Vertex Warping Scalar",
+    "default": [
+     1.0,
+     0.0,
+     10.0,
+     0.0
+    ]
+   },
+   {
+    "name": "_Outline",
+    "type": 2,
+    "flags": 0,
+    "desc": "Assist Outline",
+    "default": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "name": "_EmissiveTex",
+    "type": 4,
+    "flags": 0,
+    "desc": "Emissive Mask Texture (G)",
+    "default": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "name": "_UseAlbedoAsEmissive",
+    "type": 2,
+    "flags": 0,
+    "desc": "Use Base Texture as Emissve Color",
+    "default": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "name": "_EmissiveReplaces",
+    "type": 2,
+    "flags": 0,
+    "desc": "Emissive Replaces Instead of Adding to Underlying Color",
+    "default": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "name": "_EmissiveColor",
+    "type": 0,
+    "flags": 0,
+    "desc": "Emissive Color (RGB)",
+    "default": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "name": "_EmissiveIntensity",
+    "type": 2,
+    "flags": 0,
+    "desc": "Emissive Strength",
+    "default": [
+     1.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "name": "_PCGamerMode",
+    "type": 2,
+    "flags": 0,
+    "desc": "Engage Rainbow Mode",
+    "default": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "name": "_RainbowDensity",
+    "type": 3,
+    "flags": 0,
+    "desc": "RainbowDensity",
+    "default": [
+     1.0,
+     0.0,
+     200.0,
+     0.0
+    ]
+   },
+   {
+    "name": "_GradientScale",
+    "type": 3,
+    "flags": 0,
+    "desc": "Gradient Scale",
+    "default": [
+     1.0,
+     0.0,
+     2.0,
+     0.0
+    ]
+   },
+   {
+    "name": "_GradientFalloff",
+    "type": 3,
+    "flags": 0,
+    "desc": "Gradient Falloff",
+    "default": [
+     5.0,
+     0.0,
+     10.0,
+     0.0
+    ]
+   },
+   {
+    "name": "_GradientSpeed",
+    "type": 3,
+    "flags": 0,
+    "desc": "Gradient Speed",
+    "default": [
+     5.0,
+     0.0,
+     50.0,
+     0.0
+    ]
+   },
+   {
+    "name": "_WorldOffset",
+    "type": 1,
+    "flags": 0,
+    "desc": "World Center Offset",
+    "default": [
+     0.0,
+     0.0,
+     0.0,
+     1.0
+    ]
+   }
+  ],
+  "subshaders": [
+   {
+    "tags": [
+     [
+      "LIGHTMODE",
+      "Vertex"
+     ],
+     [
+      "RenderType",
+      "Opaque"
+     ]
+    ],
+    "passes": [
+     {
+      "blendOp": null,
+      "src": null,
+      "dst": null,
+      "zwrite": null,
+      "ztest": null,
+      "cull": null,
+      "lighting": null,
+      "tags": []
+     }
+    ]
+   }
+  ],
+  "fallback": ""
+ },
+ "ProBuilder/Standard Vertex Color": {
+  "props": [
+   {
+    "name": "_Color",
+    "type": 0,
+    "flags": 0,
+    "desc": "Color",
+    "default": [
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ]
+   },
+   {
+    "name": "_MainTex",
+    "type": 4,
+    "flags": 0,
+    "desc": "Albedo (RGB)",
+    "default": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "name": "_Glossiness",
+    "type": 3,
+    "flags": 0,
+    "desc": "Smoothness",
+    "default": [
+     0.5,
+     0.0,
+     1.0,
+     0.0
+    ]
+   },
+   {
+    "name": "_Metallic",
+    "type": 3,
+    "flags": 0,
+    "desc": "Metallic",
+    "default": [
+     0.0,
+     0.0,
+     1.0,
+     0.0
+    ]
+   }
+  ],
+  "subshaders": [
+   {
+    "tags": [
+     [
+      "RenderType",
+      "Opaque"
+     ]
+    ],
+    "passes": [
+     {
+      "blendOp": null,
+      "src": null,
+      "dst": null,
+      "zwrite": null,
+      "ztest": null,
+      "cull": null,
+      "lighting": null,
+      "tags": []
+     },
+     {
+      "blendOp": null,
+      "src": null,
+      "dst": null,
+      "zwrite": null,
+      "ztest": null,
+      "cull": null,
+      "lighting": null,
+      "tags": []
+     }
+    ]
+   }
+  ],
+  "fallback": "Standard"
+ },
+ "Unlit/Volumetric": {
+  "props": [
+   {
+    "name": "_MainTex",
+    "type": 4,
+    "flags": 0,
+    "desc": "Texture",
+    "default": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "name": "_Center",
+    "type": 2,
+    "flags": 0,
+    "desc": "Center",
+    "default": [
+     1.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   },
+   {
+    "name": "_Radius",
+    "type": 2,
+    "flags": 0,
+    "desc": "Radius",
+    "default": [
+     1.0,
+     0.0,
+     0.0,
+     0.0
+    ]
+   }
+  ],
+  "subshaders": [
+   {
+    "tags": [
+     [
+      "RenderType",
+      "Opaque"
+     ]
+    ],
+    "passes": [
+     {
+      "blendOp": null,
+      "src": null,
+      "dst": null,
+      "zwrite": null,
+      "ztest": null,
+      "cull": null,
+      "lighting": null,
+      "tags": []
+     }
+    ]
+   }
+  ],
+  "fallback": ""
+ }
+}

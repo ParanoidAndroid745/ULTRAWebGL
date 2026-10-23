@@ -332,6 +332,53 @@ Ctrl+D sigue anulado ✓; el panel F3 está dentro del fullscreen ✓; 0 errores
   solo traen stubs, y el build no conserva los snippets. O se escribe el shader a
   mano, o se reexporta un build antiguo donde AssetRipper sí pudiera decompilar.
 
+## Rama `shadertest` — shaders funcionales en lugar de los stubs
+
+**Qué se ha hecho** (fases 1-4; el playtest lo hace el usuario):
+
+- Inventario: **61 stubs** de AssetRipper (`DummyShaderTextExporter`), de los
+  cuales **40 los usan 84 materiales**; los otros 21 no los usa nadie.
+- Para cada stub usado se sacó del **CAB original** (`m_ParsedForm`) la lista de
+  propiedades, la cola y el estado de render (blend, ZWrite, Cull, ZTest). No se
+  ha adivinado nada: p. ej. `psx/water` es `SrcAlpha OneMinusSrcAlpha`, `ZWrite
+  On`, `Cull Off`, cola `Transparent`; `ULTRAKILL/bloodstain` es
+  `SrcAlpha SrcColor`, `ZWrite Off`, cola `Transparent-1`.
+- **13 shaders reescritos** (35 ficheros `.shader`, uno por cada GUID duplicado)
+  conservando su `.meta`, así que los materiales siguen apuntando al mismo
+  asset: `psx/water`, `psx/railgun`, `psx/heartbeat`,
+  `psx/vertexlit-noambient-emissive`, `ULTRAKILL/bloodstain`, `ULTRAKILL/Invert`,
+  `ULTRAKILL/Main_PostProcess`, `ProBuilder/Standard Vertex Color`,
+  `ProBuilder/UnlitVertexColor`, los tres `Hidden/ProBuilder/*Picker` y
+  `Unlit/Volumetric`.
+- `Hidden/ProBuilder/HideVertices` **no se ha tocado**: ya estaba arreglado
+  (`ColorMask 0`) en la sesión anterior; es el shader de los `InvisibleFace`.
+- Herramientas nuevas en `tools/shaders/`: `inventory.py`, `cab_extract.py`,
+  `generate.py` (fuente de los shaders), `apply2.py` (los copia conservando
+  GUID) y `verify_bundle.py` (los comprueba dentro del bundle construido).
+
+**Verificación**:
+
+- Bundles: **0 `Shader error in`, 0 `error CS`**. Compilan con blob real (water
+  5,9 KB, railgun 5,8 KB, heartbeat 4,6 KB, bloodstain 5,7 KB); antes eran stubs
+  que solo muestreaban la textura.
+- Materiales que los usan dentro del bundle: water 3 (act-1), railgun 3-4 (los
+  tres acts), heartbeat 2 (act-1), bloodstain 1 por acto, ProBuilder 1 por acto,
+  Invert 1 por acto, postprocess 2 por acto.
+- Player: `BUILD RESULT: Succeeded | errors=0 | warnings=31 | sizeMB=491,8`, 0
+  `Shader error in`.
+- `MapLoader.WebGLBundleQuery` → `?v=214`.
+
+**Límites conocidos** (funcional, no fiel):
+
+- El agua es la textura con scroll y alpha; **sin refracción**.
+- `psx/heartbeat` late con un seno: aproximación del pulso original.
+- `Main_PostProcess` es un pass-through; el port tiene el post-proceso
+  desactivado, así que no se ve.
+- Los 17 materiales de `psx/vertexlit-noambient-emissive` (puertas, drones,
+  Minos de `Assets/materials` y `models/`) no aparecen en ningún bundle ni en el
+  player: son duplicados sin usar. Las puertas reales usan
+  `psx/vertexlit/emissive`.
+
 ## Cómo construir y verificar
 
 ```powershell

@@ -1,64 +1,37 @@
+// port: shader funcional (shadertest)
 Shader "ULTRAKILL/Main_PostProcess" {
 	Properties {
-		_MainTex ("Render Texture", 2D) = "black" {}
-		_NoiseTex ("Tiling Noise", 2D) = "white" {}
-		_UnderWaterScale ("Underwater Warp Scaling", Float) = 1
-		_UnderWaterStrength ("Underwater Warp Strength", Float) = 1
-		_UnderWaterSpeed ("Underwater Warp Speed", Float) = 1
-		[MaterialToggle] _ClampFinalOpacity ("Ensure Final Opacity Never goes Below 0", Float) = 0
+		_MainTex("Base (RGB)", 2D) = "white" {}
+		_NoiseTex("Noise", 2D) = "white" {}
+		_UnderWaterScale("Underwater Scale", Range(0,10)) = 0
+		_UnderWaterStrength("Underwater Strength", Range(0,1)) = 0
+		_UnderWaterSpeed("Underwater Speed", Range(0,10)) = 0
+		_ClampFinalOpacity("Clamp Final Opacity", Range(0,1)) = 1
 	}
-	//DummyShaderTextExporter
-	SubShader{
-		Tags { "Queue"="Transparent" "RenderType"="Transparent" "IgnoreProjector"="True" }
-		LOD 200
-
-		Pass
-		{
-			Blend SrcAlpha OneMinusSrcAlpha
+	SubShader {
+		Tags { "Queue" = "Transparent" "RenderType" = "Transparent" "IgnoreProjector" = "True" }
+		Pass {
+			Blend One OneMinusSrcAlpha
 			ZWrite Off
+			ZTest Always
 			Cull Off
-			HLSLPROGRAM
+			CGPROGRAM
 			#pragma vertex vert
 			#pragma fragment frag
-
-			float4x4 unity_ObjectToWorld;
-			float4x4 unity_MatrixVP;
+			#include "UnityCG.cginc"
+			sampler2D _MainTex;
 			float4 _MainTex_ST;
-
-			struct Vertex_Stage_Input
+			float _ClampFinalOpacity;
+			struct appdata { float4 vertex : POSITION; float2 uv : TEXCOORD0; };
+			struct v2f { float4 pos : SV_POSITION; float2 uv : TEXCOORD0; };
+			v2f vert(appdata v) { v2f o; o.pos = UnityObjectToClipPos(v.vertex); o.uv = TRANSFORM_TEX(v.uv, _MainTex); return o; }
+			float4 frag(v2f i) : COLOR
 			{
-				float4 pos : POSITION;
-				float2 uv : TEXCOORD0;
-			};
-
-			struct Vertex_Stage_Output
-			{
-				float2 uv : TEXCOORD0;
-				float4 pos : SV_POSITION;
-			};
-
-			Vertex_Stage_Output vert(Vertex_Stage_Input input)
-			{
-				Vertex_Stage_Output output;
-				output.uv = (input.uv.xy * _MainTex_ST.xy) + _MainTex_ST.zw;
-				output.pos = mul(unity_MatrixVP, mul(unity_ObjectToWorld, input.pos));
-				return output;
+				half4 c = tex2D(_MainTex, i.uv);
+				c.a = saturate(c.a * _ClampFinalOpacity);
+				return c;
 			}
-
-			Texture2D<float4> _MainTex;
-			SamplerState sampler_MainTex;
-
-			struct Fragment_Stage_Input
-			{
-				float2 uv : TEXCOORD0;
-			};
-
-			float4 frag(Fragment_Stage_Input input) : SV_TARGET
-			{
-				return _MainTex.Sample(sampler_MainTex, input.uv.xy);
-			}
-
-			ENDHLSL
+			ENDCG
 		}
 	}
 }

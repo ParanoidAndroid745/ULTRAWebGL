@@ -566,8 +566,43 @@ public class MapLoader : MonoSingleton<MapLoader>
 		}
 	}
 
+	/// <summary>
+	/// El player y los bundles llevan COPIAS distintas de los mixers: los
+	/// AudioSource de las escenas de bundle apuntan al mixer del bundle y los de
+	/// las escenas del player (Main Menu, Tutorial, Endless) al del player.
+	/// El intro del menu baja el AllAudio del player a -80 dB y solo lo devuelve
+	/// a 0 cuando el intro termina; si se carga otra escena antes (p. ej. Endless
+	/// desde el menu F3), el mixer del player se queda a -80 y todo lo que pasa
+	/// por el (sonidos de enemigos y proyectiles) queda mudo, mientras que las
+	/// armas (sin grupo de mixer) y los actos (mixer del bundle) suenan igual.
+	/// </summary>
+	private void RestoreAllAudioMixer(string sceneName)
+	{
+		if (sceneName == "Main Menu")
+		{
+			// En el menu el volumen lo controla IntroTextController.
+			return;
+		}
+		AudioMixerController mixerController = MonoSingleton<AudioMixerController>.Instance;
+		if (!mixerController || !mixerController.allSound)
+		{
+			return;
+		}
+		float volume = 0f;
+		float pitch = 1f;
+		mixerController.allSound.GetFloat("allVolume", out volume);
+		mixerController.allSound.GetFloat("allPitch", out pitch);
+		mixerController.allSound.SetFloat("allVolume", 0f);
+		mixerController.allSound.SetFloat("allPitch", 1f);
+		if (volume < -0.5f || Mathf.Abs(pitch - 1f) > 0.01f)
+		{
+			Debug.Log("[Audio] " + sceneName + ": AllAudio allVolume " + volume.ToString("0.0") + " -> 0 dB, allPitch " + pitch.ToString("0.00") + " -> 1");
+		}
+	}
+
 	private void SceneManagerOnsceneLoaded(Scene scene, LoadSceneMode mode)
 	{
+		RestoreAllAudioMixer(scene.name);
 		if (scene.name == "Main Menu" || scene.name == "Endless")
 		{
 			isCustomLoaded = false;

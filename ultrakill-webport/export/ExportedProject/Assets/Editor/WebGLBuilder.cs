@@ -19,6 +19,9 @@ public static class WebGLBuilder
         PlayerSettings.WebGL.template = "APPLICATION:Default";
         PlayerSettings.WebGL.compressionFormat = WebGLCompressionFormat.Disabled;
         PlayerSettings.WebGL.memorySize = 512;
+        // El dialogo de error de Unity mostrara la excepcion y la pila en vez
+        // de "exception handling has been disabled in this build".
+        PlayerSettings.WebGL.exceptionSupport = WebGLExceptionSupport.FullWithStacktrace;
         PlayerSettings.runInBackground = true;
         PlayerSettings.defaultWebScreenWidth = 1280;
         PlayerSettings.defaultWebScreenHeight = 720;

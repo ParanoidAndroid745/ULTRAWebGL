@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Text;
 using UnityEngine;
 
 public static class GameProgressSaver
@@ -856,5 +857,260 @@ public static class GameProgressSaver
 		cyberRankData.style[num] = fcr.savedStyle;
 		cyberRankData.time[num] = fcr.savedTime;
 		SerializeWrite(cyberGrindHighScorePath, cyberRankData);
+	}
+
+	// -----------------------------------------------------------------------
+	// Debug del menu F3 (WebGL): desbloqueo de armas y progreso de niveles.
+	// Todo pasa por SerializeWrite, que en WebGL solo actualiza la cache en
+	// memoria, asi que no se toca el sistema de ficheros.
+	// -----------------------------------------------------------------------
+
+	private static readonly string[] DebugGearIds = new string[24]
+	{
+		"rev0", "rev1", "rev2", "rev3", "revalt",
+		"sho0", "sho1", "sho2", "sho3",
+		"nai0", "nai1", "nai2", "nai3",
+		"rai0", "rai1", "rai2", "rai3",
+		"rock0", "rock1", "rock2", "rock3",
+		"arm1", "arm2", "arm3"
+	};
+
+	private static readonly int[] DebugLayerFirstLevel = new int[4] { 1, 6, 10, 14 };
+
+	private static readonly int[] DebugLayerLastLevel = new int[4] { 5, 9, 13, 15 };
+
+	public static void DebugSetLayerCompleted(int layer, bool completed)
+	{
+		if (layer < 0 || layer >= DebugLayerFirstLevel.Length)
+		{
+			return;
+		}
+		int difficulty = PlayerPrefs.GetInt("Diff", 2);
+		int levelNum = (completed ? Mathf.Max(GetProgress(difficulty), DebugLayerLastLevel[layer] + 1) : DebugLayerFirstLevel[layer]);
+		DebugWriteProgress(levelNum);
+		if (completed)
+		{
+			SetTutorial(beat: true);
+			SetIntro(beat: true);
+		}
+	}
+
+	public static void DebugSetPrimeCompleted(bool completed)
+	{
+		GameProgressData gameProgressData = ReadGameProgress(currentDifficultyPath) ?? new GameProgressData();
+		if (gameProgressData.primeLevels == null || gameProgressData.primeLevels.Length < 3)
+		{
+			gameProgressData.primeLevels = new int[3];
+		}
+		gameProgressData.primeLevels[0] = (completed ? 2 : 0);
+		SerializeWrite(currentDifficultyPath, gameProgressData);
+		if (completed)
+		{
+			SetTutorial(beat: true);
+			SetIntro(beat: true);
+		}
+	}
+
+	public static void DebugSetAllLevelsCompleted(bool completed)
+	{
+		if (completed)
+		{
+			// 16 = todo lo disponible en el port (hasta 3-2) vencido.
+			DebugWriteProgress(16);
+			SetTutorial(beat: true);
+			SetIntro(beat: true);
+			DebugSetPrimeCompleted(completed: true);
+		}
+		else
+		{
+			DebugWriteProgress(1);
+			DebugSetPrimeCompleted(completed: false);
+		}
+	}
+
+	private static void DebugWriteProgress(int levelNum)
+	{
+		GameProgressData gameProgressData = ReadGameProgress(currentDifficultyPath) ?? new GameProgressData();
+		gameProgressData.levelNum = levelNum;
+		gameProgressData.difficulty = PlayerPrefs.GetInt("Diff", 2);
+		SerializeWrite(currentDifficultyPath, gameProgressData);
+	}
+
+	private static GameProgressMoneyAndGear DebugGetGeneralProgress()
+	{
+		return ReadGameProgressMoneyAndGear() ?? newProgressMoneyAndGear;
+	}
+
+	public static void DebugSetGearFamily(string family, bool unlocked)
+	{
+		GameProgressMoneyAndGear gameProgressMoneyAndGear = DebugGetGeneralProgress();
+		int num = (unlocked ? 1 : 0);
+		switch (family)
+		{
+		case "revolver":
+			gameProgressMoneyAndGear.rev0 = num;
+			gameProgressMoneyAndGear.rev1 = num;
+			gameProgressMoneyAndGear.rev2 = num;
+			gameProgressMoneyAndGear.rev3 = num;
+			gameProgressMoneyAndGear.revalt = num;
+			break;
+		case "shotgun":
+			gameProgressMoneyAndGear.sho0 = num;
+			gameProgressMoneyAndGear.sho1 = num;
+			gameProgressMoneyAndGear.sho2 = num;
+			gameProgressMoneyAndGear.sho3 = num;
+			break;
+		case "nailgun":
+			gameProgressMoneyAndGear.nai0 = num;
+			gameProgressMoneyAndGear.nai1 = num;
+			gameProgressMoneyAndGear.nai2 = num;
+			gameProgressMoneyAndGear.nai3 = num;
+			break;
+		case "railcannon":
+			gameProgressMoneyAndGear.rai0 = num;
+			gameProgressMoneyAndGear.rai1 = num;
+			gameProgressMoneyAndGear.rai2 = num;
+			gameProgressMoneyAndGear.rai3 = num;
+			break;
+		case "rocket":
+			gameProgressMoneyAndGear.rock0 = num;
+			gameProgressMoneyAndGear.rock1 = num;
+			gameProgressMoneyAndGear.rock2 = num;
+			gameProgressMoneyAndGear.rock3 = num;
+			break;
+		case "arms":
+			gameProgressMoneyAndGear.arm1 = num;
+			gameProgressMoneyAndGear.arm2 = num;
+			gameProgressMoneyAndGear.arm3 = num;
+			break;
+		default:
+			return;
+		}
+		SerializeWrite(generalProgressPath, gameProgressMoneyAndGear);
+		if (family == "arms")
+		{
+			// FistControl exige ademas el PlayerPrefs de cada brazo.
+			PlayerPrefs.SetInt("arm1", num);
+			PlayerPrefs.SetInt("arm2", num);
+			PlayerPrefs.SetInt("arm3", num);
+		}
+	}
+
+	public static void DebugSetAllGear(bool unlocked)
+	{
+		GameProgressMoneyAndGear gameProgressMoneyAndGear = DebugGetGeneralProgress();
+		int num = (unlocked ? 1 : 0);
+		gameProgressMoneyAndGear.rev0 = num;
+		gameProgressMoneyAndGear.rev1 = num;
+		gameProgressMoneyAndGear.rev2 = num;
+		gameProgressMoneyAndGear.rev3 = num;
+		gameProgressMoneyAndGear.revalt = num;
+		gameProgressMoneyAndGear.sho0 = num;
+		gameProgressMoneyAndGear.sho1 = num;
+		gameProgressMoneyAndGear.sho2 = num;
+		gameProgressMoneyAndGear.sho3 = num;
+		gameProgressMoneyAndGear.nai0 = num;
+		gameProgressMoneyAndGear.nai1 = num;
+		gameProgressMoneyAndGear.nai2 = num;
+		gameProgressMoneyAndGear.nai3 = num;
+		gameProgressMoneyAndGear.rai0 = num;
+		gameProgressMoneyAndGear.rai1 = num;
+		gameProgressMoneyAndGear.rai2 = num;
+		gameProgressMoneyAndGear.rai3 = num;
+		gameProgressMoneyAndGear.rock0 = num;
+		gameProgressMoneyAndGear.rock1 = num;
+		gameProgressMoneyAndGear.rock2 = num;
+		gameProgressMoneyAndGear.rock3 = num;
+		gameProgressMoneyAndGear.arm1 = num;
+		gameProgressMoneyAndGear.arm2 = num;
+		gameProgressMoneyAndGear.arm3 = num;
+		SerializeWrite(generalProgressPath, gameProgressMoneyAndGear);
+		PlayerPrefs.SetInt("arm1", num);
+		PlayerPrefs.SetInt("arm2", num);
+		PlayerPrefs.SetInt("arm3", num);
+	}
+
+	public static string DebugGetState()
+	{
+		// Formato compacto (sin comillas) para Application.ExternalCall:
+		// progreso|dificultad|tutorial|intro|prime|rev0,rev1,...
+		GameProgressMoneyAndGear gameProgressMoneyAndGear = ReadGameProgressMoneyAndGear();
+		int difficulty = PlayerPrefs.GetInt("Diff", 2);
+		StringBuilder stringBuilder = new StringBuilder(160);
+		stringBuilder.Append(GetProgress(difficulty)).Append('|');
+		stringBuilder.Append(difficulty).Append('|');
+		stringBuilder.Append(GetTutorial() ? 1 : 0).Append('|');
+		stringBuilder.Append(GetIntro() ? 1 : 0).Append('|');
+		stringBuilder.Append(GetPrime(difficulty, 1)).Append('|');
+		for (int i = 0; i < DebugGearIds.Length; i++)
+		{
+			if (i > 0)
+			{
+				stringBuilder.Append(',');
+			}
+			stringBuilder.Append(DebugGetGearValue(gameProgressMoneyAndGear, DebugGearIds[i]));
+		}
+		return stringBuilder.ToString();
+	}
+
+	private static int DebugGetGearValue(GameProgressMoneyAndGear data, string gear)
+	{
+		if (data == null)
+		{
+			return 0;
+		}
+		switch (gear)
+		{
+		case "rev0":
+			return data.rev0;
+		case "rev1":
+			return data.rev1;
+		case "rev2":
+			return data.rev2;
+		case "rev3":
+			return data.rev3;
+		case "revalt":
+			return data.revalt;
+		case "sho0":
+			return data.sho0;
+		case "sho1":
+			return data.sho1;
+		case "sho2":
+			return data.sho2;
+		case "sho3":
+			return data.sho3;
+		case "nai0":
+			return data.nai0;
+		case "nai1":
+			return data.nai1;
+		case "nai2":
+			return data.nai2;
+		case "nai3":
+			return data.nai3;
+		case "rai0":
+			return data.rai0;
+		case "rai1":
+			return data.rai1;
+		case "rai2":
+			return data.rai2;
+		case "rai3":
+			return data.rai3;
+		case "rock0":
+			return data.rock0;
+		case "rock1":
+			return data.rock1;
+		case "rock2":
+			return data.rock2;
+		case "rock3":
+			return data.rock3;
+		case "arm1":
+			return data.arm1;
+		case "arm2":
+			return data.arm2;
+		case "arm3":
+			return data.arm3;
+		default:
+			return 0;
+		}
 	}
 }

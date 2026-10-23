@@ -4,6 +4,76 @@
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>ULTRAKILL</title>
+    <!-- Consola de diagnostico: se instala antes que UnityLoader para capturar
+         tambien los logs y errores que ocurren durante el arranque del player.
+         La interfaz visible se construye al final del body (F2). -->
+    <script>
+      (function () {
+        'use strict';
+        var MAX = 2000;
+        var logs = [];
+        window.__ukLogs = logs;
+        window.__ukLogErrorCount = 0;
+
+        function stringify(value) {
+          if (typeof value === 'string') return value;
+          if (value instanceof Error) return value.stack || (value.name + ': ' + value.message);
+          if (value === undefined) return 'undefined';
+          if (value === null) return 'null';
+          try { return JSON.stringify(value); }
+          catch (e) {
+            try { return String(value); } catch (e2) { return '[objeto no serializable]'; }
+          }
+        }
+
+        function add(level, args) {
+          var parts = [];
+          for (var i = 0; i < args.length; i++) parts.push(stringify(args[i]));
+          var text = parts.join(' ').slice(0, 8000);
+          var entry = { time: Date.now(), level: level, text: text };
+          logs.push(entry);
+          if (logs.length > MAX) logs.shift();
+          if (window.__ukLogAppend) {
+            try { window.__ukLogAppend(entry); } catch (e) {}
+          }
+          if (level === 'error') {
+            window.__ukLogErrorCount++;
+            if (window.__ukLogOnError) {
+              try { window.__ukLogOnError(); } catch (e) {}
+            }
+          }
+        }
+
+        var methods = ['log', 'info', 'warn', 'error', 'debug'];
+        for (var i = 0; i < methods.length; i++) {
+          (function (name) {
+            var original = console[name];
+            if (typeof original !== 'function') return;
+            var level = (name === 'warn') ? 'warning' : name;
+            console[name] = function () {
+              add(level, arguments);
+              return original.apply(console, arguments);
+            };
+          })(methods[i]);
+        }
+
+        window.UKLog = function (message, level) {
+          add(level || 'info', [message]);
+        };
+
+        window.addEventListener('error', function (e) {
+          if (!e || (!e.message && !e.error)) return;
+          var where = '';
+          if (e.filename) where = ' @ ' + e.filename + ':' + (e.lineno || 0) + ':' + (e.colno || 0);
+          add('error', [(e.message || 'Error de script') + where + (e.error && e.error.stack ? '\n' + e.error.stack : '')]);
+        }, true);
+
+        window.addEventListener('unhandledrejection', function (e) {
+          var reason = e ? e.reason : null;
+          add('error', ['Promesa rechazada sin capturar: ' + stringify(reason) + (reason && reason.stack ? '\n' + reason.stack : '')]);
+        });
+      })();
+    </script>
     <link rel="shortcut icon" href="TemplateData/favicon.ico">
     <link rel="stylesheet" href="TemplateData/style.css">
     <script src="TemplateData/UnityProgress.js"></script>
@@ -64,32 +134,117 @@
         text-shadow: 0 0 4px #000, 0 0 4px #000;
         pointer-events: none;
       }
+      /* Menu de debug estilo test de ULTRAKILL: negro, texto blanco grueso. */
       .uk-dbg {
         display: none;
-        /* Fijo y centrado: asi el menu se ve tambien en pantalla completa
-           (el canvas esta dentro de .webgl-content, que esta escalado). */
+        /* Fijo: asi se ve tambien en pantalla completa. */
         position: fixed;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
+        left: 0;
+        top: 0;
+        width: 100vw;
+        height: 100vh;
         z-index: 9999;
-        max-width: 90vw;
-        max-height: 80vh;
-        overflow: auto;
-        padding: 12px 14px;
-        background: #101012;
-        border: 2px solid #f0c94a;
-        font-family: Helvetica, Verdana, Arial, sans-serif;
-        color: #e8e8e8;
-        box-shadow: 0 0 40px rgba(0, 0, 0, 0.85);
+        overflow-y: auto;
+        box-sizing: border-box;
+        padding: 16px 22px 48px 22px;
+        background: #000;
+        color: #fff;
+        font-family: "Arial Black", "Helvetica Neue", Helvetica, Arial, sans-serif;
       }
       .uk-dbg.open { display: block; }
+      .uk-dbg-help {
+        font-size: 15px;
+        font-weight: 900;
+        line-height: 1.35;
+        letter-spacing: 0.3px;
+      }
+      .uk-dbg-close-hint {
+        margin-top: 3px;
+        color: #777;
+        font-size: 12px;
+        letter-spacing: 1px;
+      }
+      .uk-dbg-section {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin: 30px 0 4px 0;
+      }
+      .uk-dbg-section-title {
+        font-size: 22px;
+        font-weight: 900;
+        letter-spacing: 2px;
+      }
+      .uk-layer { margin: 24px 0 2px 0; }
+      .uk-layer-head { display: flex; align-items: center; gap: 10px; }
+      .uk-layer-name {
+        font-size: 34px;
+        font-weight: 900;
+        line-height: 1;
+        letter-spacing: 1px;
+      }
+      .uk-check {
+        -webkit-appearance: none;
+        appearance: none;
+        flex: none;
+        width: 22px;
+        height: 22px;
+        margin: 0;
+        border: 2px solid #fff;
+        background: transparent;
+        cursor: pointer;
+      }
+      .uk-check:hover { background: #222; }
+      .uk-check:checked {
+        background: #fff;
+        box-shadow: inset 0 0 0 3px #000;
+      }
+      .uk-check:indeterminate {
+        background-color: #fff;
+        background-image: linear-gradient(#000, #000);
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 12px 2px;
+      }
+      .uk-levels { margin: 8px 0 0 2px; }
+      .uk-level {
+        display: block;
+        margin: 0;
+        padding: 1px 3px;
+        border: 0;
+        background: none;
+        color: #fff;
+        font-family: inherit;
+        font-size: 15px;
+        font-weight: 900;
+        line-height: 1.5;
+        letter-spacing: 0.5px;
+        text-align: left;
+        cursor: pointer;
+      }
+      .uk-level:hover { background: #fff; color: #000; }
+      .uk-gear-list { margin-top: 6px; }
+      .uk-gear {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        width: fit-content;
+        margin: 4px 0;
+        padding: 1px 3px;
+        font-size: 15px;
+        font-weight: 900;
+        letter-spacing: 0.5px;
+        cursor: pointer;
+        user-select: none;
+      }
+      .uk-gear:hover { background: #fff; color: #000; }
+      .uk-gear:hover .uk-check { border-color: #000; }
       .uk-toast {
         position: fixed;
         left: 50%;
         bottom: 26px;
         transform: translateX(-50%);
-        z-index: 10000;
+        z-index: 10002;
         display: none;
         padding: 8px 16px;
         background: #101012;
@@ -100,31 +255,106 @@
         letter-spacing: 1px;
       }
       .uk-toast.show { display: block; }
-      .uk-dbg-title {
-        color: #f0c94a;
-        font-weight: bold;
-        letter-spacing: 1px;
-        margin-bottom: 8px;
-      }
-      .uk-dbg-list { display: flex; flex-wrap: wrap; gap: 6px; }
-      .uk-dbg-list .uk-lvl {
-        background: #1b1b20;
-        color: #cfd6e4;
-        border: 1px solid #3a3a45;
-        padding: 5px 9px;
-        font-size: 12px;
-        cursor: pointer;
-        font-family: inherit;
-      }
-      .uk-dbg-list .uk-lvl:hover { background: #f0c94a; color: #111; }
-      .uk-dbg-list .uk-grp {
-        width: 100%;
-        color: #8d8d8d;
+      /* Boton flotante de la consola: solo se ve en pantalla completa, donde
+         la barra de botones de abajo queda fuera del elemento fullscreen. */
+      .uk-log-fab {
+        display: none;
+        position: fixed;
+        left: 12px;
+        top: 8px;
+        z-index: 9997;
+        align-items: center;
+        gap: 6px;
+        padding: 4px 8px;
+        background: #000;
+        color: #fff;
+        border: 2px solid #fff;
+        font-family: "Arial Black", "Helvetica Neue", Helvetica, Arial, sans-serif;
         font-size: 11px;
+        font-weight: 900;
         letter-spacing: 1px;
-        margin-top: 6px;
+        cursor: pointer;
       }
-      .uk-dbg-note { color: #8d8d8d; font-size: 11px; margin-top: 10px; }
+      .uk-log-fab.in-fs { display: flex; }
+      .uk-log-fab:hover { background: #fff; color: #000; }
+      .uk-log-fab-count {
+        padding: 1px 5px;
+        background: #ff3b30;
+        color: #fff;
+        border-radius: 8px;
+        font-size: 10px;
+        line-height: 1.3;
+      }
+      .uk-log-fab-count.hidden { display: none; }
+      .uk-log {
+        display: none;
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100vw;
+        height: 45vh;
+        min-height: 180px;
+        max-height: 65vh;
+        z-index: 10001;
+        box-sizing: border-box;
+        background: rgba(0, 0, 0, 0.96);
+        color: #e8e8e8;
+        border-top: 2px solid #fff;
+        font-family: Consolas, "Courier New", monospace;
+        font-size: 12px;
+      }
+      .uk-log.open { display: flex; flex-direction: column; }
+      .uk-log-head {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 6px;
+        flex: none;
+        padding: 6px 10px;
+        border-bottom: 1px solid #444;
+      }
+      .uk-log-title {
+        color: #fff;
+        font-family: "Arial Black", "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-size: 13px;
+        font-weight: 900;
+        letter-spacing: 2px;
+      }
+      .uk-log-count { color: #ff6b6b; font-weight: bold; }
+      .uk-log-spacer { flex: 1; }
+      .uk-log-btn {
+        padding: 3px 7px;
+        background: #000;
+        color: #fff;
+        border: 1px solid #fff;
+        font-family: Consolas, "Courier New", monospace;
+        font-size: 10px;
+        font-weight: bold;
+        letter-spacing: 0.5px;
+        cursor: pointer;
+      }
+      .uk-log-btn:hover, .uk-log-btn.active { background: #fff; color: #000; }
+      .uk-log-body {
+        flex: 1;
+        overflow-y: auto;
+        padding: 6px 10px 12px 10px;
+        user-select: text;
+      }
+      .uk-log-line {
+        padding: 1px 0;
+        line-height: 1.4;
+        white-space: pre-wrap;
+        word-break: break-word;
+      }
+      .uk-log-time { margin-right: 6px; color: #777; }
+      .uk-log-level { display: inline-block; min-width: 38px; margin-right: 6px; font-weight: bold; }
+      .uk-log-info .uk-log-level { color: #9fd3ff; }
+      .uk-log-debug .uk-log-level { color: #777; }
+      .uk-log-warning .uk-log-level { color: #f0c94a; }
+      .uk-log-error .uk-log-level { color: #ff5555; }
+      .uk-log-warning { color: #f0c94a; }
+      .uk-log-error { color: #ffb3b3; }
+      .uk-log-body.filter-errors .uk-log-line:not(.uk-log-error) { display: none; }
     </style>
   </head>
   <body>
@@ -138,6 +368,7 @@
       <div class="uk-bar">
         <button id="uk-fs-btn" class="uk-btn" onclick="UKFullscreen.toggle()">PANTALLA COMPLETA</button>
         <button id="uk-dbg-btn" class="uk-btn" onclick="UKDebug.toggle()">NIVELES (F3)</button>
+        <button id="uk-log-btn" class="uk-btn" onclick="UKLogUI.toggle()">CONSOLA (F2)</button>
         <span id="uk-fs-hint" class="uk-hint">Esc pausa. Usa el boton (no F11). Salir: manten Esc 2 s o Shift+Esc.</span>
         <span id="uk-fs-status" class="uk-status"></span>
       </div>
@@ -149,17 +380,44 @@
          vivir en el HTML de dentro porque el loader de Unity vacia el
          contenedor al arrancar. -->
     <div id="uk-dbg-panel" class="uk-dbg">
-      <div class="uk-dbg-title">MENU DE NIVELES (debug)</div>
-      <div id="uk-dbg-list" class="uk-dbg-list"></div>
-      <div class="uk-dbg-note">Carga directa de cualquier nivel: el juego descarga el bundle
-      del acto que le toca. Cierra con F3 o con Esc.</div>
+      <div class="uk-dbg-help">
+        <div>click checkbox next to layer to mark as completed</div>
+        <div>click scene name to teleport to it</div>
+        <div class="uk-dbg-close-hint">F3 / ESC PARA CERRAR · F2 CONSOLA</div>
+      </div>
+      <div id="uk-dbg-levels"></div>
+      <div id="uk-dbg-gear"></div>
     </div>
     <div id="uk-toast" class="uk-toast"></div>
+    <button id="uk-log-fab" class="uk-log-fab" type="button" title="Consola de logs (F2)">
+      LOG
+      <span id="uk-log-fab-count" class="uk-log-fab-count hidden">0</span>
+    </button>
+    <div id="uk-log-panel" class="uk-log">
+      <div class="uk-log-head">
+        <span class="uk-log-title">CONSOLA</span>
+        <span id="uk-log-count" class="uk-log-count">0 errores</span>
+        <span class="uk-log-spacer"></span>
+        <button id="uk-log-filter" class="uk-log-btn" type="button">SOLO ERRORES</button>
+        <button id="uk-log-copy" class="uk-log-btn" type="button">COPIAR</button>
+        <button id="uk-log-clear" class="uk-log-btn" type="button">LIMPIAR</button>
+        <button id="uk-log-close" class="uk-log-btn" type="button">CERRAR (F2)</button>
+      </div>
+      <div id="uk-log-body" class="uk-log-body"></div>
+    </div>
 
 
     <script>
       (function () {
         'use strict';
+
+        // Puente con la consola visible (script del <head>). Si por lo que sea
+        // no existiera, el menu sigue funcionando igual.
+        function diag(message, level) {
+          if (typeof window.UKLog === 'function') {
+            try { window.UKLog(message, level || 'info'); } catch (e) {}
+          }
+        }
 
         // =====================================================================
         // Bloqueo del raton: el juego lo suelta y lo vuelve a pedir en CADA
@@ -177,6 +435,9 @@
           try {
             var nativeExit = document.exitPointerLock;
             if (!nativeExit) return;
+            // El menu F3 necesita soltar el raton aunque el juego lo mantenga
+            // oculto (el wrapper de abajo retrasa la liberacion en partida).
+            window.__ukNativeExitPointerLock = nativeExit;
             var releaseTimer = 0;
             document.exitPointerLock = function () {
               if (releaseTimer) { clearTimeout(releaseTimer); releaseTimer = 0; }
@@ -463,9 +724,17 @@
             var panel = document.getElementById('uk-dbg-panel');
             var toast = document.getElementById('uk-toast');
             var status = document.getElementById('uk-fs-status');
+            var logPanel = document.getElementById('uk-log-panel');
+            var logFab = document.getElementById('uk-log-fab');
             if (!panel || !toast || !status) return;
             if (!moveOverlays.home) {
-              moveOverlays.home = {panel: panel.parentNode, toast: toast.parentNode, status: status.parentNode};
+              moveOverlays.home = {
+                panel: panel.parentNode,
+                toast: toast.parentNode,
+                status: status.parentNode,
+                logPanel: logPanel ? logPanel.parentNode : null,
+                logFab: logFab ? logFab.parentNode : null
+              };
             }
             var home = moveOverlays.home;
             if (inside) {
@@ -475,12 +744,22 @@
                 cont.appendChild(status);
                 status.classList.add('in-fs');
               }
+              if (logPanel && logPanel.parentNode !== cont) cont.appendChild(logPanel);
+              if (logFab) {
+                if (logFab.parentNode !== cont) cont.appendChild(logFab);
+                logFab.classList.add('in-fs');
+              }
             } else {
               if (panel.parentNode !== home.panel) home.panel.appendChild(panel);
               if (toast.parentNode !== home.toast) home.toast.appendChild(toast);
               if (status.parentNode !== home.status) {
                 home.status.appendChild(status);
                 status.classList.remove('in-fs');
+              }
+              if (logPanel && home.logPanel && logPanel.parentNode !== home.logPanel) home.logPanel.appendChild(logPanel);
+              if (logFab) {
+                if (home.logFab && logFab.parentNode !== home.logFab) home.logFab.appendChild(logFab);
+                logFab.classList.remove('in-fs');
               }
             }
           } catch (e) {}
@@ -595,6 +874,10 @@
         }
 
         function requestPointerLock() {
+          // Con el menu F3 o la consola abiertos el raton debe quedar libre
+          // para poder pulsar botones; si no, el reintento periodico lo
+          // recaptura.
+          if (dbgOpen || logOpen) { lockPending = false; return; }
           var c = canvasEl();
           if (!c) return;
           if (lockHeld()) { lockPending = false; lockBackoff = 700; return; }
@@ -674,10 +957,10 @@
         function capturePointer() {
           var c = canvasEl();
           if (!c) return;
-          // Con el menu de niveles abierto no se toca el raton: si no, al
-          // pinchar en un boton se capturaria el puntero y el menu dejaria de
-          // responder.
-          if (dbgOpen) return;
+          // Con el menu de niveles o la consola abiertos no se toca el raton:
+          // si no, al pinchar en un boton se capturaria el puntero y la
+          // interfaz dejaria de responder.
+          if (dbgOpen || logOpen) return;
           // Un gesto nuevo del usuario reinicia la espera de los reintentos.
           lockBackoff = 700;
           if (!isFs() && gameCursorHidden() && (fsFallback || autoFs)) {
@@ -799,55 +1082,283 @@
         // Usa el FinalRank de la escena ("Panel" -> RanklessNextLevel), que
         // carga el bundle del acto correspondiente y luego la escena.
         // =====================================================================
-        var UK_DEBUG_LEVELS = [
-            ['TUTORIAL', [['Tutorial', 'Tutorial']]],
-            ['CYBER GRIND', [['Endless', 'CYBER GRIND (Endless)']]],
-            ['PRELUDE - ACTO 0', [
-                ['Level 0-1', '0-1 INTO THE FIRE'],
-                ['Level 0-2', '0-2 THE MEATGRINDER'],
-                ['Level 0-3', '0-3 DOUBLE DOWN'],
-                ['Level 0-4', '0-4 A ONE-MACHINE ARMY'],
-                ['Level 0-5', '0-5 CERBERUS'],
-                ['Level 0-S', '0-S (secreto)']
-            ]],
-            ['LIMBO / LUST / GLUTTONY - ACTO 1', [
-                ['Level 1-1', '1-1 HEART OF THE SUNRISE'],
-                ['Level 1-2', '1-2 THE BURNING WORLD'],
-                ['Level 1-3', '1-3 HALLS OF SACRED REMAINS'],
-                ['Level 1-4', '1-4 CLAIR DE LUNE'],
-                ['Level 1-S', '1-S (secreto)'],
-                ['Level 2-1', '2-1 BRIDGEBURNER'],
-                ['Level 2-2', '2-2 DEATH AT 20,000 VOLTS'],
-                ['Level 2-3', '2-3 SHEER HEART ATTACK'],
-                ['Level 2-4', '2-4 COURT OF THE CORPSE KING'],
-                ['Level 2-S', '2-S (secreto)'],
-                ['Level 3-1', '3-1 BELLY OF THE BEAST'],
-                ['Level 3-2', '3-2 IN THE FLESH']
-            ]],
-            ['PRIME', [['Level P-1', 'P-1 SOUL SURVIVOR']]]
+        var UK_LAYERS = [
+            { title: 'LAYER 0', index: 0, lastLevel: 5, levels: [
+                ['TUTORIAL', 'Tutorial'],
+                ['0-1', 'Level 0-1'],
+                ['0-2', 'Level 0-2'],
+                ['0-S', 'Level 0-S'],
+                ['0-3', 'Level 0-3'],
+                ['0-4', 'Level 0-4'],
+                ['0-5', 'Level 0-5']
+            ]},
+            { title: 'LAYER 1', index: 1, lastLevel: 9, levels: [
+                ['1-1', 'Level 1-1'],
+                ['1-2', 'Level 1-2'],
+                ['1-3', 'Level 1-3'],
+                ['1-4', 'Level 1-4'],
+                ['1-S', 'Level 1-S']
+            ]},
+            { title: 'LAYER 2', index: 2, lastLevel: 13, levels: [
+                ['2-1', 'Level 2-1'],
+                ['2-2', 'Level 2-2'],
+                ['2-3', 'Level 2-3'],
+                ['2-4', 'Level 2-4'],
+                ['2-S', 'Level 2-S']
+            ]},
+            { title: 'LAYER 3', index: 3, lastLevel: 15, levels: [
+                ['3-1', 'Level 3-1'],
+                ['3-2', 'Level 3-2']
+            ]},
+            { title: 'PRIME', index: 4, lastLevel: -1, levels: [
+                ['P-1', 'Level P-1']
+            ]}
         ];
 
+        var UK_GEAR = [
+            ['REVOLVER', 'revolver', ['rev0', 'rev1', 'rev2', 'rev3', 'revalt']],
+            ['SHOTGUN', 'shotgun', ['sho0', 'sho1', 'sho2', 'sho3']],
+            ['NAILGUN', 'nailgun', ['nai0', 'nai1', 'nai2', 'nai3']],
+            ['RAILCANNON', 'railcannon', ['rai0', 'rai1', 'rai2', 'rai3']],
+            ['ROCKET LAUNCHER', 'rocket', ['rock0', 'rock1', 'rock2', 'rock3']],
+            ['ARMS', 'arms', ['arm1', 'arm2', 'arm3']]
+        ];
+
+        var UK_ALL_GEAR_IDS = (function () {
+            var out = [];
+            UK_GEAR.forEach(function (family) { out = out.concat(family[2]); });
+            return out;
+        })();
+
         var dbgPanel = document.getElementById('uk-dbg-panel');
-        var dbgList = document.getElementById('uk-dbg-list');
+        var dbgLevels = document.getElementById('uk-dbg-levels');
+        var dbgGear = document.getElementById('uk-dbg-gear');
         var dbgBuilt = false;
         var dbgOpen = false;
+        // Consola de logs abierta: al igual que el menu F3, libera el raton.
+        var logOpen = false;
+        var debugState = null;
+        var layerChecks = {};
+        var gearChecks = {};
+        var allLevelsCheck = null;
+        var allGearCheck = null;
+
+        function makeCheck() {
+            var c = document.createElement('input');
+            c.type = 'checkbox';
+            c.className = 'uk-check';
+            return c;
+        }
 
         function buildDebugList() {
-            if (dbgBuilt || !dbgList) return;
+            if (dbgBuilt || !dbgLevels || !dbgGear) return;
             dbgBuilt = true;
-            UK_DEBUG_LEVELS.forEach(function (grp) {
-                var h = document.createElement('div');
-                h.className = 'uk-grp';
-                h.textContent = grp[0];
-                dbgList.appendChild(h);
-                grp[1].forEach(function (item) {
-                    var b = document.createElement('button');
-                    b.className = 'uk-lvl';
-                    b.textContent = item[1];
-                    b.onclick = function () { jumpToLevel(item[0]); };
-                    dbgList.appendChild(b);
-                });
+
+            var levelsHead = document.createElement('div');
+            levelsHead.className = 'uk-dbg-section';
+            var levelsTitle = document.createElement('div');
+            levelsTitle.className = 'uk-dbg-section-title';
+            levelsTitle.textContent = 'NIVELES';
+            allLevelsCheck = makeCheck();
+            allLevelsCheck.title = 'Marcar todos los niveles como vencidos';
+            allLevelsCheck.addEventListener('change', function () {
+                sendDebug('DebugSetAllLevelsCompleted', allLevelsCheck.checked ? '1' : '0');
             });
+            levelsHead.appendChild(levelsTitle);
+            levelsHead.appendChild(allLevelsCheck);
+            dbgLevels.appendChild(levelsHead);
+
+            UK_LAYERS.forEach(function (layer) {
+                var wrap = document.createElement('div');
+                wrap.className = 'uk-layer';
+
+                var head = document.createElement('div');
+                head.className = 'uk-layer-head';
+                var name = document.createElement('div');
+                name.className = 'uk-layer-name';
+                name.textContent = layer.title;
+                var check = makeCheck();
+                check.title = 'Marcar ' + layer.title + ' como completada';
+                check.addEventListener('change', function () {
+                    if (layer.index === 4) {
+                        sendDebug('DebugSetPrimeCompleted', check.checked ? '1' : '0');
+                    } else {
+                        sendDebug('DebugSetLayerCompleted', layer.index + '|' + (check.checked ? '1' : '0'));
+                    }
+                });
+                layerChecks[layer.index] = check;
+                head.appendChild(name);
+                head.appendChild(check);
+                wrap.appendChild(head);
+
+                var list = document.createElement('div');
+                list.className = 'uk-levels';
+                layer.levels.forEach(function (item) {
+                    var b = document.createElement('button');
+                    b.className = 'uk-level';
+                    b.textContent = item[0];
+                    b.onclick = function () { jumpToLevel(item[1]); };
+                    list.appendChild(b);
+                });
+                wrap.appendChild(list);
+                dbgLevels.appendChild(wrap);
+            });
+
+            var gearHead = document.createElement('div');
+            gearHead.className = 'uk-dbg-section';
+            var gearTitle = document.createElement('div');
+            gearTitle.className = 'uk-dbg-section-title';
+            gearTitle.textContent = 'ARSENAL';
+            allGearCheck = makeCheck();
+            allGearCheck.title = 'Desbloquear todo el arsenal';
+            allGearCheck.addEventListener('change', function () {
+                sendDebug('DebugSetAllGear', allGearCheck.checked ? '1' : '0');
+            });
+            gearHead.appendChild(gearTitle);
+            gearHead.appendChild(allGearCheck);
+            dbgGear.appendChild(gearHead);
+
+            var gearList = document.createElement('div');
+            gearList.className = 'uk-gear-list';
+            UK_GEAR.forEach(function (family) {
+                var label = document.createElement('label');
+                label.className = 'uk-gear';
+                var check = makeCheck();
+                check.addEventListener('change', function () {
+                    sendDebug('DebugSetGearFamily', family[1] + '|' + (check.checked ? '1' : '0'));
+                });
+                gearChecks[family[1]] = check;
+                var span = document.createElement('span');
+                span.textContent = family[0];
+                label.appendChild(check);
+                label.appendChild(span);
+                gearList.appendChild(label);
+            });
+            dbgGear.appendChild(gearList);
+
+            var extras = document.createElement('div');
+            extras.className = 'uk-dbg-section';
+            var extrasTitle = document.createElement('div');
+            extrasTitle.className = 'uk-dbg-section-title';
+            extrasTitle.textContent = 'EXTRAS';
+            extras.appendChild(extrasTitle);
+            dbgGear.appendChild(extras);
+
+            var extrasList = document.createElement('div');
+            extrasList.className = 'uk-levels';
+            var cg = document.createElement('button');
+            cg.className = 'uk-level';
+            cg.textContent = 'CYBER GRIND (ENDLESS)';
+            cg.onclick = function () { jumpToLevel('Endless'); };
+            extrasList.appendChild(cg);
+            dbgGear.appendChild(extrasList);
+        }
+
+        function sendDebug(method, payload) {
+            try {
+                if (!window.unityInstance || !unityInstance.SendMessage) {
+                    toast('El juego aun no ha cargado.');
+                    diag('No se pudo enviar ' + method + ': el juego aun no ha cargado.', 'warning');
+                    return;
+                }
+                diag('→ ' + method + ' ' + payload, 'debug');
+                unityInstance.SendMessage('MapLoader', method, payload);
+                setTimeout(requestDebugState, 150);
+            } catch (e) {
+                toast('No se pudo aplicar: ' + e);
+                diag('Error al enviar ' + method + ': ' + e, 'error');
+            }
+        }
+
+        function requestDebugState() {
+            try {
+                if (window.unityInstance && unityInstance.SendMessage) {
+                    unityInstance.SendMessage('MapLoader', 'DebugPushState');
+                }
+            } catch (e) {}
+        }
+
+        function setCheck(el, checked, indeterminate) {
+            if (!el) return;
+            el.checked = !!checked;
+            el.indeterminate = !checked && !!indeterminate;
+        }
+
+        function applyDebugState(st) {
+            if (!st) return;
+            debugState = st;
+            UK_LAYERS.forEach(function (layer) {
+                var check = layerChecks[layer.index];
+                if (!check) return;
+                if (layer.index === 4) {
+                    setCheck(check, st.prime > 0, false);
+                } else {
+                    setCheck(check, st.progress > layer.lastLevel, false);
+                }
+            });
+            if (allLevelsCheck) {
+                setCheck(allLevelsCheck, st.progress > 15 && st.prime > 0, false);
+            }
+            var allGear = true;
+            var someGear = false;
+            UK_ALL_GEAR_IDS.forEach(function (id) {
+                var v = (st.gear && st.gear[id]) ? 1 : 0;
+                if (v) someGear = true; else allGear = false;
+            });
+            if (allGearCheck) setCheck(allGearCheck, allGear, someGear && !allGear);
+            UK_GEAR.forEach(function (family) {
+                var check = gearChecks[family[1]];
+                if (!check) return;
+                var all = true;
+                var some = false;
+                family[2].forEach(function (id) {
+                    var v = (st.gear && st.gear[id]) ? 1 : 0;
+                    if (v) some = true; else all = false;
+                });
+                setCheck(check, all, some && !all);
+            });
+        }
+
+        function parseDebugState(raw) {
+            var parts = String(raw).split('|');
+            if (parts.length < 6) return null;
+            var values = parts[5].split(',');
+            var gear = {};
+            UK_ALL_GEAR_IDS.forEach(function (id, i) {
+                gear[id] = parseInt(values[i], 10) || 0;
+            });
+            return {
+                progress: parseInt(parts[0], 10) || 0,
+                difficulty: parseInt(parts[1], 10) || 0,
+                tutorial: parts[2] === '1',
+                intro: parts[3] === '1',
+                prime: parseInt(parts[4], 10) || 0,
+                gear: gear
+            };
+        }
+
+        window.UKDebugReceiveState = function (raw) {
+            try {
+                var st = parseDebugState(raw);
+                if (!st) {
+                    diag('Estado F3 invalido: ' + raw, 'warning');
+                    return;
+                }
+                applyDebugState(st);
+                diag('Estado F3: ' + raw, 'debug');
+            } catch (e) {
+                diag('Error al leer el estado F3: ' + e, 'error');
+            }
+        };
+
+        function releasePointerForMenu() {
+            try {
+                if (document.pointerLockElement && window.__ukNativeExitPointerLock) {
+                    window.__ukNativeExitPointerLock.call(document);
+                } else if (document.exitPointerLock) {
+                    document.exitPointerLock();
+                }
+            } catch (e) {}
         }
 
         var toastEl = document.getElementById('uk-toast');
@@ -867,16 +1378,19 @@
             try {
                 if (!window.unityInstance || !unityInstance.SendMessage) {
                     toast('El juego aun no ha cargado.');
+                    diag('No se puede cargar ' + sceneName + ': el juego aun no ha cargado.', 'warning');
                     return;
                 }
                 // MapLoader.DebugLoadLevel elige el bundle del acto segun el
                 // nombre del nivel (FinalRank solo cargaba el acto actual).
+                diag('Cargando escena ' + sceneName, 'info');
                 unityInstance.SendMessage('MapLoader', 'DebugLoadLevel', sceneName);
                 toast('Cargando ' + sceneName + '...');
                 if (dbgPanel) dbgPanel.classList.remove('open');
                 dbgOpen = false;
             } catch (e) {
                 toast('No se pudo cargar el nivel: ' + e);
+                diag('Error al cargar ' + sceneName + ': ' + e, 'error');
             }
         }
 
@@ -891,13 +1405,196 @@
                     if (dbgOpen) dbgPanel.classList.add('open');
                     else dbgPanel.classList.remove('open');
                 }
+                if (dbgOpen) {
+                    // Sin esto el juego mantiene el raton capturado y no se
+                    // puede hacer clic en los checkboxes.
+                    releasePointerForMenu();
+                    requestDebugState();
+                }
+                diag('Menu F3 ' + (dbgOpen ? 'abierto' : 'cerrado'), 'info');
             }
         };
+
+        // =====================================================================
+        // Consola visible (F2): logs de Unity, errores JS y trazas.
+        // El capturador vive en el <head> (window.__ukLogs); aqui solo se
+        // pinta y se controla el panel.
+        // =====================================================================
+        var logPanel = document.getElementById('uk-log-panel');
+        var logBody = document.getElementById('uk-log-body');
+        var logCountEl = document.getElementById('uk-log-count');
+        var logFab = document.getElementById('uk-log-fab');
+        var logFabCount = document.getElementById('uk-log-fab-count');
+        var logFilterBtn = document.getElementById('uk-log-filter');
+        var logCopyBtn = document.getElementById('uk-log-copy');
+        var logClearBtn = document.getElementById('uk-log-clear');
+        var logCloseBtn = document.getElementById('uk-log-close');
+        var logFilterErrors = false;
+
+        function logEntries() {
+            return window.__ukLogs || [];
+        }
+
+        function formatLogTime(ms) {
+            var d = new Date(ms);
+            function p(n) { return (n < 10 ? '0' : '') + n; }
+            return p(d.getHours()) + ':' + p(d.getMinutes()) + ':' + p(d.getSeconds()) + '.' + ('00' + d.getMilliseconds()).slice(-3);
+        }
+
+        function logLevelLabel(level) {
+            if (level === 'error') return 'ERR';
+            if (level === 'warning') return 'WARN';
+            if (level === 'debug') return 'DBG';
+            return 'INFO';
+        }
+
+        function makeLogLine(entry) {
+            var line = document.createElement('div');
+            line.className = 'uk-log-line uk-log-' + (entry.level || 'info');
+            var time = document.createElement('span');
+            time.className = 'uk-log-time';
+            time.textContent = formatLogTime(entry.time);
+            var lvl = document.createElement('span');
+            lvl.className = 'uk-log-level';
+            lvl.textContent = logLevelLabel(entry.level);
+            var msg = document.createElement('span');
+            msg.className = 'uk-log-msg';
+            msg.textContent = entry.text;
+            line.appendChild(time);
+            line.appendChild(lvl);
+            line.appendChild(msg);
+            return line;
+        }
+
+        function updateLogBadge() {
+            var count = window.__ukLogErrorCount || 0;
+            if (logCountEl) logCountEl.textContent = count + (count === 1 ? ' error' : ' errores');
+            if (logFabCount) {
+                logFabCount.textContent = count > 99 ? '99+' : String(count);
+                if (count > 0) logFabCount.classList.remove('hidden');
+                else logFabCount.classList.add('hidden');
+            }
+        }
+
+        function appendLogEntry(entry) {
+            if (!logBody) return;
+            var nearBottom = (logBody.scrollHeight - logBody.scrollTop - logBody.clientHeight) < 40;
+            logBody.appendChild(makeLogLine(entry));
+            while (logBody.childNodes.length > 2000) logBody.removeChild(logBody.firstChild);
+            if (nearBottom) logBody.scrollTop = logBody.scrollHeight;
+            updateLogBadge();
+        }
+        window.__ukLogAppend = appendLogEntry;
+
+        function renderAllLogs() {
+            if (!logBody) return;
+            logBody.textContent = '';
+            var entries = logEntries();
+            for (var i = 0; i < entries.length; i++) logBody.appendChild(makeLogLine(entries[i]));
+            logBody.scrollTop = logBody.scrollHeight;
+            updateLogBadge();
+        }
+
+        function openLog() {
+            if (!logPanel) return;
+            logPanel.classList.add('open');
+            logOpen = true;
+            renderAllLogs();
+            releasePointerForMenu();
+            updateLogBadge();
+            if (logBody) logBody.scrollTop = logBody.scrollHeight;
+        }
+
+        function closeLog() {
+            if (!logPanel) return;
+            logPanel.classList.remove('open');
+            logOpen = false;
+        }
+
+        window.UKLogUI = {
+            toggle: function () {
+                if (logOpen) closeLog();
+                else openLog();
+            },
+            open: openLog,
+            close: closeLog
+        };
+
+        window.__ukLogOnError = function () {
+            updateLogBadge();
+            if (!logOpen) openLog();
+        };
+
+        if (logFab) {
+            logFab.addEventListener('click', function () {
+                window.UKLogUI.toggle();
+            });
+        }
+        if (logCloseBtn) logCloseBtn.addEventListener('click', closeLog);
+        if (logFilterBtn) {
+            logFilterBtn.addEventListener('click', function () {
+                logFilterErrors = !logFilterErrors;
+                if (logBody) {
+                    if (logFilterErrors) logBody.classList.add('filter-errors');
+                    else logBody.classList.remove('filter-errors');
+                }
+                logFilterBtn.textContent = logFilterErrors ? 'VER TODO' : 'SOLO ERRORES';
+                logFilterBtn.classList.toggle('active', logFilterErrors);
+            });
+        }
+        if (logClearBtn) {
+            logClearBtn.addEventListener('click', function () {
+                if (window.__ukLogs) window.__ukLogs.length = 0;
+                window.__ukLogErrorCount = 0;
+                if (logBody) logBody.textContent = '';
+                updateLogBadge();
+            });
+        }
+        if (logCopyBtn) {
+            logCopyBtn.addEventListener('click', function () {
+                var text = logEntries().map(function (entry) {
+                    return '[' + formatLogTime(entry.time) + '] ' + logLevelLabel(entry.level) + ' ' + entry.text;
+                }).join('\n');
+                function fallbackCopy() {
+                    try {
+                        var ta = document.createElement('textarea');
+                        ta.value = text;
+                        ta.style.position = 'fixed';
+                        ta.style.opacity = '0';
+                        document.body.appendChild(ta);
+                        ta.select();
+                        document.execCommand('copy');
+                        document.body.removeChild(ta);
+                        toast('Logs copiados.');
+                    } catch (e) {
+                        toast('No se pudo copiar.');
+                    }
+                }
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(text).then(function () {
+                        toast('Logs copiados.');
+                    }, fallbackCopy);
+                } else {
+                    fallbackCopy();
+                }
+            });
+        }
+
+        // Pintar lo capturado antes de que existiera el panel.
+        renderAllLogs();
+        if ((window.__ukLogErrorCount || 0) > 0) openLog();
+        diag('Consola lista. F2 para abrir/cerrar.', 'info');
 
         document.addEventListener('keydown', function (e) {
             if (e.key === 'F3') {
                 e.preventDefault();
                 UKDebug.toggle();
+            } else if (e.key === 'F2') {
+                e.preventDefault();
+                UKLogUI.toggle();
+            } else if (e.key === 'Escape' && logOpen) {
+                e.preventDefault();
+                UKLogUI.toggle();
             } else if (e.key === 'Escape' && dbgOpen) {
                 e.preventDefault();
                 UKDebug.toggle();

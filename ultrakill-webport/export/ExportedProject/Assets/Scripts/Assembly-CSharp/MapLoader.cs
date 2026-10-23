@@ -303,6 +303,59 @@ public class MapLoader : MonoSingleton<MapLoader>
 		});
 	}
 
+	/// <summary>
+	/// Estado del menu F3 (checkboxes). Se envia a la pagina WebGL.
+	/// </summary>
+	public void DebugPushState()
+	{
+#if UNITY_WEBGL && !UNITY_EDITOR
+		Application.ExternalCall("UKDebugReceiveState", GameProgressSaver.DebugGetState());
+#endif
+	}
+
+	public void DebugSetLayerCompleted(string payload)
+	{
+		string[] array = payload.Split('|');
+		if (array.Length == 2 && int.TryParse(array[0], out int layer))
+		{
+			GameProgressSaver.DebugSetLayerCompleted(layer, array[1] == "1");
+			Debug.Log("[F3] Capa " + layer + ": " + (array[1] == "1" ? "completada" : "desmarcada"));
+			DebugPushState();
+		}
+	}
+
+	public void DebugSetPrimeCompleted(string payload)
+	{
+		GameProgressSaver.DebugSetPrimeCompleted(payload == "1");
+		Debug.Log("[F3] Prime: " + (payload == "1" ? "completado" : "desmarcado"));
+		DebugPushState();
+	}
+
+	public void DebugSetAllLevelsCompleted(string payload)
+	{
+		GameProgressSaver.DebugSetAllLevelsCompleted(payload == "1");
+		Debug.Log("[F3] Todos los niveles: " + (payload == "1" ? "completados" : "reseteados"));
+		DebugPushState();
+	}
+
+	public void DebugSetGearFamily(string payload)
+	{
+		string[] array = payload.Split('|');
+		if (array.Length == 2)
+		{
+			GameProgressSaver.DebugSetGearFamily(array[0], array[1] == "1");
+			Debug.Log("[F3] Arsenal " + array[0] + ": " + (array[1] == "1" ? "desbloqueado" : "bloqueado"));
+			DebugPushState();
+		}
+	}
+
+	public void DebugSetAllGear(string payload)
+	{
+		GameProgressSaver.DebugSetAllGear(payload == "1");
+		Debug.Log("[F3] Todo el arsenal: " + (payload == "1" ? "desbloqueado" : "bloqueado"));
+		DebugPushState();
+	}
+
 	public void LoadAct(string act, LoadCallback callback, LoadErrorCallback errorCallback)
 	{
 		EnsureCommonIsLoaded();

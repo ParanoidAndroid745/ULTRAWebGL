@@ -2,8 +2,41 @@
 
 > Esto se escribe para que el trabajo no dependa de la memoria de la sesión:
 > si opencode compacta el contexto, si la sesión se cae, o si abres otra, el
-> estado está aquí. Última actualización: 2026-10-22 (v21.1.4 pre-release, todo
-> en `main`; `risky` eliminada).
+> estado está aquí. Última actualización: 2026-10-24 (v21.1.6, rama
+> `shadertest`).
+
+## v21.1.6 (pre-release, rama `shadertest`) — revertido Minos y focos de 2-3
+
+Se revirtió **todo** el trabajo de v221 sobre Minos/P-1: prefabs, materiales,
+`Level P-1.unity`, `MinosPrime.cs` (`SpawnMinosFlash`), `WebGLRenderFix.cs`
+(vuelve `_OpacScale = 0.1`), el shader `MinosWhiteBeam`, `MinosWhiteShaft` y
+`MinosLightSuppressor`. El estado de esos assets es otra vez el de
+`1ea4ec518`.
+
+El problema de iluminación que seguía apareciendo en **2-3** no estaba en P-1:
+son dos luces reales de la copia de `MinosBackground` que vive en
+`Level 2-3.unity` (no en el prefab `MinosBackground Variant`). La puerta
+`FirstRoom/Room/FinalDoor` las activa junto con el cadáver
+(`activatedRooms: 8660`) al entrar al Main Hall:
+
+- `MinosBackground/Armature/.../Head/Cube/Spot Light (1)`
+- `MinosBackground/Armature/.../Head/Cube (1)/Spot Light (1)`
+
+Ambas eran `Spot` con `m_Intensity: 2`, `m_Range: 1500`, color blanco y
+culling mask completa. Se dejan a `m_Enabled: 0`, intensidad/rango 0, color
+negro, `m_BounceIntensity: 0` y culling mask 0. Los haces del cadáver siguen
+siendo las mallas visuales de `MinosSearchLights_1`; no queda ninguna luz real
+del cadáver iluminando la escena.
+
+- `MapLoader.WebGLBundleQuery`: `?v=222`.
+- Build v222: `BUILD RESULT: Succeeded`, 0 errores de shader, 0 `error CS`,
+  31 warnings. Bundles act-0 75,0 MB / act-1 136,3 MB / prime 34,3 MB;
+  player 491,8 MB. Copiados a `Builds/WebGL/StreamingAssets/acts`.
+
+Servidor local en `:8090` y túnel
+`https://soul-suspended-robots-misc.trycloudflare.com` (cloudflared con
+`--http-host-header localhost` para que HttpListener acepte el Host del túnel).
+Validación visual: pendiente (la hace el usuario).
 
 ## v21.1.4 (pre-release, `main`) — rayos de Minos al 0.1
 
@@ -428,6 +461,16 @@ sino en `LightShaft.prefab`, el prefab que `MinosPrime.LightShaft()` instancia
 iluminaban la arena. Se neutralizan en las 5 variantes del prefab
 (`m_Enabled: 0` y `m_CullingMask` a 0 por si algo las reactiva). Esto explica
 que el terreno solo cambiara mientras los haces estaban "cargados".
+
+**Iteración 8 (v221, revertida en v21.1.6)**: se intentó dejar Minos sin
+ninguna luz real apagando 81 luces en los prefabs de Minos/P-1, añadiendo el
+watchdog `MinosLightSuppressor` y el shader `MinosWhiteBeam`. **No arregló
+2-3** y se revirtió entero: el problema de 2-3 no estaba en P-1 sino en la
+copia de `MinosBackground` de la propia escena `Level 2-3.unity`. Sus dos
+`Spot Light` (intensidad 2, rango 1500, culling mask completa) se activan con
+la puerta `FirstRoom/Room/FinalDoor` y bañaban de blanco el Main Hall. En v21.1.6 se apagan
+a nivel de escena; los haces quedan como mallas visuales de
+`MinosSearchLights_1` y no hay ninguna luz real del cadáver.
 
 **Límites conocidos** (funcional, no fiel):
 

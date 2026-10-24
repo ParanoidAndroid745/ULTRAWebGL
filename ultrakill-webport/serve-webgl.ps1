@@ -44,14 +44,13 @@ while ($listener.IsListening) {
             }
             $ctx.Response.ContentType = $mime
             $ctx.Response.ContentLength64 = $bytes.Length
-            if (@('.html', '.htm', '.js', '.wasm', '.data', '.unityweb', '.json') -contains $ext) {
-                # La pagina y el player no se cachean: el paquete no versiona
-                # los nombres de Build/*, asi que un .js/.wasm/.data cacheado
-                # haria arrancar la version anterior aunque se descomprima
-                # un ZIP nuevo (Ctrl+F5 no siempre basta).
-                $ctx.Response.Headers.Add('Cache-Control', 'no-store, no-cache, must-revalidate')
-                $ctx.Response.Headers.Add('Pragma', 'no-cache')
-            }
+            # TODO se sirve sin cache: los bundles no tienen extension y el
+            # navegador los guardaba igual, asi que una build nueva podia
+            # arrancar con el bundle viejo en memoria (el sintoma: "sigue
+            # el mismo bug" tras reconstruir).
+            $ctx.Response.Headers.Add('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0')
+            $ctx.Response.Headers.Add('Pragma', 'no-cache')
+            $ctx.Response.Headers.Add('Expires', '0')
             $ctx.Response.OutputStream.Write($bytes, 0, $bytes.Length)
         } else {
             $ctx.Response.StatusCode = 404

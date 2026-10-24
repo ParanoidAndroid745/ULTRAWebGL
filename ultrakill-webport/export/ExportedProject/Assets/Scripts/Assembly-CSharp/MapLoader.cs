@@ -20,7 +20,9 @@ public class MapLoader : MonoSingleton<MapLoader>
 	// v212: cola Transparent/AlphaTest de los shaders unlit (alas de Gabriel y efectos).
 	// v214: shaders funcionales en lugar de los stubs de AssetRipper (agua, railgun,
 	//       heartbeat, bloodstain, ProBuilder...). Los bundles cambian.
-	private const string WebGLBundleQuery = "?v=220";
+	// v222: revertidos los cambios de Minos de v221; en 2-3 se apagan los focos
+	//       reales del cadaver de MinosBackground (los haces quedan visuales).
+	private const string WebGLBundleQuery = "?v=222";
 
 	public delegate void LoadCallback(AssetBundle actBundle);
 

@@ -421,6 +421,14 @@ alfa plano 0,49). Ya no suman luz al fondo, se mezclan. Solo se tocan los 5
 shaders `psx/unlit/additive/nocull-nofog*`, que únicamente usan los materiales
 `MinosSearchLights` (comprobado en los tres bundles).
 
+**Iteración 7 (v220)**: la luz que cambiaba el terreno **no estaba en el jefe**
+sino en `LightShaft.prefab`, el prefab que `MinosPrime.LightShaft()` instancia
+12+ veces por ataque en el pecho de Minos. Cada instancia trae un Point Light
+(intensidad 5, rango 40) y un Spot Light (**intensidad 40, rango 120**, 12°) que
+iluminaban la arena. Se neutralizan en las 5 variantes del prefab
+(`m_Enabled: 0` y `m_CullingMask` a 0 por si algo las reactiva). Esto explica
+que el terreno solo cambiara mientras los haces estaban "cargados".
+
 **Límites conocidos** (funcional, no fiel):
 
 - El agua es la textura con scroll y alpha; **sin refracción**.

@@ -8644,7 +8644,7 @@ Light:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1393105877652414}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 0.29188326, g: 0.022027414, b: 0.4245283, a: 1}
@@ -16696,7 +16696,7 @@ Light:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1386943702330414}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 0.29188326, g: 0.022027414, b: 0.4245283, a: 1}

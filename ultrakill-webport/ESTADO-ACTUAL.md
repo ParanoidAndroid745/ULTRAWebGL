@@ -407,6 +407,12 @@ Ctrl+D sigue anulado ✓; el panel F3 está dentro del fullscreen ✓; 0 errores
 - **Carne**: se quita el movimiento de textura (la distorsión radial se veía
   como "agua"); queda solo la ondulación de vértices.
 
+**Iteración 5 (v218)**: el aura de Minos (2 luces de rango 30 e intensidad 25
+por instancia) seguía iluminando el terreno, así que se apagan también. Ahora
+`MinosBoss.prefab` y sus variantes tienen **0 luces activas**; lo único que
+puede tocar el terreno es el haz aditivo (`_OpacScale` global = 0,1), que solo
+suma en sus propios píxeles.
+
 **Límites conocidos** (funcional, no fiel):
 
 - El agua es la textura con scroll y alpha; **sin refracción**.

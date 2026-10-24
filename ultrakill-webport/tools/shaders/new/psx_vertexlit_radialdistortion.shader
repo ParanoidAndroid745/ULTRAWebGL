@@ -84,12 +84,7 @@ Shader "psx/vertexlit/radialdistortion" {
 			float4 frag(v2f IN) : COLOR
 			{
 				float2 uv = _TextureWarping > 0.001 ? IN.uv / IN.normal.r : IN.uv;
-				// La carne "respira": distorsion radial alrededor del centro del tile
-				// de UV mas un vaiven lento en Y.
-				float2 d = uv - 0.5;
-				float r = length(d);
-				uv = 0.5 + d * (1.0 + sin(_Time.y * 1.6 + r * 9.0) * 0.015);
-				uv.y += sin(_Time.y * 0.7 + uv.x * 4.0) * 0.01;
+				// La textura va quieta: el movimiento lo pone solo el vertex warping.
 				half4 c = tex2D(_MainTex, uv) * IN.color;
 
 				half4 color = c * IN.colorFog.a;

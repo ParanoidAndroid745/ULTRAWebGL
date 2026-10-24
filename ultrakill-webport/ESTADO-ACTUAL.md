@@ -396,6 +396,17 @@ Ctrl+D sigue anulado ✓; el panel F3 está dentro del fullscreen ✓; 0 errores
   respira (UV) y una ondulación de vértices continua de 0,01 (misma posición →
   mismo desplazamiento, no se abren costuras).
 
+**Iteración 4 (v217, tras el tercer playtest)**:
+
+- **Focos de Minos**: `MinosBoss.prefab` (y sus variantes) lleva 4 luces de
+  rango 500 por instancia. No hay sombras, pero **el vertex lighting solo usa 4
+  luces por vértice**: al acercarse Minos, sus focos desplazaban a las luces del
+  nivel y la zona cambiaba de brillo. Se apagan esas luces (`m_Enabled: 0`); las
+  de rango 30 (aura del jefe) se quedan. El haz en sí es `Blend One One`
+  (aditivo) sobre sus propios píxeles: no ilumina otros objetos.
+- **Carne**: se quita el movimiento de textura (la distorsión radial se veía
+  como "agua"); queda solo la ondulación de vértices.
+
 **Límites conocidos** (funcional, no fiel):
 
 - El agua es la textura con scroll y alpha; **sin refracción**.

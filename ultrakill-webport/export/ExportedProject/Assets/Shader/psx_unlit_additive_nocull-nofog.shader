@@ -9,7 +9,7 @@ Shader "psx/unlit/additive/nocull-nofog" {
 		LOD 200
 
 		Pass{Cull Off
-Blend One One
+Blend SrcAlpha OneMinusSrcAlpha
 ZWrite Off
 			
 		Lighting On
@@ -92,7 +92,8 @@ uniform float _OpacScale;
 		half4 c = tex2D(_MainTex, (_TextureWarping > 0.001 ? IN.uv_MainTex / IN.normal.r : IN.uv_MainTex))*IN.color;
 		// _OpacScale (uniform SUELTO, lo fija el codigo: los
 		// properties numericos no existen en la etapa de vertex)
-		half4 color = c * _OpacScale;
+		half4 color = c;
+					color.a = saturate(c.a * _OpacScale * 2.0);
 		
 		// Compresion de color (_ColorPrecision) y pixelizacion (_ResY).
 		// OJO: _ResY se usa aqui a proposito (ademas de en el vertex). En el

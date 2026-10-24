@@ -413,6 +413,14 @@ por instancia) seguía iluminando el terreno, así que se apagan también. Ahora
 puede tocar el terreno es el haz aditivo (`_OpacScale` global = 0,1), que solo
 suma en sus propios píxeles.
 
+**Iteración 6 (v219)**: los haces de Minos pasan de aditivo a **transparencia
+normal**: `Blend One One` → `Blend SrcAlpha OneMinusSrcAlpha`, y el color deja
+de multiplicarse por `_OpacScale`; ahora la opacidad va en el alfa
+(`tex.a * _OpacScale * 2`, ≈ 0,1 con el global a 0,1; `shockwavetex.png` tiene
+alfa plano 0,49). Ya no suman luz al fondo, se mezclan. Solo se tocan los 5
+shaders `psx/unlit/additive/nocull-nofog*`, que únicamente usan los materiales
+`MinosSearchLights` (comprobado en los tres bundles).
+
 **Límites conocidos** (funcional, no fiel):
 
 - El agua es la textura con scroll y alpha; **sin refracción**.

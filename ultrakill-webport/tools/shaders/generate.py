@@ -10,6 +10,7 @@ VERTEX = r'''
 			{
 				v2f o;
 
+__DISPLACE__
 				// Vertex snapping + pixelizacion (con _ResY = 0 no hace nada).
 				float4 snapToPixel = UnityObjectToClipPos(v.vertex);
 				float4 vertex = snapToPixel;
@@ -80,7 +81,7 @@ def fog(call="c"):
 				color.rgb = floor(color.rgb * prec) / prec;
 '''
 
-def shader(name, props, subshader_tags, pass_state, frag, light="float4(ShadeVertexLightsFull(v.vertex, v.normal, 4, true), 1.0)"):
+def shader(name, props, subshader_tags, pass_state, frag, light="float4(ShadeVertexLightsFull(v.vertex, v.normal, 4, true), 1.0)", displace=""):
     p = "\n".join("\t\t" + x for x in props)
     st = "\n".join("\t\t\t" + x for x in pass_state)
     return f'''Shader "{name}" {{
@@ -96,7 +97,7 @@ def shader(name, props, subshader_tags, pass_state, frag, light="float4(ShadeVer
 			Lighting On
 			CGPROGRAM
 {PREAMBLE}
-{VERTEX.replace("__LIGHT__", light)}
+{VERTEX.replace("__LIGHT__", light).replace("__DISPLACE__", displace)}
 {frag}
 {TAIL}
 		}}
@@ -229,11 +230,19 @@ heartbeat = shader(
 			{
 				float2 uv = _TextureWarping > 0.001 ? IN.uv / IN.normal.r : IN.uv;
 				uv += float2(_ScrollMainTextureX, _ScrollMainTextureY) * _FlowDirection.xy * _Time.y;
+				// "Carne viva": la textura respira con una distorsion lenta.
+				float2 nuv = uv * 2.0;
+				uv += float2(sin(nuv.y * 3.1 + _Time.y * 1.3), cos(nuv.x * 2.7 + _Time.y * 1.1)) * 0.004;
 				half4 c = tex2D(_MainTex, uv) * _Color;
 				c.rgb = lerp(c.rgb, c.rgb * IN.color.rgb, saturate(_UseVCols));
 				// Latido suave.
 				c.a *= _OpacScale * (0.8 + 0.2 * sin(_Time.y * (_VertexNoiseSpeed + 2.0)));
-''' + fog("c"), light="v.color")
+''' + fog("c"), light="v.color", displace=r'''
+				// Vertex warping de la carne: ondulacion lenta segun la posicion.
+				float3 wpos = mul(unity_ObjectToWorld, v.vertex).xyz;
+				float wave = sin(_Time.y * 1.7 + wpos.y * 2.0 + wpos.x * 0.7);
+				v.vertex.xyz += v.normal * (wave * 0.03);
+''')
 
 # ---------------------------------------------------------------- 5. bloodstain
 bloodstain = shader(
@@ -243,7 +252,7 @@ bloodstain = shader(
      '_OpacScale("Opacity", Range(0,2)) = 1',
      '_VertexWarpScale("Vertex Warp Scale", Range(0,10)) = 1'],
     '"Queue" = "Transparent-1" "RenderType" = "Transparent" "IgnoreProjector" = "True"',
-    ['Blend SrcAlpha SrcColor', 'ZWrite Off', 'Cull Back'],
+    ['Blend SrcAlpha OneMinusSrcAlpha', 'ZWrite Off', 'Cull Back'],
     r'''
 			sampler2D _MainTex;
 			float4 _Color;
@@ -254,7 +263,7 @@ bloodstain = shader(
 				float2 uv = _TextureWarping > 0.001 ? IN.uv / IN.normal.r : IN.uv;
 				half4 c = tex2D(_MainTex, uv) * _Color * IN.color;
 				c.a *= _OpacScale;
-''' + fog("c"))
+''' + fog("c"), light="v.color")
 
 # ---------------------------------------------------------------- 6. probuilder standard
 probuilder = shader(

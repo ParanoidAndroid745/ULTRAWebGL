@@ -48,6 +48,12 @@ Shader "psx/heartbeat" {
 			{
 				v2f o;
 
+
+				// Vertex warping de la carne: ondulacion lenta segun la posicion.
+				float3 wpos = mul(unity_ObjectToWorld, v.vertex).xyz;
+				float wave = sin(_Time.y * 1.7 + wpos.y * 2.0 + wpos.x * 0.7);
+				v.vertex.xyz += v.normal * (wave * 0.03);
+
 				// Vertex snapping + pixelizacion (con _ResY = 0 no hace nada).
 				float4 snapToPixel = UnityObjectToClipPos(v.vertex);
 				float4 vertex = snapToPixel;
@@ -95,6 +101,9 @@ Shader "psx/heartbeat" {
 			{
 				float2 uv = _TextureWarping > 0.001 ? IN.uv / IN.normal.r : IN.uv;
 				uv += float2(_ScrollMainTextureX, _ScrollMainTextureY) * _FlowDirection.xy * _Time.y;
+				// "Carne viva": la textura respira con una distorsion lenta.
+				float2 nuv = uv * 2.0;
+				uv += float2(sin(nuv.y * 3.1 + _Time.y * 1.3), cos(nuv.x * 2.7 + _Time.y * 1.1)) * 0.004;
 				half4 c = tex2D(_MainTex, uv) * _Color;
 				c.rgb = lerp(c.rgb, c.rgb * IN.color.rgb, saturate(_UseVCols));
 				// Latido suave.

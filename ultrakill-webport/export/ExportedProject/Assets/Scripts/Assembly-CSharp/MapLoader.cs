@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -20,7 +20,7 @@ public class MapLoader : MonoSingleton<MapLoader>
 	// v212: cola Transparent/AlphaTest de los shaders unlit (alas de Gabriel y efectos).
 	// v214: shaders funcionales en lugar de los stubs de AssetRipper (agua, railgun,
 	//       heartbeat, bloodstain, ProBuilder...). Los bundles cambian.
-	private const string WebGLBundleQuery = "?v=214";
+	private const string WebGLBundleQuery = "?v=215";
 
 	public delegate void LoadCallback(AssetBundle actBundle);
 
@@ -645,3 +645,4 @@ public class MapLoader : MonoSingleton<MapLoader>
 		}
 	}
 }
+

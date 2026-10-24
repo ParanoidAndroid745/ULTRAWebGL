@@ -366,12 +366,27 @@ Ctrl+D sigue anulado ✓; el panel F3 está dentro del fullscreen ✓; 0 errores
   Invert 1 por acto, postprocess 2 por acto.
 - Player: `BUILD RESULT: Succeeded | errors=0 | warnings=31 | sizeMB=491,8`, 0
   `Shader error in`.
-- `MapLoader.WebGLBundleQuery` → `?v=214`.
+- `MapLoader.WebGLBundleQuery` → `?v=215`.
+
+**Iteración 2 (tras el primer playtest)**:
+
+- **Sangre**: los decals salían como rectángulos negros. El CAB pide
+  `SrcAlpha SrcColor` y el material trae `_Color` rojo: donde la textura tiene
+  alfa 0 (`Bloodsplatter1.png` es rojo puro con alfa variable) el blend
+  multiplicaba el fondo por (0.82, 0, 0), dejándolo casi negro. Además el CAB
+  trae `Lighting Off` y estaba iluminada por vértices, así que solo se veía de
+  cerca. Ahora: `Blend SrcAlpha OneMinusSrcAlpha` y **unlit** (`o.color =
+  v.color`).
+- **Carne de Gluttony** (`psx/heartbeat`): se añade vertex warping (onda lenta
+  según la posición, amplitud 0,03) y una distorsión animada de la textura.
+  Las properties numéricas del material no se pueden usar en el vertex en GLES,
+  así que la onda es procedural con `_Time`, no con `_VertexNoiseSpeed`.
 
 **Límites conocidos** (funcional, no fiel):
 
 - El agua es la textura con scroll y alpha; **sin refracción**.
-- `psx/heartbeat` late con un seno: aproximación del pulso original.
+- La animación de la carne es una aproximación procedural, no el ruido del
+  original.
 - `Main_PostProcess` es un pass-through; el port tiene el post-proceso
   desactivado, así que no se ve.
 - Los 17 materiales de `psx/vertexlit-noambient-emissive` (puertas, drones,

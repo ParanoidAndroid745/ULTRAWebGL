@@ -45,6 +45,7 @@ Shader "psx/vertexlit-noambient-emissive" {
 			{
 				v2f o;
 
+
 				// Vertex snapping + pixelizacion (con _ResY = 0 no hace nada).
 				float4 snapToPixel = UnityObjectToClipPos(v.vertex);
 				float4 vertex = snapToPixel;

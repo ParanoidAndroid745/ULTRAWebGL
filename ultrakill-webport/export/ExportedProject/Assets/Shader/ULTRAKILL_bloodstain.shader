@@ -11,7 +11,7 @@ Shader "ULTRAKILL/bloodstain" {
 		LOD 200
 
 		Pass {
-			Blend SrcAlpha SrcColor
+			Blend SrcAlpha OneMinusSrcAlpha
 			ZWrite Off
 			Cull Back
 			Lighting On
@@ -41,6 +41,7 @@ Shader "ULTRAKILL/bloodstain" {
 			{
 				v2f o;
 
+
 				// Vertex snapping + pixelizacion (con _ResY = 0 no hace nada).
 				float4 snapToPixel = UnityObjectToClipPos(v.vertex);
 				float4 vertex = snapToPixel;
@@ -54,7 +55,7 @@ Shader "ULTRAKILL/bloodstain" {
 				vertex.xyz *= snapToPixel.w;
 				o.pos = vertex;
 
-				o.color = float4(ShadeVertexLightsFull(v.vertex, v.normal, 4, true), 1.0);
+				o.color = v.color;
 
 				float distance = length(mul(UNITY_MATRIX_MV, v.vertex));
 

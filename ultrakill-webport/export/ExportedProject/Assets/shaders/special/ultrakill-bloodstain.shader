@@ -11,9 +11,10 @@ Shader "ULTRAKILL/bloodstain" {
 		LOD 200
 
 		Pass {
-			Blend SrcAlpha OneMinusSrcAlpha
+			Blend SrcAlpha SrcColor
 			ZWrite Off
 			Cull Back
+			Offset -1, -1
 			Lighting On
 			CGPROGRAM
 			#pragma vertex vert
@@ -55,7 +56,7 @@ Shader "ULTRAKILL/bloodstain" {
 				vertex.xyz *= snapToPixel.w;
 				o.pos = vertex;
 
-				o.color = v.color;
+				o.color = float4(ShadeVertexLightsFull(v.vertex, v.normal, 4, true), 1.0);
 
 				float distance = length(mul(UNITY_MATRIX_MV, v.vertex));
 
@@ -83,14 +84,12 @@ Shader "ULTRAKILL/bloodstain" {
 			float4 frag(v2f IN) : COLOR
 			{
 				float2 uv = _TextureWarping > 0.001 ? IN.uv / IN.normal.r : IN.uv;
-				half4 c = tex2D(_MainTex, uv) * _Color * IN.color;
-				c.a *= _OpacScale;
-
-				half4 color = c * IN.colorFog.a;
-				color.rgb += IN.colorFog.rgb * (1 - IN.colorFog.a);
-				float resY = _ResY > 0.5 ? _ResY : 2048.0;
-				float prec = _ColorPrecision > 1.5 ? (_ColorPrecision - 1.0) : (resY - 1.0);
-				color.rgb = floor(color.rgb * prec) / prec;
+				half4 tex = tex2D(_MainTex, uv);
+				float a = saturate(tex.a * _OpacScale * _Color.a);
+				// Multiplicativo: donde no hay sangre el factor es 1 y el fondo no
+				// se toca; donde la hay, el fondo se tine de rojo (translucido).
+				half3 tint = lerp(half3(1, 1, 1), tex.rgb * _Color.rgb, a);
+				half4 color = half4(tint, 0);
 
 
 				return color;

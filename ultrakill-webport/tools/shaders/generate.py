@@ -230,18 +230,15 @@ heartbeat = shader(
 			{
 				float2 uv = _TextureWarping > 0.001 ? IN.uv / IN.normal.r : IN.uv;
 				uv += float2(_ScrollMainTextureX, _ScrollMainTextureY) * _FlowDirection.xy * _Time.y;
-				// "Carne viva": la textura respira con una distorsion lenta.
+				// "Carne viva": distorsion muy leve de la textura.
 				float2 nuv = uv * 2.0;
-				uv += float2(sin(nuv.y * 3.1 + _Time.y * 1.3), cos(nuv.x * 2.7 + _Time.y * 1.1)) * 0.004;
-				half4 c = tex2D(_MainTex, uv) * _Color;
-				c.rgb = lerp(c.rgb, c.rgb * IN.color.rgb, saturate(_UseVCols));
+				uv += float2(sin(nuv.y * 3.1 + _Time.y * 1.1), cos(nuv.x * 2.7 + _Time.y * 0.9)) * 0.0015;
+				half4 c = tex2D(_MainTex, uv) * _Color * IN.color;
 				// Latido suave.
-				c.a *= _OpacScale * (0.8 + 0.2 * sin(_Time.y * (_VertexNoiseSpeed + 2.0)));
-''' + fog("c"), light="v.color", displace=r'''
-				// Vertex warping de la carne: ondulacion lenta segun la posicion.
-				float3 wpos = mul(unity_ObjectToWorld, v.vertex).xyz;
-				float wave = sin(_Time.y * 1.7 + wpos.y * 2.0 + wpos.x * 0.7);
-				v.vertex.xyz += v.normal * (wave * 0.03);
+				c.a *= _OpacScale * (0.92 + 0.08 * sin(_Time.y * 2.0));
+''' + fog("c"), displace=r'''
+				// Respiracion: escala minima alrededor del origen (no rompe la malla).
+				v.vertex.xyz *= 1.0 + 0.006 * sin(_Time.y * 2.0);
 ''')
 
 # ---------------------------------------------------------------- 5. bloodstain
@@ -252,7 +249,7 @@ bloodstain = shader(
      '_OpacScale("Opacity", Range(0,2)) = 1',
      '_VertexWarpScale("Vertex Warp Scale", Range(0,10)) = 1'],
     '"Queue" = "Transparent-1" "RenderType" = "Transparent" "IgnoreProjector" = "True"',
-    ['Blend SrcAlpha OneMinusSrcAlpha', 'ZWrite Off', 'Cull Back'],
+    ['Blend SrcAlpha SrcColor', 'ZWrite Off', 'Cull Back', 'Offset -1, -1'],
     r'''
 			sampler2D _MainTex;
 			float4 _Color;
@@ -261,9 +258,13 @@ bloodstain = shader(
 			float4 frag(v2f IN) : COLOR
 			{
 				float2 uv = _TextureWarping > 0.001 ? IN.uv / IN.normal.r : IN.uv;
-				half4 c = tex2D(_MainTex, uv) * _Color * IN.color;
-				c.a *= _OpacScale;
-''' + fog("c"), light="v.color")
+				half4 tex = tex2D(_MainTex, uv);
+				float a = saturate(tex.a * _OpacScale * _Color.a);
+				// Multiplicativo: donde no hay sangre el factor es 1 y el fondo no
+				// se toca; donde la hay, el fondo se tine de rojo (translucido).
+				half3 tint = lerp(half3(1, 1, 1), tex.rgb * _Color.rgb, a);
+				half4 color = half4(tint, 0);
+''')
 
 # ---------------------------------------------------------------- 6. probuilder standard
 probuilder = shader(
@@ -442,6 +443,41 @@ volumetric = '''Shader "Unlit/Volumetric" {
 }
 '''
 
+def radial(name):
+    return shader(
+        name,
+        ['_MainTex("Base (RGB)", 2D) = "white" {}'],
+        '"RenderType" = "Opaque" "Queue" = "Geometry"',
+        ['ZWrite On', 'Cull Back'],
+        r'''
+			sampler2D _MainTex;
+
+			float4 frag(v2f IN) : COLOR
+			{
+				float2 uv = _TextureWarping > 0.001 ? IN.uv / IN.normal.r : IN.uv;
+				// La carne "respira": distorsion radial alrededor del centro del tile
+				// de UV mas un vaiven lento en Y.
+				float2 d = uv - 0.5;
+				float r = length(d);
+				uv = 0.5 + d * (1.0 + sin(_Time.y * 1.6 + r * 9.0) * 0.015);
+				uv.y += sin(_Time.y * 0.7 + uv.x * 4.0) * 0.01;
+				half4 c = tex2D(_MainTex, uv) * IN.color;
+''' + fog("c"),
+        displace=r'''
+				// Ondulacion muy leve: mismo punto -> mismo desplazamiento, asi no se
+				// abren las costuras de la malla (las paredes usan vertices partidos).
+				float3 wpos = mul(unity_ObjectToWorld, v.vertex).xyz;
+				v.vertex.xyz += float3(sin(wpos.y * 0.8 + _Time.y * 0.9),
+				                       sin(wpos.z * 0.7 + _Time.y * 1.1),
+				                       sin(wpos.x * 0.6 + _Time.y * 0.8)) * 0.01;
+''')
+
+radial_shaders = {n: radial(n) for n in (
+    "psx/vertexlit/radialdistortion",
+    "psx/vertexlit/radialdistortion_v1",
+    "psx/vertexlit/radialdistortion_v2",
+)}
+
 FILES = {
     "psx/vertexlit-noambient-emissive": emissive,
     "psx/railgun": railgun,
@@ -454,6 +490,7 @@ FILES = {
     "ULTRAKILL/Main_PostProcess": postprocess,
     "Unlit/Volumetric": volumetric,
 }
+FILES.update(radial_shaders)
 for nm, pr, tex in pickers:
     FILES[nm] = picker(nm, pr, tex)
 

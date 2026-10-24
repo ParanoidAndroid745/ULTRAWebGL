@@ -368,19 +368,33 @@ Ctrl+D sigue anulado ✓; el panel F3 está dentro del fullscreen ✓; 0 errores
   `Shader error in`.
 - `MapLoader.WebGLBundleQuery` → `?v=215`.
 
-**Iteración 2 (tras el primer playtest)**:
+**Iteración 2 (v215)**:
 
 - **Sangre**: los decals salían como rectángulos negros. El CAB pide
   `SrcAlpha SrcColor` y el material trae `_Color` rojo: donde la textura tiene
   alfa 0 (`Bloodsplatter1.png` es rojo puro con alfa variable) el blend
   multiplicaba el fondo por (0.82, 0, 0), dejándolo casi negro. Además el CAB
   trae `Lighting Off` y estaba iluminada por vértices, así que solo se veía de
-  cerca. Ahora: `Blend SrcAlpha OneMinusSrcAlpha` y **unlit** (`o.color =
-  v.color`).
-- **Carne de Gluttony** (`psx/heartbeat`): se añade vertex warping (onda lenta
-  según la posición, amplitud 0,03) y una distorsión animada de la textura.
-  Las properties numéricas del material no se pueden usar en el vertex en GLES,
-  así que la onda es procedural con `_Time`, no con `_VertexNoiseSpeed`.
+  cerca.
+- **Carne** (`psx/heartbeat`): primer intento de animación (vertex warping por
+  normales + distorsión de textura).
+
+**Iteración 3 (v216, tras el segundo playtest)**:
+
+- **Sangre**: el blend alfa la dejaba opaca y saturada. Vuelve al blend del CAB
+  (`SrcAlpha SrcColor`) pero **premultiplicando el tinte**: el fragment devuelve
+  `lerp(1, tex*_Color, alfa)` con alfa 0, así el fondo se multiplica por 1 donde
+  no hay sangre (nada de rectángulos negros) y se tiñe de rojo donde la hay, sin
+  taparlo. `Offset -1,-1` para el z-fighting del decal.
+- **Corazón**: el vertex warping por normales **abría la malla** (vértices
+  partidos) y el shader quedaba fullbright. Ahora va iluminado
+  (`ShadeVertexLightsFull`) y la animación es una escala mínima (0,6 %) más una
+  distorsión de UV de 0,0015.
+- **Paredes de carne de Gluttony**: no usan `psx/heartbeat` sino
+  `psx/vertexlit/radialdistortion` (`Flesh*`, `FleshPulsating*`), que en el port
+  era un vertexlit plano sin animación. Se le añade la distorsión radial que
+  respira (UV) y una ondulación de vértices continua de 0,01 (misma posición →
+  mismo desplazamiento, no se abren costuras).
 
 **Límites conocidos** (funcional, no fiel):
 

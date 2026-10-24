@@ -49,10 +49,8 @@ Shader "psx/heartbeat" {
 				v2f o;
 
 
-				// Vertex warping de la carne: ondulacion lenta segun la posicion.
-				float3 wpos = mul(unity_ObjectToWorld, v.vertex).xyz;
-				float wave = sin(_Time.y * 1.7 + wpos.y * 2.0 + wpos.x * 0.7);
-				v.vertex.xyz += v.normal * (wave * 0.03);
+				// Respiracion: escala minima alrededor del origen (no rompe la malla).
+				v.vertex.xyz *= 1.0 + 0.006 * sin(_Time.y * 2.0);
 
 				// Vertex snapping + pixelizacion (con _ResY = 0 no hace nada).
 				float4 snapToPixel = UnityObjectToClipPos(v.vertex);
@@ -67,7 +65,7 @@ Shader "psx/heartbeat" {
 				vertex.xyz *= snapToPixel.w;
 				o.pos = vertex;
 
-				o.color = v.color;
+				o.color = float4(ShadeVertexLightsFull(v.vertex, v.normal, 4, true), 1.0);
 
 				float distance = length(mul(UNITY_MATRIX_MV, v.vertex));
 
@@ -101,13 +99,12 @@ Shader "psx/heartbeat" {
 			{
 				float2 uv = _TextureWarping > 0.001 ? IN.uv / IN.normal.r : IN.uv;
 				uv += float2(_ScrollMainTextureX, _ScrollMainTextureY) * _FlowDirection.xy * _Time.y;
-				// "Carne viva": la textura respira con una distorsion lenta.
+				// "Carne viva": distorsion muy leve de la textura.
 				float2 nuv = uv * 2.0;
-				uv += float2(sin(nuv.y * 3.1 + _Time.y * 1.3), cos(nuv.x * 2.7 + _Time.y * 1.1)) * 0.004;
-				half4 c = tex2D(_MainTex, uv) * _Color;
-				c.rgb = lerp(c.rgb, c.rgb * IN.color.rgb, saturate(_UseVCols));
+				uv += float2(sin(nuv.y * 3.1 + _Time.y * 1.1), cos(nuv.x * 2.7 + _Time.y * 0.9)) * 0.0015;
+				half4 c = tex2D(_MainTex, uv) * _Color * IN.color;
 				// Latido suave.
-				c.a *= _OpacScale * (0.8 + 0.2 * sin(_Time.y * (_VertexNoiseSpeed + 2.0)));
+				c.a *= _OpacScale * (0.92 + 0.08 * sin(_Time.y * 2.0));
 
 				half4 color = c * IN.colorFog.a;
 				color.rgb += IN.colorFog.rgb * (1 - IN.colorFog.a);
